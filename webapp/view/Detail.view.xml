@@ -1,0 +1,184 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:m="sap.m"
+    xmlns="sap.uxap"
+    xmlns:f="sap.f"
+    xmlns:ui="sap.ui.table"
+    xmlns:layout="sap.ui.layout"
+    controllerName="ansaldonuclear.dashboard.controller.Detail"
+    displayBlock="true"
+>
+    <ObjectPageLayout
+        alwaysShowContentHeader="true"
+        backgroundDesignAnchorBar="Transparent"
+        preserveHeaderStateOnScroll="true"
+        showFooter="true"
+        showTitleInHeaderContent="true"
+    >
+        <headerTitle>
+            <ObjectPageDynamicHeaderTitle backgroundDesign="Translucent">
+               
+                <heading>
+                        <m:Title
+                        text="{i18n>network} {detailModel>/AUFNR} - {detailModel>/KTEXT}"
+                        level="H3"
+                    />
+
+                       
+                </heading>
+                
+                <snappedTitleOnMobile>
+                    <m:Title
+                        text="{detailModel>/AUFNR} - {detailModel>/KTEXT}"
+                        level="H4"
+                    />
+                </snappedTitleOnMobile>
+      
+            </ObjectPageDynamicHeaderTitle>
+        </headerTitle>
+
+        <headerContent>
+            <m:HBox
+                justifyContent="SpaceBetween"
+                width="45%"
+                class='objAtStyle'
+            >
+                <m:VBox>
+                    <m:ObjectAttribute
+                        
+                        title="{i18n>wbeParent}" 
+                        text="{detailModel>/PSPNR}"
+                    />
+                    <m:ObjectAttribute
+                        title="{i18n>bStartDate}"
+                        text="{path: 'detailModel>/GSTRP', formatter: '.formatter.formatDate'}"
+                    />
+                    <m:ObjectAttribute
+                        title="{i18n>bFinishDate}"
+                        text="{path: 'detailModel>/GLTRP', formatter: '.formatter.formatDate'}"
+                    />
+                </m:VBox>
+
+                <m:VBox>
+                    <m:ObjectAttribute
+                        title="{i18n>opera}"
+                        text="{detailModel>/OPERA}"
+                    />
+                    <m:ObjectAttribute
+                        title="{i18n>status}"
+                        text="{path: 'detailModel>/STATUS'}"
+                    />
+                    <m:ObjectAttribute
+                        title="{i18n>dateOp}"
+                        text="{path: 'detailModel>/DATEOP', formatter: '.formatter.formatDate'}"
+                    />
+                </m:VBox>
+            </m:HBox>
+        </headerContent>
+
+        <sections>
+            <ObjectPageSection title="{i18n>operations}">
+                <subSections>
+                    <ObjectPageSubSection>
+                        <ui:Table
+                            rows="{detailModel>/operations}"
+                            selectionMode="None"
+                            width="100%"
+                            visible="{= ${detailModel>/operations/length} > 0 }"
+                            ariaLabelledBy="title"
+                        >
+                            <ui:columns>
+                                <ui:Column >
+                                    <m:Label text="{i18n>opNumb}" />
+                                    <ui:template>
+                                        <m:Text text="{detailModel>VORNR}" />
+                                    </ui:template>
+                                </ui:Column>
+                                <ui:Column >
+                                    <m:Label text="{i18n>opDescr}" />
+                                    <ui:template>
+                                        <m:Text text="{detailModel>LTXA1}" />
+                                    </ui:template>
+                                </ui:Column>
+                                <ui:Column >
+                                    <m:Label text="{i18n>plannedSDate}" />
+                                    <ui:template>
+                                        <m:DatePicker
+                                            value="{path: 'detailModel>NTANF', formatter: '.formatter.formatDate'}"
+                                            editable="false"
+                                            displayFormat="dd/MM/yyyy"
+                                        />
+                                    </ui:template>
+                                </ui:Column>
+                                <ui:Column >
+                                    <m:Label text="{i18n>plannedEDate}" />
+                                    <ui:template>
+                                        <m:DatePicker
+                                            value="{path: 'detailModel>NTEND', formatter: '.formatter.formatDate'}"
+                                            editable="false"
+                                            displayFormat="dd/MM/yyyy"
+                                        />
+                                    </ui:template>
+                                </ui:Column>
+                                <ui:Column
+                                    
+                                    hAlign="Center"
+                                >
+                                    <m:Label text="{i18n>opera}" />
+                                    <ui:template>
+                                        <m:Text
+
+                                            text="{detailModel>OPERA}"
+                                        />
+                                    </ui:template>
+                                </ui:Column>
+                                <ui:Column
+                                    width="6rem"
+                                    hAlign="Center"
+                                >
+                                    <m:Label text="{i18n>status}" />
+                                    <ui:template>
+                                        <m:Button
+                                            type="{= ${detailModel>OPERA} === 'INS' ? 'Neutral': 'Attention'}"
+                                            icon="{= ${detailModel>OPERA} === 'INS' ? 'sap-icon://create': 'sap-icon://edit'}"
+                                        />
+                                    </ui:template>
+                                </ui:Column>
+
+                                <ui:Column >
+                                    <m:Label text="{i18n>dateOp}" />
+                                    <ui:template>
+                                        <m:DatePicker
+                                            value="{path: 'detailModel>DATEOP', formatter: '.formatter.formatDate'}"
+                                            editable="false"
+                                            displayFormat="dd/MM/yyyy"
+                                        />
+                                    </ui:template>
+                                </ui:Column>
+                            </ui:columns>
+                        </ui:Table>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+            <ObjectPageSection title="{i18n>log}">
+                <subSections>
+                    <ObjectPageSubSection>
+                        <m:VBox>
+                            <m:Text text="Log section" />
+                        </m:VBox>
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+        </sections>
+        <footer>
+            <m:OverflowToolbar>
+                <m:Button
+                    press="onNavBack"
+                    icon="sap-icon://nav-back"
+                    tooltip="{i18n>navBack}"
+                    type="Emphasized"
+                />
+            </m:OverflowToolbar>
+        </footer>
+    </ObjectPageLayout>
+</mvc:View>
