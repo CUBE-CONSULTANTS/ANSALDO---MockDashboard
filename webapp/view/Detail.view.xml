@@ -99,19 +99,19 @@
                             ariaLabelledBy="title"
                         >
                             <ui:columns>
-                                <ui:Column width="11rem">
+                                <ui:Column width="24rem">
                                     <m:Label text="{i18n>opNumb}" />
                                     <ui:template>
                                         <m:Text text="{detailModel>VORNR}" />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column width="20rem">
+                                <ui:Column width="25rem">
                                     <m:Label text="{i18n>opDescr}" />
                                     <ui:template>
                                         <m:Text text="{detailModel>LTXA1}" />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column width="12rem">
+                                <ui:Column width="20rem">
                                     <m:Label text="{i18n>actiStart}" />
                                     <ui:template>
                                         <m:DatePicker
@@ -121,7 +121,7 @@
                                         />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column width="12rem">
+                                <ui:Column width="20rem">
                                     <m:Label text="{i18n>actiEnd}" />
                                     <ui:template>
                                         <m:DatePicker
@@ -143,7 +143,7 @@
                                         />
                                     </ui:template>
                                 </ui:Column> -->
-                                <ui:Column
+                                <!-- <ui:Column
                                     width="34rem"
                                     hAlign="Center"
                                 >
@@ -154,7 +154,7 @@
                                             icon="{= ${detailModel>OPERA} === 'INS' ? 'sap-icon://create': 'sap-icon://edit'}"
                                         />
                                     </ui:template>
-                                </ui:Column>
+                                </ui:Column> -->
 
                                 <!-- <ui:Column width="14rem">
                                     <m:Label text="{i18n>dateOp}" />
@@ -178,12 +178,12 @@
                             selectionMode="None"
                             rows="{path: 'treemodel>/', parameters: {arrayNames: ['operations']}}"
                         >
-                            <ui:Column label="{i18n>network}" width="15rem">
+                            <ui:Column label="{i18n>network}" width="20rem">
                                 <ui:template>
                                     <m:Text text="{treemodel>AUFNR}" />
                                 </ui:template>
                             </ui:Column >
-                            <ui:Column label="{i18n>opNumb}" width="15rem">
+                            <ui:Column label="{i18n>opNumb}" width="20rem">
                                 <ui:template>
                                     <m:Text text="{treemodel>VORNR}" />
                                 </ui:template>
@@ -201,7 +201,7 @@
                                     <m:Text text="{treemodel>OPERA}" />
                                 </ui:template>
                             </ui:Column>
-                            <ui:Column label="{i18n>dateOp}" width="15rem">
+                            <ui:Column label="{i18n>dateOp}" width="19rem">
                                 <ui:template>
                                     <m:Text
                                         text="{path: 'treemodel>DATEOP', formatter: '.formatter.formatDate'}"
