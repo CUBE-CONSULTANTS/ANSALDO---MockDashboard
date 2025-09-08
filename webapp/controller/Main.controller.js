@@ -1,4 +1,4 @@
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 sap.ui.define(
 	[
 		"./BaseController",
@@ -22,7 +22,7 @@ sap.ui.define(
 				const oRowData = oRowContext.getObject();
 				const oDetailModel = new JSONModel(oRowData);
 				this.getOwnerComponent().setModel(oDetailModel, "detailModel");
-				debugger;
+				;
 				this.getRouter().navTo("Detail", {
 					id: oRowData.AUFNR,
 				});

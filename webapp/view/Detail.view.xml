@@ -8,6 +8,7 @@
     controllerName="ansaldonuclear.dashboard.controller.Detail"
     displayBlock="true"
 >
+
     <ObjectPageLayout
         alwaysShowContentHeader="true"
         backgroundDesignAnchorBar="Transparent"
@@ -15,32 +16,46 @@
         showFooter="true"
         showTitleInHeaderContent="true"
     >
-        <headerTitle>
-            <ObjectPageDynamicHeaderTitle backgroundDesign="Translucent">
-               
-                <heading>
-                        <m:Title
-                        text="{i18n>network} {detailModel>/AUFNR} - {detailModel>/KTEXT}"
-                        level="H3"
-                    />
+      <headerTitle>
+    <ObjectPageDynamicHeaderTitle backgroundDesign="Translucent">
+        <heading>
+            <layout:HorizontalLayout
+                allowWrapping="true"
+            >
+                <m:Button
+                    icon="sap-icon://nav-back"
+                    press=".onNavBack"
+                    tooltip="{i18n>navback}"
+                />
+                <m:Title
+                    text="{i18n>network} {detailModel>/AUFNR} - {detailModel>/KTEXT}"
+                    level="H3"
+                    wrapping="true"
+                    class="sapUiTinyMargin"
+                />
+            </layout:HorizontalLayout>
+        </heading>
+        <actions>
+            <layout:HorizontalLayout allowWrapping="true">
+                <layout:VerticalLayout>
+                    <m:Image
+                        class='sapUiSmallMarginTop'
+                        src="public/images/ansaldo_nucleare_logo.jpg"
+                        height="40px"
+                        width="100%"
 
-                       
-                </heading>
-                
-                <snappedTitleOnMobile>
-                    <m:Title
-                        text="{detailModel>/AUFNR} - {detailModel>/KTEXT}"
-                        level="H4"
                     />
-                </snappedTitleOnMobile>
-      
-            </ObjectPageDynamicHeaderTitle>
-        </headerTitle>
+                </layout:VerticalLayout>
+            </layout:HorizontalLayout>
+        </actions>
+    </ObjectPageDynamicHeaderTitle>
+</headerTitle>
 
         <headerContent>
             <m:HBox
                 justifyContent="SpaceBetween"
-                width="45%"
+                width="100%"
+        wrap="Wrap"
                 class='objAtStyle'
             >
                 <m:VBox>
@@ -88,19 +103,19 @@
                             ariaLabelledBy="title"
                         >
                             <ui:columns>
-                                <ui:Column >
+                                <ui:Column width="11rem">
                                     <m:Label text="{i18n>opNumb}" />
                                     <ui:template>
                                         <m:Text text="{detailModel>VORNR}" />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column >
+                                <ui:Column width="20rem" >
                                     <m:Label text="{i18n>opDescr}" />
                                     <ui:template>
                                         <m:Text text="{detailModel>LTXA1}" />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column >
+                                <ui:Column width="12rem" >
                                     <m:Label text="{i18n>plannedSDate}" />
                                     <ui:template>
                                         <m:DatePicker
@@ -110,7 +125,7 @@
                                         />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column >
+                                <ui:Column width="12rem" >
                                     <m:Label text="{i18n>plannedEDate}" />
                                     <ui:template>
                                         <m:DatePicker
@@ -121,7 +136,7 @@
                                     </ui:template>
                                 </ui:Column>
                                 <ui:Column
-                                    
+                                    width="12rem"
                                     hAlign="Center"
                                 >
                                     <m:Label text="{i18n>opera}" />
@@ -133,7 +148,7 @@
                                     </ui:template>
                                 </ui:Column>
                                 <ui:Column
-                                    width="6rem"
+                                    width="8rem"
                                     hAlign="Center"
                                 >
                                     <m:Label text="{i18n>status}" />
@@ -145,7 +160,7 @@
                                     </ui:template>
                                 </ui:Column>
 
-                                <ui:Column >
+                                <ui:Column width="14rem">
                                     <m:Label text="{i18n>dateOp}" />
                                     <ui:template>
                                         <m:DatePicker
@@ -170,15 +185,6 @@
                 </subSections>
             </ObjectPageSection>
         </sections>
-        <footer>
-            <m:OverflowToolbar>
-                <m:Button
-                    press="onNavBack"
-                    icon="sap-icon://nav-back"
-                    tooltip="{i18n>navBack}"
-                    type="Emphasized"
-                />
-            </m:OverflowToolbar>
-        </footer>
+       
     </ObjectPageLayout>
 </mvc:View>

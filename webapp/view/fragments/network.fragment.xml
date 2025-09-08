@@ -7,6 +7,7 @@
 >
     <VBox direction="Column">
         <ui:Table
+
             selectionMode="None"
             width="100%"
             ariaLabelledBy="title"
@@ -33,28 +34,28 @@
                         />
                     </ui:template>
                 </ui:Column>
-                <ui:Column>
+                <ui:Column width="11rem">
                     <Label text="{i18n>networkNumber}" />
                     <ui:template>
                         <Text text="{mockNetworkData>AUFNR}" />
                     </ui:template>
                 </ui:Column>
 
-                <ui:Column>
+                <ui:Column width="14rem">
                     <Label text="{i18n>description}" />
                     <ui:template>
                         <Text text="{mockNetworkData>KTEXT}" />
                     </ui:template>
                 </ui:Column>
 
-                <ui:Column>
+                <ui:Column width="12rem">
                     <Label text="{i18n>wbeParent}" />
                     <ui:template>
                         <Text text="{mockNetworkData>PSPNR}" />
                     </ui:template>
                 </ui:Column>
 
-                <ui:Column>
+                <ui:Column width="12rem">
                     <Label text="{i18n>bStartDate}" />
                     <ui:template>
                         <DatePicker
@@ -64,7 +65,7 @@
                         />
                     </ui:template>
                 </ui:Column>
-                <ui:Column>
+                <ui:Column width="12rem">
                     <Label text="{i18n>bFinishDate}" />
                     <ui:template>
                         <DatePicker
@@ -75,7 +76,7 @@
                     </ui:template>
                 </ui:Column>
                 <ui:Column
-                    width="8rem"
+                    width="10rem"
                     hAlign="Center"
                 >
                     <Label text="{i18n>opera}" />
@@ -84,7 +85,7 @@
                     </ui:template>
                 </ui:Column>
                 <ui:Column
-                    width="6rem"
+                    width="8rem"
                     hAlign="Center"
                 >
                     <Label text="{i18n>status}" />
@@ -95,7 +96,7 @@
                         />
                     </ui:template>
                 </ui:Column>
-                <ui:Column>
+                <ui:Column width="12rem">
                     <Label text="{i18n>dateOp}" />
                     <ui:template>
                         <DatePicker

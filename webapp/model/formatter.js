@@ -1,4 +1,4 @@
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 sap.ui.define(["sap/ui/core/format/DateFormat"], function (DateFormat) {
 	"use strict";
 
@@ -8,7 +8,7 @@ sap.ui.define(["sap/ui/core/format/DateFormat"], function (DateFormat) {
 		},
 
 		formatDate: function (sDate) {
-			debugger
+			
 			if (!sDate) return null;
 			const oDateFormat = DateFormat.getInstance({pattern: "yyyy-MM-dd"});
 			const sFormattedDate = oDateFormat.format(new Date(sDate.substr(0, 4), sDate.substr(4, 2) - 1, sDate.substr(6, 2)));

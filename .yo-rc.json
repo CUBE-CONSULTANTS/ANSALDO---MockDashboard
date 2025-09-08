@@ -7,7 +7,7 @@
     "appId": "ansaldonuclear.dashboard",
     "appURI": "ansaldonuclear/dashboard",
     "cdnDomain": "ui5.sap.com",
-    "defaultTheme": "sap_belize",
+    "defaultTheme": "sap_fiori_3",
     "qunitCoverageFile": "qunit-coverage-istanbul.js",
     "gte1_98_0": true,
     "gte1_104_0": true,

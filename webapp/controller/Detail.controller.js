@@ -1,4 +1,4 @@
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 sap.ui.define(
 	[
 		"./BaseController",
@@ -24,7 +24,7 @@ sap.ui.define(
 			},
 
 			_loadNetworkData: function (sNetworkId) {
-				debugger;
+				;
 				let oMockNetworkData = this.getModel("mockNetworkData").getData();
 				let oNetwork = this.getModel("mockNetworkData")
 					?.getProperty("/mockData")
