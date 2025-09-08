@@ -46,8 +46,8 @@ sap.ui.define(["sap/ui/model/json/JSONModel", "sap/ui/model/BindingMode", "sap/u
 								"NTEND": "20230125",
 								"VSTTXT": "CLSD",
 								"OPERA": "MOD",
-								"STATUS": "OK",
-						"DATEOP": "20231102",
+								"STATUS": "MOD",
+								"DATEOP": "20231102",
 							}
 						]
 					},

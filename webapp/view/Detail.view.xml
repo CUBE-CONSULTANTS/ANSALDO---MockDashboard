@@ -8,60 +8,56 @@
     controllerName="ansaldonuclear.dashboard.controller.Detail"
     displayBlock="true"
 >
-
     <ObjectPageLayout
         alwaysShowContentHeader="true"
+        toggleHeaderOnTitleClick="true"
         backgroundDesignAnchorBar="Transparent"
         preserveHeaderStateOnScroll="true"
         showFooter="true"
         showTitleInHeaderContent="true"
     >
-      <headerTitle>
-    <ObjectPageDynamicHeaderTitle backgroundDesign="Translucent">
-        <heading>
-            <layout:HorizontalLayout
-                allowWrapping="true"
-            >
-                <m:Button
-                    icon="sap-icon://nav-back"
-                    press=".onNavBack"
-                    tooltip="{i18n>navback}"
-                />
-                <m:Title
-                    text="{i18n>network} {detailModel>/AUFNR} - {detailModel>/KTEXT}"
-                    level="H3"
-                    wrapping="true"
-                    class="sapUiTinyMargin"
-                />
-            </layout:HorizontalLayout>
-        </heading>
-        <actions>
-            <layout:HorizontalLayout allowWrapping="true">
-                <layout:VerticalLayout>
-                    <m:Image
-                        class='sapUiSmallMarginTop'
-                        src="public/images/ansaldo_nucleare_logo.jpg"
-                        height="40px"
-                        width="100%"
-
-                    />
-                </layout:VerticalLayout>
-            </layout:HorizontalLayout>
-        </actions>
-    </ObjectPageDynamicHeaderTitle>
-</headerTitle>
+        <headerTitle>
+            <ObjectPageDynamicHeaderTitle backgroundDesign="Translucent">
+                <heading>
+                    <layout:HorizontalLayout allowWrapping="true">
+                        <m:Button
+                            icon="sap-icon://nav-back"
+                            press=".onNavBack"
+                            tooltip="{i18n>navBack}"
+                        />
+                        <m:Title
+                            text="{i18n>network} {detailModel>/AUFNR} - {detailModel>/KTEXT}"
+                            level="H3"
+                            wrapping="true"
+                            class="sapUiTinyMargin"
+                        />
+                    </layout:HorizontalLayout>
+                </heading>
+                <actions>
+                    <layout:HorizontalLayout allowWrapping="true">
+                        <layout:VerticalLayout>
+                            <m:Image
+                                class='sapUiSmallMarginTop'
+                                src="public/images/ansaldo_nucleare_logo.jpg"
+                                height="40px"
+                                width="100%"
+                            />
+                        </layout:VerticalLayout>
+                    </layout:HorizontalLayout>
+                </actions>
+            </ObjectPageDynamicHeaderTitle>
+        </headerTitle>
 
         <headerContent>
             <m:HBox
                 justifyContent="SpaceBetween"
                 width="100%"
-        wrap="Wrap"
+                wrap="Wrap"
                 class='objAtStyle'
             >
                 <m:VBox>
                     <m:ObjectAttribute
-                        
-                        title="{i18n>wbeParent}" 
+                        title="{i18n>wbeParent}"
                         text="{detailModel>/PSPNR}"
                     />
                     <m:ObjectAttribute
@@ -109,14 +105,14 @@
                                         <m:Text text="{detailModel>VORNR}" />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column width="20rem" >
+                                <ui:Column width="20rem">
                                     <m:Label text="{i18n>opDescr}" />
                                     <ui:template>
                                         <m:Text text="{detailModel>LTXA1}" />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column width="12rem" >
-                                    <m:Label text="{i18n>plannedSDate}" />
+                                <ui:Column width="12rem">
+                                    <m:Label text="{i18n>actiStart}" />
                                     <ui:template>
                                         <m:DatePicker
                                             value="{path: 'detailModel>NTANF', formatter: '.formatter.formatDate'}"
@@ -125,8 +121,8 @@
                                         />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column width="12rem" >
-                                    <m:Label text="{i18n>plannedEDate}" />
+                                <ui:Column width="12rem">
+                                    <m:Label text="{i18n>actiEnd}" />
                                     <ui:template>
                                         <m:DatePicker
                                             value="{path: 'detailModel>NTEND', formatter: '.formatter.formatDate'}"
@@ -135,7 +131,7 @@
                                         />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column
+                                <!-- <ui:Column
                                     width="12rem"
                                     hAlign="Center"
                                 >
@@ -146,9 +142,9 @@
                                             text="{detailModel>OPERA}"
                                         />
                                     </ui:template>
-                                </ui:Column>
+                                </ui:Column> -->
                                 <ui:Column
-                                    width="8rem"
+                                    width="34rem"
                                     hAlign="Center"
                                 >
                                     <m:Label text="{i18n>status}" />
@@ -160,7 +156,7 @@
                                     </ui:template>
                                 </ui:Column>
 
-                                <ui:Column width="14rem">
+                                <!-- <ui:Column width="14rem">
                                     <m:Label text="{i18n>dateOp}" />
                                     <ui:template>
                                         <m:DatePicker
@@ -169,7 +165,7 @@
                                             displayFormat="dd/MM/yyyy"
                                         />
                                     </ui:template>
-                                </ui:Column>
+                                </ui:Column> -->
                             </ui:columns>
                         </ui:Table>
                     </ObjectPageSubSection>
@@ -178,13 +174,44 @@
             <ObjectPageSection title="{i18n>log}">
                 <subSections>
                     <ObjectPageSubSection>
-                        <m:VBox>
-                            <m:Text text="Log section" />
-                        </m:VBox>
+                        <ui:TreeTable
+                            selectionMode="None"
+                            rows="{path: 'treemodel>/', parameters: {arrayNames: ['operations']}}"
+                        >
+                            <ui:Column label="{i18n>network}" width="15rem">
+                                <ui:template>
+                                    <m:Text text="{treemodel>AUFNR}" />
+                                </ui:template>
+                            </ui:Column >
+                            <ui:Column label="{i18n>opNumb}" width="15rem">
+                                <ui:template>
+                                    <m:Text text="{treemodel>VORNR}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column hAlign="Center" label="{i18n>status}" width="15rem">
+                                <ui:template>
+                                    <m:Button
+                                        type="{= ${treemodel>OPERA} === 'INS' ? 'Neutral': 'Attention'}"
+                                        icon="{= ${treemodel>OPERA} === 'INS' ? 'sap-icon://create': 'sap-icon://edit'}"
+                                    />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column label="{i18n>opera}" width="15rem">
+                                <ui:template>
+                                    <m:Text text="{treemodel>OPERA}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column label="{i18n>dateOp}" width="15rem">
+                                <ui:template>
+                                    <m:Text
+                                        text="{path: 'treemodel>DATEOP', formatter: '.formatter.formatDate'}"
+                                    />
+                                </ui:template>
+                            </ui:Column>
+                        </ui:TreeTable>
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
         </sections>
-       
     </ObjectPageLayout>
 </mvc:View>

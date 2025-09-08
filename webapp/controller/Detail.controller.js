@@ -13,9 +13,7 @@ sap.ui.define(
 		return BaseController.extend("ansaldonuclear.dashboard.controller.Detail", {
 			formatter: formatter,
 			onInit: function () {
-				this.getRouter()
-					.getRoute("Detail")
-					.attachPatternMatched(this._onObjectMatched, this);
+				this.getRouter().getRoute("Detail").attachPatternMatched(this._onObjectMatched, this);
 				this.setModel(models.createMockNetworkData(), "mockNetworkData");
 			},
 			_onObjectMatched: function (oEvent) {
@@ -24,14 +22,15 @@ sap.ui.define(
 			},
 
 			_loadNetworkData: function (sNetworkId) {
-				;
-				let oMockNetworkData = this.getModel("mockNetworkData").getData();
-				let oNetwork = this.getModel("mockNetworkData")
+				const oNetwork = this.getModel("mockNetworkData")
 					?.getProperty("/mockData")
 					?.find((network) => network.AUFNR === sNetworkId);
 
-				let oDetailModel = new JSONModel(oNetwork);
+				const oDetailModel = new JSONModel(oNetwork);
 				this.setModel(oDetailModel, "detailModel");
+
+				const oTreeModel = new JSONModel([oNetwork])
+				this.setModel(oTreeModel, "treemodel")
 			},
 		});
 	}

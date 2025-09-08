@@ -8,9 +8,8 @@ sap.ui.define(["sap/ui/core/format/DateFormat"], function (DateFormat) {
 		},
 
 		formatDate: function (sDate) {
-			
 			if (!sDate) return null;
-			const oDateFormat = DateFormat.getInstance({pattern: "yyyy-MM-dd"});
+			const oDateFormat = DateFormat.getInstance({pattern: "dd/MM/yyyy"});
 			const sFormattedDate = oDateFormat.format(new Date(sDate.substr(0, 4), sDate.substr(4, 2) - 1, sDate.substr(6, 2)));
 			return sFormattedDate;
 		}
