@@ -1,41 +1,29 @@
 <c:FragmentDefinition
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
+  id="vsdLog"
+
 >
 <ViewSettingsDialog
-		confirm="handleConfirm">
+		confirm="handleConfirm" filterSearchOperator="Contains" resetFilters="onViewSettingsDialogResetFilters">
 		<sortItems>
-			<ViewSettingsItem text="Field 1" key="1" selected="true" />
-			<ViewSettingsItem text="Field 2" key="2" />
-			<ViewSettingsItem text="Field 3" key="3" />
+			<ViewSettingsItem text="{i18n>network}" key="AUFNR" />
+			<ViewSettingsItem text="{i18n>opNumb}" key="VORNR" />
+			<ViewSettingsItem text="{i18n>autoreMod}" key="AUTHMOD" />
+			<ViewSettingsItem text="{i18n>dataMod}" key="MODDATE" />
+			<ViewSettingsItem text="{i18n>oraMod}" key="MODTIME" />
+			<ViewSettingsItem text="{i18n>oggMod}" key="MODOBJ" />
+			<ViewSettingsItem text="{i18n>oldV}" key="OLDVAL" />
+			<ViewSettingsItem text="{i18n>newV}" key="NEWVAL" />
+			<ViewSettingsItem text="{i18n>status}" key="STATUS" />
 		</sortItems>
+
 		<groupItems>
-			<ViewSettingsItem text="Field 1" key="1" selected="true" />
-			<ViewSettingsItem text="Field 2" key="2" />
-			<ViewSettingsItem text="Field 3" key="3" />
+			<ViewSettingsItem text="{i18n>network}" key="AUFNR" />
+			<ViewSettingsItem text="{i18n>opNumb}" key="VORNR" />
+			<ViewSettingsItem text="{i18n>autoreMod}" key="AUTHMOD" />
+			<ViewSettingsItem text="{i18n>status}" key="STATUS" />
 		</groupItems>
-		<filterItems>
-			<ViewSettingsFilterItem text="Field1" key="1">
-				<items>
-					<ViewSettingsItem text="Value A" key="1a" />
-					<ViewSettingsItem text="Value B" key="1b" />
-					<ViewSettingsItem text="Value C" key="1c" />
-				</items>
-			</ViewSettingsFilterItem>
-			<ViewSettingsFilterItem text="Field2" key="2">
-				<items>
-					<ViewSettingsItem text="Value A" key="2a" />
-					<ViewSettingsItem text="Value B" key="2b" />
-					<ViewSettingsItem text="Value C" key="2c" />
-				</items>
-			</ViewSettingsFilterItem>
-			<ViewSettingsFilterItem text="Field3" key="3">
-				<items>
-					<ViewSettingsItem text="Value A" key="3a" />
-					<ViewSettingsItem text="Value B" key="3b" />
-					<ViewSettingsItem text="Value C" key="3c" />
-				</items>
-			</ViewSettingsFilterItem>
-		</filterItems>
+		
 	</ViewSettingsDialog>
 </c:FragmentDefinition>

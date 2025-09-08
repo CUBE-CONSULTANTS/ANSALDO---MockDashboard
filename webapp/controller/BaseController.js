@@ -80,22 +80,17 @@ sap.ui.define(
 						this.getRouter().navTo("main", {}, undefined, true);
 					}
 				},
-				onOpenDialog: function (dialName, fragmName, self, ...oModel) {
-					let oView = self.getView();
-					if (!self[dialName]) {
-						Fragment.load({
-							id: oView.getId(),
-							name: fragmName,
-							controller: self,
-						}).then((oDialog) => {
-							oView.addDependent(oDialog);
-							oDialog.setModel(self.getModel(...oModel));
-							self[dialName] = oDialog;
-							oDialog.open();
-						});
-					} else {
-						self[dialName].open();
+				onOpenDialog: function (
+					sDialogName,
+					sFragmentName,
+					oController,
+				) {
+					if (!this[sDialogName]) {
+						this[sDialogName] = sap.ui.xmlfragment(sFragmentName, oController);
+						this.getView().addDependent(this[sDialogName]);
 					}
+					this[sDialogName].open();
+					return this[sDialogName];
 				},
 			}
 		);

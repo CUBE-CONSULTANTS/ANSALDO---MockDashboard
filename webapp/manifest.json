@@ -51,8 +51,7 @@
 				"settings": {
 					"bundleName": "ansaldonuclear.dashboard.i18n.i18n",
 					"supportedLocales": ["en", "de"],
-					"fallbackLocale": "en",
-					"async": true
+					"fallbackLocale": "en"
 				}
 			}
 		},

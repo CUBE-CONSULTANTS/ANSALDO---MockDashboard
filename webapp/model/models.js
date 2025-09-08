@@ -86,6 +86,17 @@ sap.ui.define(
 									NEWVAL: "CLSD",
 									STATUS: "MOD",
 								},
+								{
+									AUFNR: "100000000001",
+									VORNR: "0002",
+									AUTHMOD: "admin",
+									MODDATE: "20230703",
+									MODTIME: "111200",
+									MODOBJ: "",
+									OLDVAL: "",
+									NEWVAL: "",
+									STATUS: "INS",
+								},
 							],
 						},
 						{

@@ -172,6 +172,7 @@
                 <subSections>
                     <ObjectPageSubSection>
                         <ui:Table
+                        id="logTable"
                             selectionMode="None"
                             rows="{path: 'detailModel>/log'}"
                         >
@@ -247,8 +248,8 @@
                             >
                                 <ui:template>
                                     <m:Button
-                                        type="{= ${detailModel>OPERA} === 'INS' ? 'Neutral': 'Attention'}"
-                                        icon="{= ${detailModel>OPERA} === 'INS' ? 'sap-icon://create': 'sap-icon://edit'}"
+                                        type="{= ${detailModel>STATUS} === 'INS' ? 'Neutral': 'Attention'}"
+                                        icon="{= ${detailModel>STATUS} === 'INS' ? 'sap-icon://create': 'sap-icon://edit'}"
                                     />
                                 </ui:template>
                             </ui:Column>
