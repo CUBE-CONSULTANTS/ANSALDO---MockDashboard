@@ -29,7 +29,7 @@
                             text="{i18n>network} {detailModel>/AUFNR} - {detailModel>/KTEXT}"
                             level="H3"
                             wrapping="true"
-                            class="sapUiTinyMargin"
+                            class="sapUiSmallMarginBegin "
                         />
                     </layout:HorizontalLayout>
                 </heading>
