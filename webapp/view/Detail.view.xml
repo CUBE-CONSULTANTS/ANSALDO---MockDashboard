@@ -99,19 +99,19 @@
                             ariaLabelledBy="title"
                         >
                             <ui:columns>
-                                <ui:Column width="24rem">
+                                <ui:Column width="12rem">
                                     <m:Label text="{i18n>opNumb}" />
                                     <ui:template>
                                         <m:Text text="{detailModel>VORNR}" />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column width="25rem">
+                                <ui:Column width="20rem">
                                     <m:Label text="{i18n>opDescr}" />
                                     <ui:template>
                                         <m:Text text="{detailModel>LTXA1}" />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column width="20rem">
+                                <ui:Column width="12rem">
                                     <m:Label text="{i18n>actiStart}" />
                                     <ui:template>
                                         <m:DatePicker
@@ -121,7 +121,7 @@
                                         />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column width="20rem">
+                                <ui:Column width="12rem">
                                     <m:Label text="{i18n>actiEnd}" />
                                     <ui:template>
                                         <m:DatePicker
@@ -131,7 +131,7 @@
                                         />
                                     </ui:template>
                                 </ui:Column>
-                                <!-- <ui:Column
+                                <ui:Column
                                     width="12rem"
                                     hAlign="Center"
                                 >
@@ -142,21 +142,18 @@
                                             text="{detailModel>OPERA}"
                                         />
                                     </ui:template>
-                                </ui:Column> -->
-                                <!-- <ui:Column
-                                    width="34rem"
+                                </ui:Column>
+                                 <ui:Column
+                                    width="8rem"
                                     hAlign="Center"
                                 >
                                     <m:Label text="{i18n>status}" />
                                     <ui:template>
-                                        <m:Button
-                                            type="{= ${detailModel>OPERA} === 'INS' ? 'Neutral': 'Attention'}"
-                                            icon="{= ${detailModel>OPERA} === 'INS' ? 'sap-icon://create': 'sap-icon://edit'}"
-                                        />
+                                        <m:Text text="{detailModel>VSTTXT}" />
                                     </ui:template>
-                                </ui:Column> -->
+                                </ui:Column> 
 
-                                <!-- <ui:Column width="14rem">
+                                <ui:Column width="14rem">
                                     <m:Label text="{i18n>dateOp}" />
                                     <ui:template>
                                         <m:DatePicker
@@ -165,7 +162,7 @@
                                             displayFormat="dd/MM/yyyy"
                                         />
                                     </ui:template>
-                                </ui:Column> -->
+                                </ui:Column>
                             </ui:columns>
                         </ui:Table>
                     </ObjectPageSubSection>
@@ -174,41 +171,88 @@
             <ObjectPageSection title="{i18n>log}">
                 <subSections>
                     <ObjectPageSubSection>
-                        <ui:TreeTable
+                        <ui:Table
                             selectionMode="None"
-                            rows="{path: 'treemodel>/', parameters: {arrayNames: ['operations']}}"
+                            rows="{path: 'detailModel>/log'}"
                         >
-                            <ui:Column label="{i18n>network}" width="20rem">
+                        <ui:extension>
+                          <m:OverflowToolbar style="Clear">
+                              <m:ToolbarSpacer />
+                              <m:Button type='Emphasized' icon="sap-icon://action-settings" tooltip="{i18n>personalization}"
+                              press="onViewSettOpen"/>
+                          </m:OverflowToolbar>
+                        </ui:extension>
+                            <ui:Column
+                                label="{i18n>network}"
+                                width="10rem"
+                            >
                                 <ui:template>
-                                    <m:Text text="{treemodel>AUFNR}" />
-                                </ui:template>
-                            </ui:Column >
-                            <ui:Column label="{i18n>opNumb}" width="20rem">
-                                <ui:template>
-                                    <m:Text text="{treemodel>VORNR}" />
+                                    <m:Text text="{detailModel>/AUFNR}" />
                                 </ui:template>
                             </ui:Column>
-                            <ui:Column hAlign="Center" label="{i18n>status}" width="15rem">
+                            <ui:Column
+                                label="{i18n>opNumb}"
+                                width="10rem"
+                            >
+                                <ui:template>
+                                    <m:Text text="{detailModel>VORNR}" />
+                                </ui:template>
+                            </ui:Column>
+                            
+                            <ui:Column width="10rem">
+                                <m:Label text="{i18n>autoreMod}" />
+                                <ui:template >
+                                  <m:Text text="{detailModel>AUTHMOD}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column width="10rem">
+                                <m:Label text="{i18n>dataMod}" />
+                                 <ui:template >
+                                  
+                                   <m:DatePicker
+                                            value="{path: 'detailModel>MODDATE', formatter: '.formatter.formatDate'}"
+                                            editable="false"
+                                            displayFormat="dd/MM/yyyy"
+                                        />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column width="10rem">
+                                <m:Label text="{i18n>oraMod}" />
+                                 <ui:template >
+                                  <m:TimePicker value="{detailModel>MODTIME}" editable="false"/>
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column width="10rem">
+                                <m:Label text="{i18n>oggMod}" />
+                                 <ui:template >
+                                  <m:Text text="{detailModel>MODOBJ}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column width="10rem">
+                                <m:Label text="{i18n>oldV}" />
+                                 <ui:template >
+                                  <m:Text text="{detailModel>OLDVAL}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column width="10rem">
+                                <m:Label text="{i18n>newV}" />
+                                 <ui:template >
+                                  <m:Text text="{detailModel>NEWVAL}" />
+                                </ui:template>
+                            </ui:Column>
+                             <ui:Column
+                                hAlign="Center"
+                                label="{i18n>status}"
+                                width="9rem"
+                            >
                                 <ui:template>
                                     <m:Button
-                                        type="{= ${treemodel>OPERA} === 'INS' ? 'Neutral': 'Attention'}"
-                                        icon="{= ${treemodel>OPERA} === 'INS' ? 'sap-icon://create': 'sap-icon://edit'}"
+                                        type="{= ${detailModel>OPERA} === 'INS' ? 'Neutral': 'Attention'}"
+                                        icon="{= ${detailModel>OPERA} === 'INS' ? 'sap-icon://create': 'sap-icon://edit'}"
                                     />
                                 </ui:template>
                             </ui:Column>
-                            <ui:Column label="{i18n>opera}" width="15rem">
-                                <ui:template>
-                                    <m:Text text="{treemodel>OPERA}" />
-                                </ui:template>
-                            </ui:Column>
-                            <ui:Column label="{i18n>dateOp}" width="19rem">
-                                <ui:template>
-                                    <m:Text
-                                        text="{path: 'treemodel>DATEOP', formatter: '.formatter.formatDate'}"
-                                    />
-                                </ui:template>
-                            </ui:Column>
-                        </ui:TreeTable>
+                        </ui:Table>
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>

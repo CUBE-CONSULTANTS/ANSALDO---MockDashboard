@@ -29,9 +29,10 @@ sap.ui.define(
 				const oDetailModel = new JSONModel(oNetwork);
 				this.setModel(oDetailModel, "detailModel");
 
-				const oTreeModel = new JSONModel([oNetwork])
-				this.setModel(oTreeModel, "treemodel")
 			},
+			onViewSettOpen: function(){
+				this.onOpenDialog('settDialog','ansaldonuclear.dashboard.view.fragments.viewSettingDialogLog',this,undefined)
+			}
 		});
 	}
 );

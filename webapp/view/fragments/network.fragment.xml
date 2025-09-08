@@ -96,6 +96,7 @@
                         />
                     </ui:template>
                 </ui:Column>
+                
                 <ui:Column width="12rem">
                     <Label text="{i18n>dateOp}" />
                     <ui:template>
