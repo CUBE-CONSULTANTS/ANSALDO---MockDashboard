@@ -2,9 +2,8 @@
 	xmlns="sap.m"
 	xmlns:c="sap.ui.core"
   id="vsdLog"
-
 >
-<ViewSettingsDialog
+<ViewSettingsDialog 
 		confirm="handleConfirm" filterSearchOperator="Contains" resetFilters="onViewSettingsDialogResetFilters">
 		<sortItems>
 			<ViewSettingsItem text="{i18n>network}" key="AUFNR" />

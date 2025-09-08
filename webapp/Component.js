@@ -15,6 +15,7 @@ sap.ui.define(["sap/ui/core/UIComponent", "sap/ui/Device", "./model/models"], fu
 
 			// create the views based on the url/hash
 			this.getRouter().initialize();
+			sap.ui.getCore().getConfiguration().setLanguage("en");
 		},
 		/**
 		 * This method can be called to determine whether the sapUiSizeCompact or sapUiSizeCozy
