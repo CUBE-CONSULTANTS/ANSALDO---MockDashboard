@@ -1,0 +1,78 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:ui="sap.ui.table"
+>
+<VBox direction="Column">
+        <ui:Table
+
+            selectionMode="None"
+            width="100%"
+            ariaLabelledBy="title"
+            rows="{
+            path: 'mockNetworkData>/costCenters'
+          }"
+        >
+            <ui:extension>
+                <core:Fragment
+                            fragmentName="ansaldonuclear.dashboard.view.fragments.toolbar"
+                            type="XML"
+                        />
+            </ui:extension>
+            <ui:columns>
+                
+                <ui:Column width="15rem">
+                    <Label text="{i18n>costCenterId}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>KOSTL}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="15rem">
+                    <Label text="{i18n>companyCode}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>BUKRS}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="16rem">
+                    <Label text="{i18n>description}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>LTEXT}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="15rem">
+                    <Label text="{i18n>validTo}" />
+                    <ui:template>
+                        <DatePicker
+                            value="{path: 'mockNetworkData>DATBI', formatter: '.formatter.formatDate'}"
+                            editable="false"
+                            displayFormat="dd/MM/yyyy"
+                        />
+                    </ui:template>
+                </ui:Column>
+                <ui:Column width="15rem">
+                    <Label text="{i18n>validFrom}" />
+                    <ui:template>
+                        <DatePicker
+                            value="{path: 'mockNetworkData>DATAB', formatter: '.formatter.formatDate'}"
+                            editable="false"
+                            displayFormat="dd/MM/yyyy"
+                        />
+                    </ui:template>
+                </ui:Column>
+                <ui:Column
+                    width="15rem"
+                    hAlign="Center"
+                >
+                    <Label text="{i18n>opera}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>OPERA}" />
+                    </ui:template>
+                </ui:Column>
+                
+            </ui:columns>
+        </ui:Table>
+    </VBox>
+</core:FragmentDefinition>

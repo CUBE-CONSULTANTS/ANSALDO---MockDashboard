@@ -17,7 +17,7 @@ sap.ui.define(
 				this.getRouter()
 					.getRoute("Detail")
 					.attachPatternMatched(this._onObjectMatched, this);
-				this.setModel(models.createMockNetworkData(), "mockNetworkData");
+				this.setModel(models.createMockData(), "mockNetworkData");
 			},
 			_onObjectMatched: function (oEvent) {
 				const sNetworkId = oEvent.getParameter("arguments").id;
@@ -26,7 +26,7 @@ sap.ui.define(
 
 			_loadNetworkData: function (sNetworkId) {
 				const oNetwork = this.getModel("mockNetworkData")
-					?.getProperty("/mockData")
+					?.getProperty("/network")
 					?.find((network) => network.AUFNR === sNetworkId);
 
 				const oDetailModel = new JSONModel(oNetwork);
@@ -126,7 +126,7 @@ sap.ui.define(
 					oGroupSorter = new sap.ui.model.Sorter(
 						mParams.groupItem.getKey(),
 						mParams.groupDescending,
-						true // enable grouping
+						true 
 					);
 				}
 

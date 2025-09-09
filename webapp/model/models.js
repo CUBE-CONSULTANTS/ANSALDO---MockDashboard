@@ -18,9 +18,82 @@ sap.ui.define(
 					selected: false,
 				});
 			},
-			createMockNetworkData: function () {
+			createMockData: function () {
 				return new JSONModel({
-					mockData: [
+					wbeElements: [
+						{
+							PSPNR: "00000001",
+							POSID: "WBS-IT-001",
+							POST1: "IT Infrastructure Upgrade",
+							PSTRT: "20230101",
+							PENDE: "20231231",
+							STTXT_EXT: "REL",
+							OPERA: "INS",
+						},
+						{
+							PSPNR: "00000002",
+							POSID: "WBS-HR-001",
+							POST1: "HR Onboarding System",
+							PSTRT: "20230401",
+							PENDE: "20231031",
+							STTXT_EXT: "MOD",
+							OPERA: "MOD",
+						},
+						{
+							PSPNR: "00000003",
+							POSID: "WBS-MKT-001",
+							POST1: "Marketing Campaign 2022",
+							PSTRT: "20220115",
+							PENDE: "20221015",
+							STTXT_EXT: "CLSD",
+							OPERA: "DEL",
+						},
+						{
+							PSPNR: "00000004",
+							POSID: "WBS-RND-001",
+							POST1: "R&D Project Alpha",
+							PSTRT: "20230501",
+							PENDE: "20241231",
+							STTXT_EXT: "REL",
+							OPERA: "INS",
+						},
+						{
+							PSPNR: "00000005",
+							POSID: "WBS-SUP-001",
+							POST1: "Supplier Integration",
+							PSTRT: "20230701",
+							PENDE: "20231201",
+							STTXT_EXT: "REL",
+							OPERA: "MOD",
+						},
+					],
+					costCenters: [
+						{
+							KOSTL: "CC1001",
+							BUKRS: "C001",
+							LTEXT: "Cost Center for IT Department",
+							DATBI: "20230101",
+							DATAB: "20241231",
+							OPERA: "INS",
+						},
+						{
+							KOSTL: "CC1002",
+							BUKRS: "C002",
+							LTEXT: "Cost Center for HR Department",
+							DATBI: "20230101",
+							DATAB: "20241231",
+							OPERA: "MOD",
+						},
+						{
+							KOSTL: "CC1003",
+							BUKRS: "C003",
+							LTEXT: "Obsolete Marketing Cost Center",
+							DATBI: "20220101",
+							DATAB: "20221231",
+							OPERA: "DEL",
+						},
+					],
+					network: [
 						{
 							AUFNR: "100000000001",
 							KTEXT: "Network Description 1",

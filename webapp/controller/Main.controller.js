@@ -15,7 +15,7 @@ sap.ui.define(
 			formatter: formatter,
 			onInit: async function () {
 				this.setModel(models.createMainModel(), "main");
-				this.setModel(models.createMockNetworkData(), "mockNetworkData");
+				this.setModel(models.createMockData(), "mockNetworkData");
 			},
 			onOpenDetail: function (oEvent) {
 				const oRowContext = oEvent.getSource().getBindingContext("mockNetworkData");

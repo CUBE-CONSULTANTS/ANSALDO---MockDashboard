@@ -56,14 +56,22 @@
                         text="{i18n>ccts}"
                         key="01"
                     >
-                        
+                     <core:Fragment
+                            fragmentName="ansaldonuclear.dashboard.view.fragments.costCenterTs"
+                            type="XML"
+                        />   
                     </IconTabFilter>
                     <IconTabFilter
                         icon="sap-icon://workflow-tasks"
                         iconColor="Default"
                         text="{i18n>wbe}"
                         key="02"
-                    />
+                    >
+                    <core:Fragment
+                            fragmentName="ansaldonuclear.dashboard.view.fragments.wbe"
+                            type="XML"
+                        />   
+                    </IconTabFilter>
                     <IconTabFilter
                         icon="sap-icon://connected"
                         iconColor="Default"

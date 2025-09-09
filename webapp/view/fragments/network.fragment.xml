@@ -1,9 +1,7 @@
 <core:FragmentDefinition
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
-    xmlns:f="sap.f"
     xmlns:ui="sap.ui.table"
-    xmlns:mvc="sap.ui.core.mvc"
 >
     <VBox direction="Column">
         <ui:Table
@@ -12,16 +10,14 @@
             width="100%"
             ariaLabelledBy="title"
             rows="{
-            path: 'mockNetworkData>/mockData'
+            path: 'mockNetworkData>/network'
           }"
         >
             <ui:extension>
-                <OverflowToolbar style="Clear">
-                    <ToolbarSpacer />
-                    <Button icon="sap-icon://filter" tooltip="{i18n>filter}"/>
-                    <Button icon="sap-icon://sort" tooltip="{i18n>sort}" />
-                    <Button icon="sap-icon://excel-attachment" tooltip="{i18n>sort}" />
-                </OverflowToolbar>
+                <core:Fragment
+                            fragmentName="ansaldonuclear.dashboard.view.fragments.toolbar"
+                            type="XML"
+                        />
             </ui:extension>
             <ui:columns>
                 <ui:Column width="4rem">
