@@ -4,7 +4,7 @@
 >
     <OverflowToolbar style="Clear">
         <ToolbarSpacer />
-        <Button icon="sap-icon://settings" tooltip="{i18n>settings}" press="_registerForP13n" />
+        <Button icon="sap-icon://settings" tooltip="{i18n>settings}" visible="false" />
         <Button
             icon="sap-icon://excel-attachment"
             tooltip="{i18n>downloadExcel}"
