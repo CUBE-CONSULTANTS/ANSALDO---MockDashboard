@@ -89,19 +89,31 @@
                         iconColor="Default"
                         text="{i18n>prodOrder}"
                         key="04"
-                    />
+                    >
+                <core:Fragment
+                            fragmentName="ansaldonuclear.dashboard.view.fragments.prodOrder"
+                            type="XML"
+                        />   </IconTabFilter>
                     <IconTabFilter
                         icon="sap-icon://activity-items"
                         iconColor="Default"
                         text="{i18n>activityTypes}"
                         key="05"
-                    />
+                    ><core:Fragment
+                            fragmentName="ansaldonuclear.dashboard.view.fragments.activityTypes"
+                            type="XML"
+                        />   
+                </IconTabFilter>
                     <IconTabFilter
                         icon="sap-icon://capital-projects"
                         iconColor="Default"
                         text="{i18n>ccadp}"
                         key="06"
-                    />
+                    ><core:Fragment
+                            fragmentName="ansaldonuclear.dashboard.view.fragments.costCenterAdp"
+                            type="XML"
+                        />   
+                </IconTabFilter>
                 </items>
 
                 <content />
