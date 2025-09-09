@@ -1,10 +1,14 @@
 <c:FragmentDefinition
-	xmlns="sap.m"
-	xmlns:c="sap.ui.core"
-><OverflowToolbar style="Clear">
-                    <ToolbarSpacer />
-                    <Button icon="sap-icon://filter" tooltip="{i18n>filter}"/>
-                    <Button icon="sap-icon://sort" tooltip="{i18n>sort}" />
-                    <Button icon="sap-icon://excel-attachment" tooltip="{i18n>sort}" />
-                </OverflowToolbar>
+    xmlns="sap.m"
+    xmlns:c="sap.ui.core"
+>
+    <OverflowToolbar style="Clear">
+        <ToolbarSpacer />
+        <Button icon="sap-icon://settings" tooltip="{i18n>settings}" press="_registerForP13n" />
+        <Button
+            icon="sap-icon://excel-attachment"
+            tooltip="{i18n>downloadExcel}"
+            press="onDownloadExcel"
+        />
+    </OverflowToolbar>
 </c:FragmentDefinition>
