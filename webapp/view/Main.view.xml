@@ -12,7 +12,7 @@
         toggleHeaderOnTitleClick="false"
         showFooter="true"
     >
-        <!-- DynamicPage Title -->
+        <!-- Header -->
         <f:title>
             <f:DynamicPageTitle backgroundDesign="Solid">
                 <f:heading>
@@ -23,78 +23,75 @@
                         <layout:VerticalLayout>
                             <Image
                                 src="public/images/ansaldo_nucleare_logo.jpg"
-                                height="40.00000000px"
-                                width="100%"
+                                height="40px"
+                                width="auto"
                             />
                         </layout:VerticalLayout>
                     </layout:HorizontalLayout>
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
+
+        <!-- Empty header section -->
         <f:header>
-            <f:DynamicPageHeader
-                pinnable="false"
-                backgroundDesign="Solid"
-            />
+            <f:DynamicPageHeader pinnable="false" backgroundDesign="Solid" />
         </f:header>
-        <!-- DynamicPage Content -->
+
+        <!-- Responsive content -->
         <f:content>
             <FlexBox
-                justifyContent="SpaceBetween"
-                alignItems="Center"
-                direction="Row"
-                width="100%"
-                height="70%"
+           wrap="Wrap"
+            justifyContent="Center"
+            alignItems="Center"
+            class="sapUiResponsiveMargin"
             >
-                <items>
-                    <GenericTile
-                        header="{i18n>manufacturing}"
-                        backgroundColor="#0d8cb1"
-                        mode="IconMode"
-                        tileIcon="sap-icon://factory"
-                        width="300px"
-                    >
-                        <actionButtons />
-                        <linkTileContents />
-                        <tileContent />
-                    </GenericTile>
-                    <GenericTile
-                        header="{i18n>finance}"
-                        backgroundColor="#0d8cb1"
-                        mode="IconMode"
-                        tileIcon="sap-icon://business-objects-experience"
-                        width="300px"
-                    >
-                        <actionButtons />
-                        <linkTileContents />
-                        <tileContent />
-                    </GenericTile>
-                    <GenericTile
-                        header="{i18n>projSyst}"
-                        backgroundColor="#0d8cb1"
-                        mode="IconMode"
-                        tileIcon="sap-icon://journey-change"
-                        width="300px"
-                    >
-                        <actionButtons />
-                        <linkTileContents />
-                        <tileContent />
-                    </GenericTile>
-                    <GenericTile
-                    
-                        header="{i18n>HRTimesheet}"
-                        backgroundColor="#0d8cb1"
-                        mode="IconMode"
-                        tileIcon="sap-icon://hr-approval"
-                        width="300px"
-                        press="onNavigateToHrTS"
-                        
-                    />
-                </items>
+                <!-- Tile: Manufacturing -->
+                <GenericTile
+                    header="{i18n>manufacturing}"
+                    tileIcon="sap-icon://factory"
+                    press=".onManufacturingPress"
+                    mode="IconMode"
+                    minWidth="200px"
+                    class="sapUiResponsiveMargin"
+                    backgroundColor="#0097A2"
+                />
+                
+                <!-- Tile: Finance -->
+                <GenericTile
+                    header="{i18n>finance}"
+                    tileIcon="sap-icon://business-objects-experience"
+                    press=".onFinancePress"
+                    mode="IconMode"
+                    minWidth="200px"
+                    class="sapUiResponsiveMargin"
+                    backgroundColor="#0097A2"
+                />
+                
+                <!-- Tile: Project Systems -->
+                <GenericTile
+                    header="{i18n>projSyst}"
+                    tileIcon="sap-icon://journey-change"
+                    press=".onProjSystPress"
+                    mode="IconMode"
+                    minWidth="200px"
+                    class="sapUiResponsiveMargin"
+                    backgroundColor="#0097A2"
+                />
+                
+                <!-- Tile: HR Timesheet -->
+                <GenericTile
+                    header="{i18n>HRTimesheet}"
+                    tileIcon="sap-icon://hr-approval"
+                    press=".onNavigateToHrTS"
+                    mode="IconMode"
+                    minWidth="200px"
+                    class="sapUiResponsiveMargin"
+                    backgroundColor="#0097A2"
+                />
             </FlexBox>
         </f:content>
 
-        <!-- DynamicPage Footer -->
+        <!-- Footer -->
         <f:footer>
             <core:Fragment
                 fragmentName="ansaldonuclear.dashboard.view.fragments.footer"
