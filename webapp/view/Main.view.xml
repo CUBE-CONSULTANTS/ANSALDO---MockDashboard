@@ -39,85 +39,59 @@
         </f:header>
         <!-- DynamicPage Content -->
         <f:content>
-            <IconTabBar
-                applyContentPadding="false"
-                headerMode="Inline"
-                id="idIconTabBar"
-                select=".onSelectTab"
-                selectedKey="03"
-                expandable="false"
-                stretchContentHeight="true"   
-                             
+            <FlexBox
+                justifyContent="SpaceBetween"
+                alignItems="Center"
+                direction="Row"
+                width="100%"
+                height="70%"
             >
                 <items>
-                    <IconTabFilter
-                        icon="sap-icon://timesheet"
-                        iconColor="Default"
-                        text="{i18n>ccts}"
-                        key="01"
+                    <GenericTile
+                        header="{i18n>manufacturing}"
+                        backgroundColor="#0d8cb1"
+                        mode="IconMode"
+                        tileIcon="sap-icon://factory"
+                        width="300px"
                     >
-                     <core:Fragment
-                            fragmentName="ansaldonuclear.dashboard.view.fragments.costCenterTs"
-                            type="XML"
-                        />   
-                    </IconTabFilter>
-                    <IconTabFilter
-                        icon="sap-icon://workflow-tasks"
-                        iconColor="Default"
-                        text="{i18n>wbe}"
-                        key="02"
+                        <actionButtons />
+                        <linkTileContents />
+                        <tileContent />
+                    </GenericTile>
+                    <GenericTile
+                        header="{i18n>finance}"
+                        backgroundColor="#0d8cb1"
+                        mode="IconMode"
+                        tileIcon="sap-icon://business-objects-experience"
+                        width="300px"
                     >
-                    <core:Fragment
-                            fragmentName="ansaldonuclear.dashboard.view.fragments.wbe"
-                            type="XML"
-                        />   
-                    </IconTabFilter>
-                    <IconTabFilter
-                        icon="sap-icon://connected"
-                        iconColor="Default"
-                        text="{i18n>network}"
-                        key="03"
+                        <actionButtons />
+                        <linkTileContents />
+                        <tileContent />
+                    </GenericTile>
+                    <GenericTile
+                        header="{i18n>projSyst}"
+                        backgroundColor="#0d8cb1"
+                        mode="IconMode"
+                        tileIcon="sap-icon://journey-change"
+                        width="300px"
                     >
-                        <core:Fragment
-                            fragmentName="ansaldonuclear.dashboard.view.fragments.network"
-                            type="XML"
-                        />
-                    </IconTabFilter>
-
-                    <IconTabFilter
-                        icon="sap-icon://factory"
-                        iconColor="Default"
-                        text="{i18n>prodOrder}"
-                        key="04"
-                    >
-                <core:Fragment
-                            fragmentName="ansaldonuclear.dashboard.view.fragments.prodOrder"
-                            type="XML"
-                        />   </IconTabFilter>
-                    <IconTabFilter
-                        icon="sap-icon://activity-items"
-                        iconColor="Default"
-                        text="{i18n>activityTypes}"
-                        key="05"
-                    ><core:Fragment
-                            fragmentName="ansaldonuclear.dashboard.view.fragments.activityTypes"
-                            type="XML"
-                        />   
-                </IconTabFilter>
-                    <IconTabFilter
-                        icon="sap-icon://capital-projects"
-                        iconColor="Default"
-                        text="{i18n>ccadp}"
-                        key="06"
-                    ><core:Fragment
-                            fragmentName="ansaldonuclear.dashboard.view.fragments.costCenterAdp"
-                            type="XML"
-                        />   
-                </IconTabFilter>
+                        <actionButtons />
+                        <linkTileContents />
+                        <tileContent />
+                    </GenericTile>
+                    <GenericTile
+                    
+                        header="{i18n>HRTimesheet}"
+                        backgroundColor="#0d8cb1"
+                        mode="IconMode"
+                        tileIcon="sap-icon://hr-approval"
+                        width="300px"
+                        press="onNavigateToHrTS"
+                        
+                    />
                 </items>
-
-                <content />
-            </IconTabBar>
+            </FlexBox>
         </f:content>
 
         <!-- DynamicPage Footer -->

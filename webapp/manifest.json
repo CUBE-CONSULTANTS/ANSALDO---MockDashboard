@@ -77,6 +77,11 @@
 					"target": "main"
 				},
 				{
+					"pattern": "HrTimesheet",
+					"name": "HrTimesheet",
+					"target": "HrTimesheet"
+				},
+				{
 					"pattern": "{id}",
 					"name": "Detail",
 					"target": "Detail"
@@ -86,6 +91,10 @@
 				"main": {
 					"viewId": "main",
 					"viewName": "Main"
+				},
+				"HrTimesheet": {
+					"viewId": "HrTimesheet",
+					"viewName": "HrTimesheet"
 				},
 				"Detail": {
 					"viewId": "Detail",

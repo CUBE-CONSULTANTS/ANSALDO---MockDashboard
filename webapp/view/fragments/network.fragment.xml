@@ -3,7 +3,7 @@
     xmlns:core="sap.ui.core"
     xmlns:ui="sap.ui.table"
 >
-    <VBox direction="Column">
+    
         <ui:Table
 
             selectionMode="None"
@@ -105,5 +105,4 @@
                 </ui:Column>
             </ui:columns>
         </ui:Table>
-    </VBox>
 </core:FragmentDefinition>
