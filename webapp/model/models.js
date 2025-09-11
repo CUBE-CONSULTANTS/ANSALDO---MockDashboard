@@ -16,6 +16,14 @@ sap.ui.define(
 					enabled: false,
 					busy: false,
 					selected: false,
+					isDetail: false
+				});
+			},
+			createSizesModel: function () {
+				return new JSONModel({
+					masterPaneSize: "320px",
+					detailPaneSize: "auto",
+					menuExpanded: true,
 				});
 			},
 			createMockData: function () {

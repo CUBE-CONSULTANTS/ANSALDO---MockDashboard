@@ -80,17 +80,84 @@ sap.ui.define(
 						this.getRouter().navTo("main", {}, undefined, true);
 					}
 				},
-				onOpenDialog: function (
-					sDialogName,
+				loadFragment: function (
 					sFragmentName,
+					oPage,
 					oController,
+					bCache = true
 				) {
+					const oView = oController.getView();
+					const sFullFragmentName ="ansaldonuclear.dashboard.view.fragments." + sFragmentName;
+					oController._fragmentsCache = oController._fragmentsCache || {};
+					oController._fragmentStack = oController._fragmentStack || [];
+					if (oController._currentFragment) {
+						const oCurrent = oController._currentFragment;
+						oController._currentFragment = null;
+						const isCached = Object.values(
+							oController._fragmentsCache
+						).includes(oCurrent);
+						oPage.removeAllContent();
+						if (!isCached) {
+							oCurrent.destroy(true); 
+						}
+					}
+					if (bCache && oController._fragmentsCache[sFragmentName]) {
+						const oFragment = oController._fragmentsCache[sFragmentName];
+						const oOldParent = oFragment.getParent();
+						if (
+							oOldParent &&
+							oOldParent !== oPage &&
+							oOldParent.removeContent
+						) {
+							oOldParent.removeContent(oFragment);
+						}
+
+						oPage.addContent(oFragment);
+						oController._currentFragment = oFragment;
+						oController._fragmentStack.push(oFragment);
+
+						return Promise.resolve(oFragment);
+					}
+					return Fragment.load({
+						id: oView.getId(),
+						name: sFullFragmentName,
+						controller: oController,
+					})
+						.then(function (oFragment) {
+							oPage.addContent(oFragment);
+							oController._currentFragment = oFragment;
+							oController._fragmentStack.push(oFragment);
+
+							if (bCache) {
+								oController._fragmentsCache[sFragmentName] = oFragment;
+							}
+							return oFragment;
+						})
+						.catch(function (err) {
+							console.error("Fragment non trovato:", sFullFragmentName, err);
+						});
+				},
+
+				resetFragmentState: function () {
+					this._fragmentStack = [];
+					this._currentFragment = null;
+					this._fragmentsCache = {};
+				},
+				onOpenDialog: function (sDialogName, sFragmentName, oController) {
 					if (!this[sDialogName]) {
 						this[sDialogName] = sap.ui.xmlfragment(sFragmentName, oController);
 						this.getView().addDependent(this[sDialogName]);
 					}
 					this[sDialogName].open();
 					return this[sDialogName];
+				},
+				showBusy: function (delay) {
+					// sap.ui.core.BusyIndicator.show(delay || 0);
+					sap.ui.core.BusyIndicator.show(delay);
+				},
+				hideBusy: function (delay) {
+					// sap.ui.core.BusyIndicator.hide(delay || 0);
+					sap.ui.core.BusyIndicator.hide(delay);
 				},
 			}
 		);

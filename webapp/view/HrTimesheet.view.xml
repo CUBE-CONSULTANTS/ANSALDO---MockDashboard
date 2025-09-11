@@ -150,8 +150,11 @@
                                 />
                             </l:layoutData>
                             <Page
+                                showNavButton="{main>/isDetail}"
                                 id="detailPage"
-                                
+                                title="{titleModel>/currentTitle}"
+                                navButtonPress=".backPrevFragment"
+                                navButtonTooltip="{i18n>navBack}"
                             >
                                 <content />
                             </Page>

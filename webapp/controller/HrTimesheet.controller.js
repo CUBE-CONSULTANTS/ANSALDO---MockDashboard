@@ -34,17 +34,14 @@ sap.ui.define(
 				onInit: async function () {
 					this.setModel(models.createMainModel(), "main");
 					this.setModel(models.createMockData(), "mockNetworkData");
+					this.setModel(models.createSizesModel(), "sizes");
+					this.setModel(new JSONModel(), "titleModel");
+					this._fragmentsCache = {};
+					this._fragmentStack = [];
+					this._currentFragment = null;
 					this.getRouter()
 						.getRoute("HrTimesheet")
 						.attachPatternMatched(this._onObjectMatched, this);
-					this.setModel(
-						new JSONModel({
-							masterPaneSize: "320px",
-							detailPaneSize: "auto",
-							menuExpanded: true
-						}),
-						"sizes"
-					);
 				},
 				_onObjectMatched: async function (oEvent) {},
 				onToggleMenu: function () {
@@ -58,43 +55,67 @@ sap.ui.define(
 					oModel.setProperty("/menuExpanded", !bExpanded);
 					this.byId("navigationList").setExpanded(!bExpanded);
 				},
-				onNavigationSelectionChange: function(oEvent) {
-            const sKey = oEvent.getParameter("item").getKey();
-            this._showDetailFragment(sKey);
-        },
-				_showDetailFragment: function(sKey) {
-					debugger
-            const oView = this.getView();
-            const oPage = oView.byId("detailPage");
-
-            if (this._currentFragment) {
-                oPage.removeAllContent();
-                this._currentFragment.destroy();
-                this._currentFragment = null;
-            }
-
-           const sFragmentName = "ansaldonuclear.dashboard.view.fragments." + sKey;
-            Fragment.load({
-                id: oView.getId(),
-                name: sFragmentName,
-                controller: this
-            }).then(function(oFragment) {
-                this._currentFragment = oFragment;
-                oPage.addContent(oFragment);
-            }.bind(this)).catch(function(err) {
-                console.error("Fragment non trovato:", sFragmentName);
-            });
-        },
+				onNavigationSelectionChange: function (oEvent) {
+					const oItem = oEvent.getParameter("item");
+					const oBindingInfo = oItem.getBindingInfo("text");
+					const sI18nKey = oBindingInfo.parts[0].path;
+					const sTitle = this.getResourceBundle().getText(sI18nKey);
+					this.getModel("titleModel").setProperty("/currentTitle", sTitle);
+					const sKey = oItem.getKey();
+					this._showDetailFragment(sKey);
+				},
+				_showDetailFragment: function (sKey) {
+					const oView = this.getView();
+					const oPage = oView.byId("detailPage");
+					this.showBusy(0);
+					this.loadFragment(sKey, oPage, this, true);
+					this.hideBusy(0);
+				},
 				onOpenDetail: function (oEvent) {
+					this.showBusy(0);
 					const oRowContext = oEvent
 						.getSource()
 						.getBindingContext("mockNetworkData");
 					const oRowData = oRowContext.getObject();
 					const oDetailModel = new JSONModel(oRowData);
-					this.getOwnerComponent().setModel(oDetailModel, "detailModel");
-					this.getRouter().navTo("Detail", {
-						id: oRowData.AUFNR,
-					});
+					this.setModel(oDetailModel, "detailModel");
+					const oView = this.getView();
+					const oContainer = oView.byId("detailPage");
+					this.getModel("main").setProperty("/isDetail", true);
+					this.loadFragment("networkDetail", oContainer, this, true);
+					this.hideBusy(0);
+				},
+				backPrevFragment: function () {
+					const oView = this.getView();
+					const oPage = oView.byId("detailPage");
+
+					if (!this._fragmentStack || this._fragmentStack.length < 2) {
+						return;
+					}
+					const oCurrentFragment = this._fragmentStack.pop();
+					if (oCurrentFragment) {
+						oPage.removeAllContent();
+						const isCached = Object.values(this._fragmentsCache).includes(
+							oCurrentFragment
+						);
+						if (!isCached) {
+							oCurrentFragment.destroy(true);
+						}
+					}
+					const oPrevFragment =
+						this._fragmentStack[this._fragmentStack.length - 1];
+					if (oPrevFragment) {
+						const oOldParent = oPrevFragment.getParent();
+						if (
+							oOldParent &&
+							oOldParent !== oPage &&
+							oOldParent.removeContent
+						) {
+							oOldParent.removeContent(oPrevFragment);
+						}
+						oPage.addContent(oPrevFragment);
+						this._currentFragment = oPrevFragment;
+					}
 				},
 				getCurrentEntityPath: function (oTable) {
 					const sBindingPath = oTable.getBindingInfo("rows").path;
