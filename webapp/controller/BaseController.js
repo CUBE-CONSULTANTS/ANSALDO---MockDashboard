@@ -73,6 +73,7 @@ sap.ui.define(
 				 * If not, it will replace the current entry of the browser history with the main route.
 				 */
 				onNavBack: function () {
+					this.resetFragmentState()
 					const sPreviousHash = History.getInstance().getPreviousHash();
 					if (sPreviousHash !== undefined) {
 						window.history.go(-1);
@@ -87,7 +88,8 @@ sap.ui.define(
 					bCache = true
 				) {
 					const oView = oController.getView();
-					const sFullFragmentName ="ansaldonuclear.dashboard.view.fragments." + sFragmentName;
+					const sFullFragmentName =
+						"ansaldonuclear.dashboard.view.fragments." + sFragmentName;
 					oController._fragmentsCache = oController._fragmentsCache || {};
 					oController._fragmentStack = oController._fragmentStack || [];
 					if (oController._currentFragment) {
@@ -98,7 +100,7 @@ sap.ui.define(
 						).includes(oCurrent);
 						oPage.removeAllContent();
 						if (!isCached) {
-							oCurrent.destroy(true); 
+							oCurrent.destroy(true);
 						}
 					}
 					if (bCache && oController._fragmentsCache[sFragmentName]) {
@@ -139,8 +141,17 @@ sap.ui.define(
 				},
 
 				resetFragmentState: function () {
+					this.getModel('titleModel').setProperty("/currentTitle","")
+					const oView = this.getView();
+					const oPage = oView.byId("detailPage");
+
+					if (this._currentFragment) {
+						oPage.removeAllContent(); 
+						this._currentFragment.destroy(); 
+						this._currentFragment = null;
+					}
+
 					this._fragmentStack = [];
-					this._currentFragment = null;
 					this._fragmentsCache = {};
 				},
 				onOpenDialog: function (sDialogName, sFragmentName, oController) {
@@ -150,6 +161,9 @@ sap.ui.define(
 					}
 					this[sDialogName].open();
 					return this[sDialogName];
+				},
+				onCloseDialog: function(oEvent){
+					oEvent.getSource().getParent().close()
 				},
 				showBusy: function (delay) {
 					// sap.ui.core.BusyIndicator.show(delay || 0);

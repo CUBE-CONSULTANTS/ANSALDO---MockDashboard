@@ -121,6 +121,19 @@ sap.ui.define(
 					const sBindingPath = oTable.getBindingInfo("rows").path;
 					return sBindingPath;
 				},
+				onPlantLinkPress: function (oEvent) {
+					const sPlantId = oEvent.getSource().getText();
+					const oModel = this.getView().getModel("mockNetworkData");
+					const aPlants = oModel.getProperty("/plants");
+					const oPlant = aPlants.find((p) => p.WERKS === sPlantId);
+					const oDialogModel = new JSONModel(oPlant);
+					const oDialog = this.onOpenDialog(
+						"plantDialog",
+						"ansaldonuclear.dashboard.view.fragments.PlantDialog",
+						this
+					);
+					oDialog.setModel(oDialogModel, "plant");
+				},
 				onFilterPress: function (oEvent) {
 					const oTable = oEvent.getSource().getParent().getParent();
 					const sPath = this.getCurrentEntityPath(oTable);

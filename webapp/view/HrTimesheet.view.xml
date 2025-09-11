@@ -64,6 +64,7 @@
                                 icon="sap-icon://menu"
                                 press=".onToggleMenu"
                                 type="Emphasized"
+                                tooltip="{i18n>toggle}"
                                 class="sapUiTinyMarginBegin"
                             />
                             <tnt:NavigationList
@@ -71,12 +72,11 @@
                                 width="100%"
                                 expanded="{= ${sizes>/menuExpanded} }"
                                 itemSelect=".onNavigationSelectionChange"
-                                
                             >
                                 <tnt:NavigationListItem
                                     text="{i18n>ccmd}"
                                     key="costCenterTs"
-                                    icon="sap-icon://accounting-document-verification"
+                                    icon="sap-icon://accounting-document-verification"                                
                                 />
                                 <tnt:NavigationListItem
                                     text="{i18n>wbeMd}"
