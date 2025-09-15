@@ -3,23 +3,80 @@
     xmlns:core="sap.ui.core"
     xmlns:ui="sap.ui.table"
 >
-<VBox direction="Column">
+    <VBox direction="Column">
         <ui:Table
-
             selectionMode="None"
             width="100%"
             ariaLabelledBy="title"
             rows="{
-            path: 'mockNetworkData>/'
+            path: 'mockNetworkData>/activityTypes'
           }"
         >
             <ui:extension>
                 <core:Fragment
-                            fragmentName="ansaldonuclear.dashboard.view.fragments.toolbar"
-                            type="XML"
-                        />
+                    fragmentName="ansaldonuclear.dashboard.view.fragments.toolbar"
+                    type="XML"
+                />
             </ui:extension>
+            <ui:columns>
+                <ui:Column width="4rem">
+                    <ui:template>
+                        <Button
+                            tooltip="{i18n>detail}"
+                            icon="sap-icon://detail-view"
+                            type="Emphasized"
+                            press="onOpenDetail"
+                        />
+                    </ui:template>
+                </ui:Column>
+                <ui:Column width="8rem">
+                    <ui:label>
+                        <Label text="{i18n>activityType}" />
+                    </ui:label>
+                    <ui:template>
+                        <Text text="{mockNetworkData>LSTAR}" />
+                    </ui:template>
+                </ui:Column>
 
+                <ui:Column width="15rem">
+                    <ui:label>
+                        <Label text="{i18n>description}" />
+                    </ui:label>
+                    <ui:template>
+                        <Text text="{mockNetworkData>KTEXT}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="15rem">
+                    <Label text="{i18n>validTo}" />
+                    <ui:template>
+                        <DatePicker
+                            value="{path: 'mockNetworkData>DATBI', formatter: '.formatter.formatDate'}"
+                            editable="false"
+                            displayFormat="dd/MM/yyyy"
+                        />
+                    </ui:template>
+                </ui:Column>
+                <ui:Column width="15rem">
+                    <Label text="{i18n>validFrom}" />
+                    <ui:template>
+                        <DatePicker
+                            value="{path: 'mockNetworkData>DATAB', formatter: '.formatter.formatDate'}"
+                            editable="false"
+                            displayFormat="dd/MM/yyyy"
+                        />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="15rem">
+                    <ui:label>
+                        <Label text="{i18n>opera}" />
+                    </ui:label>
+                    <ui:template>
+                        <Text text="{mockNetworkData>OPERA}" />
+                    </ui:template>
+                </ui:Column>
+            </ui:columns>
         </ui:Table>
     </VBox>
 </core:FragmentDefinition>

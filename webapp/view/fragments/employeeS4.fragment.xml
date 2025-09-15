@@ -1,0 +1,181 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:ui="sap.ui.table"
+>
+<VBox direction="Column">
+        <ui:Table
+
+            selectionMode="None"
+            width="100%"
+            ariaLabelledBy="title"
+            rows="{
+            path: 'mockNetworkData>/employeesS4'
+          }"
+        >
+            <ui:extension>
+                <core:Fragment
+                            fragmentName="ansaldonuclear.dashboard.view.fragments.toolbar"
+                            type="XML"
+                        />
+            </ui:extension>
+            <ui:columns>
+                <ui:Column width="10rem">
+                    <Label text="{i18n>usrid}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>USRID}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="11rem">
+                    <Label text="{i18n>hireDate}" />
+                    <ui:template>
+                        <DatePicker
+                            value="{ path: 'mockNetworkData>HIRE_DATE', formatter: '.formatter.formatDate' }"
+                            editable="false"
+                            displayFormat="dd/MM/yyyy"
+                        />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="10rem">
+                    <Label text="{i18n>companyCode}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>BUKRS}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="12rem">
+                    <Label text="{i18n>personnelArea}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>WERKS}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="12rem">
+                    <Label text="{i18n>costCenter}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>KOSTL}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="12rem">
+                    <Label text="{i18n>employeeGroup}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>PERSG}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="12rem">
+                    <Label text="{i18n>employeeSubgroup}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>PERSK}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="12rem">
+                    <Label text="{i18n>personnelSubarea}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>BTRTL}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="9rem">
+                    <Label text="{i18n>title}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>ANRED}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="10rem">
+                    <Label text="{i18n>firstName}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>VORNA}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="10rem">
+                    <Label text="{i18n>lastName}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>NACHN}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="11rem">
+                    <Label text="{i18n>dateOfBirth}" />
+                    <ui:template>
+                        <DatePicker
+                            value="{ path: 'mockNetworkData>GBDAT', formatter: '.formatter.formatDate' }"
+                            editable="false"
+                            displayFormat="dd/MM/yyyy"
+                        />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="11rem">
+                    <Label text="{i18n>birthplace}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>GBORT}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="9rem">
+                    <Label text="{i18n>nationality}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>NATIO}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="7rem">
+                    <Label text="{i18n>gender}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>GESCH}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="12rem">
+                    <Label text="{i18n>communicationLanguage}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>SPRSL}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="16rem">
+                    <Label text="{i18n>emailAddress}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>EMAIL}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="12rem">
+                    <Label text="{i18n>adpId}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>ADP_ID}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="13rem">
+                    <Label text="{i18n>personIdExternal}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>PERSON_ID_EXT}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="12rem">
+                    <Label text="{i18n>activityType}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>LSTAR}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="16rem">
+                    <Label text="{i18n>nin}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>ICNUM}" />
+                    </ui:template>
+                </ui:Column>
+
+            </ui:columns>
+        </ui:Table>
+    </VBox>
+</core:FragmentDefinition>

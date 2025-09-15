@@ -10,7 +10,7 @@
             width="100%"
             ariaLabelledBy="title"
             rows="{
-            path: 'mockNetworkData>/'
+            path: 'mockNetworkData>/costCentersADP'
           }"
         >
             <ui:extension>
@@ -19,7 +19,50 @@
                             type="XML"
                         />
             </ui:extension>
+<ui:columns>
+                <ui:Column width="12rem">
+                    <Label text="{i18n>costCenterId}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>code}" />
+                    </ui:template>
+                </ui:Column>
 
+                <ui:Column width="18rem">
+                    <Label text="{i18n>description}" />
+                    <ui:template>
+                        <Text text="{mockNetworkData>name}" />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="12rem">
+                    <Label text="{i18n>validTo}" />
+                    <ui:template>
+                        <DatePicker
+                            value="{ path: 'mockNetworkData>DATBI', formatter: '.formatter.formatDate' }"
+                            editable="false"
+                            displayFormat="dd/MM/yyyy"
+                        />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="12rem">
+                    <Label text="{i18n>validFrom}" />
+                    <ui:template>
+                        <DatePicker
+                            value="{ path: 'mockNetworkData>DATAB', formatter: '.formatter.formatDate' }"
+                            editable="false"
+                            displayFormat="dd/MM/yyyy"
+                        />
+                    </ui:template>
+                </ui:Column>
+
+                <ui:Column width="14rem" hAlign="Center">
+                    <Label text="{i18n>inactiveIndicator}" />
+                    <ui:template>
+                        <CheckBox selected="{mockNetworkData>inactiveIndicator}" editable="false" />
+                    </ui:template>
+                </ui:Column>
+            </ui:columns>
         </ui:Table>
     </VBox>
 </core:FragmentDefinition>

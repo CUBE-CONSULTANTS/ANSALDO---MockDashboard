@@ -86,6 +86,7 @@ sap.ui.define(
 					this.hideBusy(0);
 				},
 				backPrevFragment: function () {
+					this.getModel("main").setProperty("/isDetail", false);
 					const oView = this.getView();
 					const oPage = oView.byId("detailPage");
 
@@ -121,7 +122,7 @@ sap.ui.define(
 					const sBindingPath = oTable.getBindingInfo("rows").path;
 					return sBindingPath;
 				},
-				onPlantLinkPress: function (oEvent) {
+				onPlantLinkPress: function (oEvent) {	
 					const sPlantId = oEvent.getSource().getText();
 					const oModel = this.getView().getModel("mockNetworkData");
 					const aPlants = oModel.getProperty("/plants");

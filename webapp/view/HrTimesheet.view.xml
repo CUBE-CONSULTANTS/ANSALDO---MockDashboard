@@ -100,12 +100,12 @@
                                 />
                                 <tnt:NavigationListItem
                                     text="{i18n>ets}"
-                                    key="ets"
+                                    key="employeeTs"
                                     icon="sap-icon://employee"
                                 />
                                 <tnt:NavigationListItem
                                     text="{i18n>es4}"
-                                    key="es4"
+                                    key="employeeS4"
                                     icon="sap-icon://user-settings"
                                 />
                                 <tnt:NavigationListItem
