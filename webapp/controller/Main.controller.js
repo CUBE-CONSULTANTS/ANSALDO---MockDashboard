@@ -20,18 +20,17 @@ sap.ui.define(
 			onInit: async function () {
 				this.setModel(models.createMainModel(), "main");			
 			},
-			onNavigateToPage1: function () {
-        this.getRouter().navTo("");
+			onNavigateToManufacturing: function () {
+        this.getRouter().navTo("Manufacturing");
       },
-
-			onNavigateToHrTS: function(oEvent) {
+			onNavigateToHrTS: function() {
 				this.getRouter().navTo("HrTimesheet");
 			},
-      onNavigateToPage2: function () {
-        this.getRouter().navTo("");
+      onNavigateToFinance: function () {
+        this.getRouter().navTo("Finance");
       },
-      onNavigateToPage3: function () {
-        this.getRouter().navTo("");
+      onNavigateToProjSys: function () {
+        this.getRouter().navTo("ProjectSystem");
       },
       
 		});

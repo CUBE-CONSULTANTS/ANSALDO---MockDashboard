@@ -49,7 +49,7 @@
                 <GenericTile
                     header="{i18n>manufacturing}"
                     tileIcon="sap-icon://factory"
-                    press=".onManufacturingPress"
+                    press=".onNavigateToManufacturing"
                     mode="IconMode"
                     minWidth="200px"
                     class="sapUiResponsiveMargin"
@@ -60,7 +60,7 @@
                 <GenericTile
                     header="{i18n>finance}"
                     tileIcon="sap-icon://business-objects-experience"
-                    press=".onFinancePress"
+                    press=".onNavigateToFinance"
                     mode="IconMode"
                     minWidth="200px"
                     class="sapUiResponsiveMargin"
@@ -71,7 +71,7 @@
                 <GenericTile
                     header="{i18n>projSyst}"
                     tileIcon="sap-icon://journey-change"
-                    press=".onProjSystPress"
+                    press=".onNavigateToProjSys"
                     mode="IconMode"
                     minWidth="200px"
                     class="sapUiResponsiveMargin"
