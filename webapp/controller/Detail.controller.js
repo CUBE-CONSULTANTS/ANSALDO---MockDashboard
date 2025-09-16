@@ -202,6 +202,7 @@ sap.ui.define(
 							template: new sap.m.Text({ text: `{detailModel>${sKey}}` }),
 							sortProperty: sKey,
 							filterProperty: sKey,
+							width: "12rem"
 						})
 					);
 				});
