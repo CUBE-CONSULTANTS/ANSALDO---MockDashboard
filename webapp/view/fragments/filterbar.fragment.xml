@@ -1,0 +1,80 @@
+<c:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:c="sap.ui.core"
+    xmlns:fb="sap.ui.comp.filterbar"
+>
+    <fb:FilterBar
+        id="filterbar"
+        persistencyKey="myPersKey"
+        useToolbar="false"
+        search=".onSearch"
+        filterChange=".onFilterChange"
+        showClearOnFB="true"
+        showRestoreOnFB="true"
+        showFilterConfiguration="false"
+    >
+        <fb:filterGroupItems>
+            <!-- DateTime From -->
+            <fb:FilterGroupItem
+                name="DateTimeFrom"
+                label="{i18n>filterDate1}" 
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                    <DateTimePicker
+                        value="{path: 'fromDate', type: 'sap.ui.model.type.DateTime', formatter: '.formatter.formatDate'}"
+                        displayFormat="dd/MM/yyyy hh:mm"
+                        
+                    />
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <!-- DateTime To -->
+            <fb:FilterGroupItem
+                name="DateTimeTo"
+                label="{i18n>filterDate2}"
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                    <DateTimePicker
+                        value="{path: 'toDate', type: 'sap.ui.model.type.DateTime', formatter: '.formatter.formatDate'}"
+                        displayFormat="dd/MM/yyyy hh:mm"
+                       
+                    />
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <!-- Integration ID -->
+            <fb:FilterGroupItem
+                name="IntegrationID"
+                label="{i18n>intId}"
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                    <Input
+                        value="{path: 'integrationId'}"
+                        
+                    />
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <!-- Created By -->
+            <fb:FilterGroupItem
+                name="CreatedBy"
+                label="{i18n>createdBy}"
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                    <Input
+                        value="{path: 'createdBy'}"
+                        
+                    />
+                </fb:control>
+            </fb:FilterGroupItem>
+        </fb:filterGroupItems>
+    </fb:FilterBar>
+</c:FragmentDefinition>

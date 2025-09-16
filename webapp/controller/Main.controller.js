@@ -18,7 +18,8 @@ sap.ui.define(
 		return BaseController.extend("ansaldonuclear.dashboard.controller.Main", {
 			formatter: formatter,
 			onInit: async function () {
-				this.setModel(models.createMainModel(), "main");			
+				this.setModel(models.createMainModel(), "main");	
+				this.setModel(models.createIntegrationMock(), "mockIntegration");			
 			},
 			onNavigateToManufacturing: function () {
         this.getRouter().navTo("Manufacturing");

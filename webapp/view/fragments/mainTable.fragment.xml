@@ -1,0 +1,95 @@
+<c:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:c="sap.ui.core"
+    xmlns:table="sap.ui.table"
+>
+    <IconTabBar
+        id="idIconTabBar"
+        select=".onFilterSelect"
+        applyContentPadding="false"
+        stretchContentHeight="true"
+        headerBackgroundDesign="Transparent"
+    >
+        <items>
+            <IconTabFilter
+                showAll="true"
+                count="{mockIntegration>/integrationsColl/Counts/Total}"
+                text="{i18n>integ}"
+                key="All"
+            />
+            <IconTabSeparator />
+            <IconTabFilter
+                icon="sap-icon://documents"
+                count="{mockIntegration>/integrationsColl/Counts/Total}"
+                text="{i18n>all}"
+                key="All"
+            />
+            <IconTabFilter
+                icon="sap-icon://message-success"
+                iconColor="Positive"
+                count="{mockIntegration>/integrationsColl/Counts/Success}"
+                text="{i18n>success}"
+                key="Ok"
+            />
+            <IconTabFilter
+                icon="sap-icon://message-error"
+                iconColor="Negative"
+                count="{mockIntegration>/integrationsColl/Counts/Failed}"
+                text="{i18n>failed}"
+                key="Ko"
+            />
+        </items>
+        <content>
+            <table:Table
+                id="integrationTable"
+                rows="{mockIntegration>/integrationsColl/results}"
+                selectionMode="Single"
+                enableCellFilter="true"
+                showNoData="true"
+                width="100%"
+            >
+                <table:columns>
+                    <table:Column width="10rem">
+                        <Label text="{i18n>integrationId}" />
+                        <table:template>
+                            <Text text="{mockIntegration>IntegrationId}" />
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="20rem">
+                        <Label text="{i18n>description}" />
+                        <table:template>
+                            <Text text="{= ${mockIntegration>Code} + ' - ' + ${mockIntegration>Description} }" />
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="15rem">
+                        <Label text="{i18n>creationDateTime}" />
+                        <table:template>
+                            <DateTimePicker value="{path: 'mockIntegration>CreationDateTime', formatter: '.formatter.formatDateTime'}" />
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="15rem">
+                        <Label text="{i18n>integrationDateTime}" />
+                        <table:template>
+                            <DateTimePicker value="{path: 'mockIntegration>IntegrationDateTime', formatter: '.formatter.formatDateTime'}" />
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="10rem">
+                        <Label text="{i18n>status}" />
+                        <table:template>
+                            <ObjectStatus
+                                text="{mockIntegration>Status}"
+                                state="{= ${mockIntegration>Status} === 'Success' ? 'Success' : (${mockIntegration>Status} === 'Error' ? 'Error' : 'None') }"
+                            />
+                        </table:template>
+                    </table:Column>
+                    <table:Column width="25rem">
+                        <Label text="{i18n>message}" />
+                        <table:template>
+                            <Text text="{mockIntegration>Message}" />
+                        </table:template>
+                    </table:Column>
+                </table:columns>
+            </table:Table>
+        </content>
+    </IconTabBar>
+</c:FragmentDefinition>

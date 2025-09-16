@@ -9,12 +9,12 @@
 >
     <f:DynamicPage
         fitContent="true"
-        toggleHeaderOnTitleClick="false"
         showFooter="true"
+        preserveHeaderStateOnScroll="true"
     >
         <!-- Header -->
         <f:title>
-            <f:DynamicPageTitle backgroundDesign="Solid">
+            <f:DynamicPageTitle backgroundDesign="Translucent">
                 <f:heading>
                     <Title text="{i18n>appTitle}" />
                 </f:heading>
@@ -32,20 +32,27 @@
             </f:DynamicPageTitle>
         </f:title>
 
-        <!-- Empty header section -->
         <f:header>
-            <f:DynamicPageHeader pinnable="false" backgroundDesign="Solid" />
+            <f:DynamicPageHeader backgroundDesign="Transparent" >
+                <core:Fragment
+                fragmentName="ansaldonuclear.dashboard.view.fragments.filterbar"
+                type="XML"
+            />
+            </f:DynamicPageHeader>    
         </f:header>
 
-        <!-- Responsive content -->
         <f:content>
-            <FlexBox
+            <core:Fragment
+                fragmentName="ansaldonuclear.dashboard.view.fragments.mainTable"
+                type="XML"
+            />
+            <!-- <FlexBox
            wrap="Wrap"
             justifyContent="Center"
             alignItems="Center"
             class="sapUiResponsiveMargin"
             >
-                <!-- Tile: Manufacturing -->
+            
                 <GenericTile
                     header="{i18n>manufacturing}"
                     tileIcon="sap-icon://factory"
@@ -55,8 +62,7 @@
                     class="sapUiResponsiveMargin"
                     backgroundColor="#0097A2"
                 />
-                
-                <!-- Tile: Finance -->
+
                 <GenericTile
                     header="{i18n>finance}"
                     tileIcon="sap-icon://business-objects-experience"
@@ -66,8 +72,7 @@
                     class="sapUiResponsiveMargin"
                     backgroundColor="#0097A2"
                 />
-                
-                <!-- Tile: Project Systems -->
+      
                 <GenericTile
                     header="{i18n>projSyst}"
                     tileIcon="sap-icon://journey-change"
@@ -77,8 +82,7 @@
                     class="sapUiResponsiveMargin"
                     backgroundColor="#0097A2"
                 />
-                
-                <!-- Tile: HR Timesheet -->
+
                 <GenericTile
                     header="{i18n>HRTimesheet}"
                     tileIcon="sap-icon://hr-approval"
@@ -88,7 +92,7 @@
                     class="sapUiResponsiveMargin"
                     backgroundColor="#0097A2"
                 />
-            </FlexBox>
+            </FlexBox> -->
         </f:content>
 
         <!-- Footer -->
