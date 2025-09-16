@@ -144,6 +144,28 @@ sap.ui.define(
 							OPERA: "INS",
 							STATUS: "INS",
 							DATEOP: "20231102",
+							positions: [
+								{
+									VORNR: "0001",
+									LTXA1: "Operation 1 Description",
+									NTANF: "20230110",
+									NTEND: "20230120",
+									VSTTXT: "REL",
+									OPERA: "INS",
+									STATUS: "INS",
+									DATEOP: "20231102",
+								},
+								{
+									VORNR: "0002",
+									LTXA1: "Operation 2 Description",
+									NTANF: "20230115",
+									NTEND: "20230125",
+									VSTTXT: "CLSD",
+									OPERA: "MOD",
+									STATUS: "MOD",
+									DATEOP: "20231102",
+								},
+							],
 						},
 					},
 					"INT-011": {

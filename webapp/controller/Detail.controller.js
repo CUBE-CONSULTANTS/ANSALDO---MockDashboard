@@ -65,7 +65,7 @@ sap.ui.define(
 					aKeys.length === 1
 						? aKeys[0]
 						: (aKnown && aKnown.find((k) => oJsonContent[k])) || null;
-						debugger
+				debugger;
 				const sTitle = sRootKey
 					? this.getResourceBundle().getText(sRootKey) +
 					  "  " +
@@ -89,6 +89,7 @@ sap.ui.define(
 
 				this.setModel(oDetailModel, "detailModel");
 				this._renderHeaderContent(sRootKey);
+				this._prepareDynamicTableData();
 			},
 
 			_renderHeaderContent: function (sRootKey) {
@@ -106,7 +107,9 @@ sap.ui.define(
 				if (!oHBox) return;
 				oHBox.destroyItems();
 				const oBundle = this.getResourceBundle();
-				const aKeys = Object.keys(oHeader);
+				const aKeys = Object.keys(oHeader).filter(
+					(k) => k !== "operations" && k !== "positions"
+				);
 				const nGroupSize = 3;
 				for (let i = 0; i < aKeys.length; i += nGroupSize) {
 					const oVBox = new sap.m.VBox({ items: [] });
@@ -122,6 +125,10 @@ sap.ui.define(
 						} else if (typeof v === "object" && v !== null) {
 							v = JSON.stringify(v);
 						}
+						if (typeof v === "string" && /^\d{8}$/.test(v)) {
+							v = v.slice(6, 8) + "/" + v.slice(4, 6) + "/" + v.slice(0, 4);
+						}
+
 						const sTitle = oBundle.hasText(sKey) ? oBundle.getText(sKey) : sKey;
 						oVBox.addItem(
 							new sap.m.ObjectAttribute({
@@ -133,7 +140,79 @@ sap.ui.define(
 					oHBox.addItem(oVBox);
 				}
 			},
+			_prepareDynamicTableData: function () {
+				const oDetailModel = this.getModel("detailModel");
+				if (!oDetailModel) return;
 
+				const oHeader = oDetailModel.getProperty("/header") || {};
+				const oTable = this.byId("dynamicTable");
+				if (!oTable) return;
+
+				oTable.destroyColumns();
+
+				const aHeaderKeys = Object.keys(oHeader).filter(
+					(k) => k !== "positions" 
+				);
+				const aPositions = Array.isArray(oHeader.positions)
+					? oHeader.positions
+					: [];
+
+				let aRows = [];
+				if (aPositions.length) {
+					aRows = aPositions.map((pos) => {
+						const row = { ...oHeader };
+						delete row.positions;
+						return { ...row, ...pos };
+					});
+				} else {
+					const row = { ...oHeader };
+					delete row.positions;
+					aRows = [row];
+				}
+
+				aRows = aRows.map((row) => {
+					const newRow = {};
+					Object.keys(row).forEach((k) => {
+						let v = row[k];
+						if (typeof v === "string" && /^\d{8}$/.test(v)) {
+							v = v.slice(6, 8) + "/" + v.slice(4, 6) + "/" + v.slice(0, 4);
+						} else if (Array.isArray(v)) {
+							v = v.length
+								? typeof v[0] === "object"
+									? JSON.stringify(v[0])
+									: v.join(", ")
+								: "";
+						} else if (typeof v === "object" && v !== null) {
+							v = JSON.stringify(v);
+						}
+						newRow[k] = v || "-";
+					});
+					return newRow;
+				});
+
+				const aAllKeys = Object.keys(aRows[0] || {});
+
+				aAllKeys.forEach((sKey) => {
+					const sTitle = this.getResourceBundle().hasText(sKey)
+						? this.getResourceBundle().getText(sKey)
+						: sKey;
+					oTable.addColumn(
+						new sap.ui.table.Column({
+							label: new sap.m.Label({ text: sTitle }),
+							template: new sap.m.Text({ text: `{detailModel>${sKey}}` }),
+							sortProperty: sKey,
+							filterProperty: sKey,
+						})
+					);
+				});
+
+				oDetailModel.setProperty("/dynamicOperationsRows", aRows);
+				oTable.setModel(oDetailModel);
+				oTable.bindRows({
+					path: "detailModel>/dynamicOperationsRows",
+					templateShareable: true,
+				});
+			},
 			onViewSettOpen: function () {
 				const oVSD = this.onOpenDialog(
 					"settDialog",
