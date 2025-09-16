@@ -8,9 +8,7 @@
         persistencyKey="myPersKey"
         useToolbar="false"
         search=".onSearch"
-        filterChange=".onFilterChange"
         showClearOnFB="true"
-        showRestoreOnFB="true"
         showFilterConfiguration="false"
     >
         <fb:filterGroupItems>

@@ -5,10 +5,11 @@
 >
     <IconTabBar
         id="idIconTabBar"
-        select=".onFilterSelect"
+        select=".onTabSelect"
         applyContentPadding="false"
         stretchContentHeight="true"
         headerBackgroundDesign="Transparent"
+        visible="{main>/visibility}"
     >
         <items>
             <IconTabFilter
@@ -42,8 +43,9 @@
         <content>
             <table:Table
                 id="integrationTable"
-                rows="{mockIntegration>/integrationsColl/results}"
-                selectionMode="Single"
+                rows="{mockIntegration>/integrationsColl/results}"            
+                selectionBehavior="RowOnly"
+                rowSelectionChange="onTableRowSelectionChange"
                 enableCellFilter="true"
                 showNoData="true"
                 width="100%"
@@ -64,13 +66,13 @@
                     <table:Column width="15rem">
                         <Label text="{i18n>creationDateTime}" />
                         <table:template>
-                            <DateTimePicker value="{path: 'mockIntegration>CreationDateTime', formatter: '.formatter.formatDateTime'}" />
+                            <DateTimePicker editable="false" value="{path: 'mockIntegration>CreationDateTime', formatter: '.formatter.formatDateTime'}" />
                         </table:template>
                     </table:Column>
                     <table:Column width="15rem">
                         <Label text="{i18n>integrationDateTime}" />
                         <table:template>
-                            <DateTimePicker value="{path: 'mockIntegration>IntegrationDateTime', formatter: '.formatter.formatDateTime'}" />
+                            <DateTimePicker editable="false" value="{path: 'mockIntegration>IntegrationDateTime', formatter: '.formatter.formatDateTime'}" />
                         </table:template>
                     </table:Column>
                     <table:Column width="10rem">

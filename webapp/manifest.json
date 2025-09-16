@@ -82,20 +82,11 @@
 					"target": "HrTimesheet"
 				},
 				{
-					"pattern": "Manufacturing",
-					"name": "Manufacturing",
-					"target": "Manufacturing"
-				},
-				{
-					"pattern": "Finance",
-					"name": "Finance",
-					"target": "Finance"
-				},
-				{
-					"pattern": "ProjectSystem",
-					"name": "ProjectSystem",
-					"target": "ProjectSystem"
+					"pattern": "Detail/{integrationId}",
+					"name": "Detail",
+					"target": "Detail"
 				}
+				
 			],
 			"targets": {
 				"main": {
@@ -106,17 +97,9 @@
 					"viewId": "HrTimesheet",
 					"viewName": "HrTimesheet"
 				},
-				"Manufacturing": {
-					"viewId": "Manufacturing",
-					"viewName": "Manufacturing"
-				},
-				"Finance": {
-					"viewId": "Finance",
-					"viewName": "Finance"
-				},
-				"ProjectSystem": {
-					"viewId": "ProjectSystem",
-					"viewName": "ProjectSystem"
+				"Detail": {
+					"viewId": "Detail",
+					"viewName": "Detail"
 				}
 				
 			}

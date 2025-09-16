@@ -12,7 +12,6 @@
         showFooter="true"
         preserveHeaderStateOnScroll="true"
     >
-        <!-- Header -->
         <f:title>
             <f:DynamicPageTitle backgroundDesign="Translucent">
                 <f:heading>

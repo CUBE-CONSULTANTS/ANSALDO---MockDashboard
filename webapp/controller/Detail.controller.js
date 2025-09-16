@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable no-debugger */
 /* eslint-disable no- */
 /* eslint-disable no- */
 sap.ui.define(
@@ -17,23 +19,122 @@ sap.ui.define(
 				this.getRouter()
 					.getRoute("Detail")
 					.attachPatternMatched(this._onObjectMatched, this);
-				this.setModel(models.createMockData(), "mockNetworkData");
+				this.setModel(models.createIntegrationMock(), "mockIntegration");
 			},
 			_onObjectMatched: function (oEvent) {
-				const sNetworkId = oEvent.getParameter("arguments").id;
-				this._loadNetworkData(sNetworkId);
-			},
+				const sIntegrationId = oEvent.getParameter("arguments").integrationId;
+				const oModel = this.getModel("mockIntegration");
+				const aResults = oModel?.getProperty("/integrationsColl/results") || [];
 
-			_loadNetworkData: function (sNetworkId) {
-				const oNetwork = this.getModel("mockNetworkData")
-					?.getProperty("/network")
-					?.find((network) => network.AUFNR === sNetworkId);
+				const oIntegration = aResults.find(
+					(item) => item.IntegrationId === sIntegrationId
+				);
 
-				const oDetailModel = new JSONModel(oNetwork);
+				const oJsonContent =
+					oIntegration.jsonContent || oIntegration.json_content || {};
+
+				let oHeaderObj = {};
+				const aKeys = Object.keys(oJsonContent);
+				if (aKeys.length === 1) {
+					const sKey = aKeys[0];
+					oHeaderObj = oJsonContent[sKey];
+					if (Array.isArray(oHeaderObj)) oHeaderObj = oHeaderObj[0] || {};
+				} else {
+					const aKnown = [
+						"employeesS4",
+						"employeesTS",
+						"activityTypes",
+						"costCentersADP",
+						"orderHeaders",
+						"network",
+						"wbeElements",
+						"costCenters",
+						"workCenters",
+						"plants",
+					];
+					const sFound = aKnown.find((k) => oJsonContent[k]);
+					if (sFound) {
+						oHeaderObj = Array.isArray(oJsonContent[sFound])
+							? oJsonContent[sFound][0] || {}
+							: oJsonContent[sFound];
+					} else {
+						oHeaderObj = oJsonContent;
+					}
+				}
+				const sRootKey =
+					aKeys.length === 1
+						? aKeys[0]
+						: (aKnown && aKnown.find((k) => oJsonContent[k])) || null;
+						debugger
+				const sTitle = sRootKey
+					? this.getResourceBundle().getText(sRootKey) +
+					  "  " +
+					  oIntegration.IntegrationId
+					: oIntegration.IntegrationId;
+
+				const oDetailModel = new JSONModel({
+					title: sTitle,
+					header: oHeaderObj,
+					integration: {
+						IntegrationId: oIntegration.IntegrationId,
+						Code: oIntegration.Code,
+						Description: oIntegration.Description,
+						Status: oIntegration.Status,
+						Message: oIntegration.Message,
+						CreationDateTime: oIntegration.CreationDateTime,
+						IntegrationDateTime: oIntegration.IntegrationDateTime,
+					},
+					rawJsonContent: oJsonContent,
+				});
+
 				this.setModel(oDetailModel, "detailModel");
+				this._renderHeaderContent(sRootKey);
 			},
+
+			_renderHeaderContent: function (sRootKey) {
+				const oDetailModel = this.getModel("detailModel");
+				if (!oDetailModel) return;
+
+				let oHeader = {};
+				if (sRootKey) {
+					oHeader =
+						oDetailModel.getProperty("/rawJsonContent/" + sRootKey) || {};
+					if (Array.isArray(oHeader)) oHeader = oHeader[0] || {};
+				}
+
+				const oHBox = this.byId("headerContentBox");
+				if (!oHBox) return;
+				oHBox.destroyItems();
+				const oBundle = this.getResourceBundle();
+				const aKeys = Object.keys(oHeader);
+				const nGroupSize = 3;
+				for (let i = 0; i < aKeys.length; i += nGroupSize) {
+					const oVBox = new sap.m.VBox({ items: [] });
+
+					aKeys.slice(i, i + nGroupSize).forEach((sKey) => {
+						let v = oHeader[sKey];
+						if (Array.isArray(v)) {
+							v = v.length
+								? typeof v[0] === "object"
+									? JSON.stringify(v[0])
+									: v.join(", ")
+								: "";
+						} else if (typeof v === "object" && v !== null) {
+							v = JSON.stringify(v);
+						}
+						const sTitle = oBundle.hasText(sKey) ? oBundle.getText(sKey) : sKey;
+						oVBox.addItem(
+							new sap.m.ObjectAttribute({
+								title: sTitle,
+								text: v || "-",
+							})
+						);
+					});
+					oHBox.addItem(oVBox);
+				}
+			},
+
 			onViewSettOpen: function () {
-				
 				const oVSD = this.onOpenDialog(
 					"settDialog",
 					"ansaldonuclear.dashboard.view.fragments.viewSettingDialogLog",
@@ -126,7 +227,7 @@ sap.ui.define(
 					oGroupSorter = new sap.ui.model.Sorter(
 						mParams.groupItem.getKey(),
 						mParams.groupDescending,
-						true 
+						true
 					);
 				}
 
@@ -152,7 +253,6 @@ sap.ui.define(
 				oTable.getBinding("rows").filter(aFilters);
 				oTable.getBinding("rows").sort(aSorters);
 			},
-			
 		});
 	}
 );
