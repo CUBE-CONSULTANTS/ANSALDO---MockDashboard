@@ -13,8 +13,18 @@
 		"sourceTemplate": {
 			"id": "generator-ui5-app",
 			"version": "1.1.0"
-		}
-	},
+		},
+		"dataSources": {
+      "mainService": {
+        "uri": "/odata/v2/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
+        }
+      }
+    }
+  },
 
 	"sap.ui": {
 		"technology": "UI5",
@@ -25,7 +35,6 @@
 			"phone": true
 		}
 	},
-
 	"sap.ui5": { 
 		"flexEnabled": false,
     "contentDensities": {"compact": true, "cozy": true},
@@ -53,8 +62,17 @@
 					"supportedLocales": ["en", "de"],
 					"fallbackLocale": "en"
 				}
-			}
-		},
+			},
+			"": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "defaultOperationMode": "Server",
+          "useBatch": true,
+          "refreshAfterChange": true
+        }
+      }
+    },
 		"resources": {
 			"css": [
 			  {
@@ -77,11 +95,6 @@
 					"target": "main"
 				},
 				{
-					"pattern": "HrTimesheet",
-					"name": "HrTimesheet",
-					"target": "HrTimesheet"
-				},
-				{
 					"pattern": "Detail/{integrationId}",
 					"name": "Detail",
 					"target": "Detail"
@@ -92,10 +105,6 @@
 				"main": {
 					"viewId": "main",
 					"viewName": "Main"
-				},
-				"HrTimesheet": {
-					"viewId": "HrTimesheet",
-					"viewName": "HrTimesheet"
 				},
 				"Detail": {
 					"viewId": "Detail",
