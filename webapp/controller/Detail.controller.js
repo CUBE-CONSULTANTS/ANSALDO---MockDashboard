@@ -1,7 +1,6 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-debugger */
 /* eslint-disable no- */
-/* eslint-disable no- */
 sap.ui.define(
 	[
 		"./BaseController",
@@ -32,40 +31,38 @@ sap.ui.define(
 
 				const oJsonContent =
 					oIntegration.jsonContent || oIntegration.json_content || {};
+				// const typeByCode = {
+				// 	C001: "activityTypes",
+				// 	C002: "employeesS4",
+				// 	C003: "employeesTS",
+				// 	C004: "costCentersADP",
+				// 	C005: "orderHeaders",
+				// 	C006: "network",
+				// 	C007: "wbeElements",
+				// 	C008: "costCenters",
+				// 	C009: "businessPartners",
+				// 	C010: "dms",
+				// 	C011: "expenseIn",
+				// 	C012: "primaveraEppm",
+				// 	C013: "bpcInterface",
+				// 	C014: "contractData",
+				// 	C015: "vaultBoms",
+				// 	C016: "vaultMaterials",
+				// 	C017: "costCenterMaster",
+				// 	C018: "wbeMaster",
+				// 	C019: "networkMaster",
+				// 	C020: "productionOrders",
+				// 	C021: "salaryAccounting",
+				// };
 
+				const sRootKey = mapper.getRootKeyByCode(oIntegration.Code);
 				let oHeaderObj = {};
-				const aKeys = Object.keys(oJsonContent);
-				if (aKeys.length === 1) {
-					const sKey = aKeys[0];
-					oHeaderObj = oJsonContent[sKey];
-					if (Array.isArray(oHeaderObj)) oHeaderObj = oHeaderObj[0] || {};
+
+				if (Array.isArray(oJsonContent)) {
+					oHeaderObj = oJsonContent[0] || {};
 				} else {
-					const aKnown = [
-						"employeesS4",
-						"employeesTS",
-						"activityTypes",
-						"costCentersADP",
-						"orderHeaders",
-						"network",
-						"wbeElements",
-						"costCenters",
-						"workCenters",
-						"plants",
-					];
-					const sFound = aKnown.find((k) => oJsonContent[k]);
-					if (sFound) {
-						oHeaderObj = Array.isArray(oJsonContent[sFound])
-							? oJsonContent[sFound][0] || {}
-							: oJsonContent[sFound];
-					} else {
-						oHeaderObj = oJsonContent;
-					}
+					oHeaderObj = oJsonContent;
 				}
-				const sRootKey =
-					aKeys.length === 1
-						? aKeys[0]
-						: (aKnown && aKnown.find((k) => oJsonContent[k])) || null;
-				debugger;
 				const sTitle = sRootKey
 					? this.getResourceBundle().getText(sRootKey) +
 					  "  " +
@@ -88,47 +85,35 @@ sap.ui.define(
 				});
 
 				this.setModel(oDetailModel, "detailModel");
-				this._renderHeaderContent(sRootKey);
+				this._renderHeaderContent();
 				this._prepareDynamicTableData();
 			},
 
-			_renderHeaderContent: function (sRootKey) {
+			_renderHeaderContent: function () {
 				const oDetailModel = this.getModel("detailModel");
 				if (!oDetailModel) return;
 
-				let oHeader = {};
-				if (sRootKey) {
-					oHeader =
-						oDetailModel.getProperty("/rawJsonContent/" + sRootKey) || {};
-					if (Array.isArray(oHeader)) oHeader = oHeader[0] || {};
+				let oHeader = oDetailModel.getProperty("/header") || {};
+				if (Array.isArray(oHeader)) {
+					oHeader = oHeader[0] || {};
 				}
 
 				const oHBox = this.byId("headerContentBox");
 				if (!oHBox) return;
 				oHBox.destroyItems();
+
 				const oBundle = this.getResourceBundle();
 				const aKeys = Object.keys(oHeader).filter(
 					(k) => k !== "operations" && k !== "positions"
 				);
+
 				const nGroupSize = 3;
 				for (let i = 0; i < aKeys.length; i += nGroupSize) {
 					const oVBox = new sap.m.VBox({ items: [] });
 
 					aKeys.slice(i, i + nGroupSize).forEach((sKey) => {
 						let v = oHeader[sKey];
-						if (Array.isArray(v)) {
-							v = v.length
-								? typeof v[0] === "object"
-									? JSON.stringify(v[0])
-									: v.join(", ")
-								: "";
-						} else if (typeof v === "object" && v !== null) {
-							v = JSON.stringify(v);
-						}
-						if (typeof v === "string" && /^\d{8}$/.test(v)) {
-							v = v.slice(6, 8) + "/" + v.slice(4, 6) + "/" + v.slice(0, 4);
-						}
-
+						v = formatter.formatJsonDate(formatter.formatJsonValue(v));
 						const sTitle = oBundle.hasText(sKey) ? oBundle.getText(sKey) : sKey;
 						oVBox.addItem(
 							new sap.m.ObjectAttribute({
@@ -137,27 +122,22 @@ sap.ui.define(
 							})
 						);
 					});
+
 					oHBox.addItem(oVBox);
 				}
 			},
 			_prepareDynamicTableData: function () {
+				const oBundle = this.getView().getModel("i18n").getResourceBundle()
 				const oDetailModel = this.getModel("detailModel");
 				if (!oDetailModel) return;
-
 				const oHeader = oDetailModel.getProperty("/header") || {};
 				const oTable = this.byId("dynamicTable");
 				if (!oTable) return;
-
-				oTable.destroyColumns();
-
-				const aHeaderKeys = Object.keys(oHeader).filter(
-					(k) => k !== "positions" 
-				);
 				const aPositions = Array.isArray(oHeader.positions)
 					? oHeader.positions
 					: [];
-
 				let aRows = [];
+
 				if (aPositions.length) {
 					aRows = aPositions.map((pos) => {
 						const row = { ...oHeader };
@@ -169,44 +149,21 @@ sap.ui.define(
 					delete row.positions;
 					aRows = [row];
 				}
-
 				aRows = aRows.map((row) => {
 					const newRow = {};
 					Object.keys(row).forEach((k) => {
-						let v = row[k];
-						if (typeof v === "string" && /^\d{8}$/.test(v)) {
-							v = v.slice(6, 8) + "/" + v.slice(4, 6) + "/" + v.slice(0, 4);
-						} else if (Array.isArray(v)) {
-							v = v.length
-								? typeof v[0] === "object"
-									? JSON.stringify(v[0])
-									: v.join(", ")
-								: "";
-						} else if (typeof v === "object" && v !== null) {
-							v = JSON.stringify(v);
-						}
-						newRow[k] = v || "-";
+						newRow[k] =
+							formatter.formatJsonDate(formatter.formatJsonValue(row[k])) || "-";
 					});
 					return newRow;
 				});
+				const aColumns = mapper.getColumnConfig(
+					aRows[0] || {},
+					oBundle
+				);
 
-				const aAllKeys = Object.keys(aRows[0] || {});
-
-				aAllKeys.forEach((sKey) => {
-					const sTitle = this.getResourceBundle().hasText(sKey)
-						? this.getResourceBundle().getText(sKey)
-						: sKey;
-					oTable.addColumn(
-						new sap.ui.table.Column({
-							label: new sap.m.Label({ text: sTitle }),
-							template: new sap.m.Text({ text: `{detailModel>${sKey}}` }),
-							sortProperty: sKey,
-							filterProperty: sKey,
-							width: "12rem"
-						})
-					);
-				});
-
+				oTable.destroyColumns();
+				aColumns.forEach((col) => oTable.addColumn(col));
 				oDetailModel.setProperty("/dynamicOperationsRows", aRows);
 				oTable.setModel(oDetailModel);
 				oTable.bindRows({

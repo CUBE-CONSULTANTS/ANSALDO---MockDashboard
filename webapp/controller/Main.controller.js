@@ -17,7 +17,6 @@ sap.ui.define(
 				this.setModel(models.createIntegrationMock(), "mockIntegration");
 			},
 			onTabSelect: function (oEvent) {
-				debugger;
 				const oTable = oEvent.getSource().getAggregation("content")[0];
 				const oBinding = oTable.getBinding("rows");
 				const sKey = oEvent.getParameter("key");
