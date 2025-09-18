@@ -29,33 +29,11 @@ sap.ui.define(
 					(item) => item.IntegrationId === sIntegrationId
 				);
 
-				const oJsonContent =
-					oIntegration.jsonContent || oIntegration.json_content || {};
-				// const typeByCode = {
-				// 	C001: "activityTypes",
-				// 	C002: "employeesS4",
-				// 	C003: "employeesTS",
-				// 	C004: "costCentersADP",
-				// 	C005: "orderHeaders",
-				// 	C006: "network",
-				// 	C007: "wbeElements",
-				// 	C008: "costCenters",
-				// 	C009: "businessPartners",
-				// 	C010: "dms",
-				// 	C011: "expenseIn",
-				// 	C012: "primaveraEppm",
-				// 	C013: "bpcInterface",
-				// 	C014: "contractData",
-				// 	C015: "vaultBoms",
-				// 	C016: "vaultMaterials",
-				// 	C017: "costCenterMaster",
-				// 	C018: "wbeMaster",
-				// 	C019: "networkMaster",
-				// 	C020: "productionOrders",
-				// 	C021: "salaryAccounting",
-				// };
-
+				const oJsonContent =oIntegration.jsonContent || oIntegration.json_content || {};
 				const sRootKey = mapper.getRootKeyByCode(oIntegration.Code);
+				//prova con mappatura dinamica senza chiavi di riconoscimento
+				const sRootKey1 = mapper.identifyIntegration(oJsonContent)
+				console.log(sRootKey1, sRootKey)
 				let oHeaderObj = {};
 
 				if (Array.isArray(oJsonContent)) {
