@@ -3,27 +3,27 @@ sap.ui.define(["../model/formatter"], function (formatter) {
 	return {
 		getRootKeyByCode: function (sCode) {
 			const typeByCode = {
-				C001: "activityTypes",
-				C002: "employeesS4",
-				C003: "employeesTS",
-				C004: "costCentersADP",
-				C005: "orderHeaders",
-				C006: "network",
-				C007: "wbeElements",
-				C008: "costCenters",
-				C009: "businessPartners",
-				C010: "dms",
-				C011: "expenseIn",
-				C012: "primaveraEppm",
-				C013: "bpcInterface",
-				C014: "contractData",
-				C015: "vaultBoms",
-				C016: "vaultMaterials",
-				C017: "costCenterMaster",
-				C018: "wbeMaster",
-				C019: "networkMaster",
-				C020: "productionOrders",
-				C021: "salaryAccounting",
+				C001: "activityTypes", //pid054
+				C002: "employeesS4", //pid056
+				C003: "employeesTS", //pid055
+				C004: "costCentersADP", //pid058
+				C005: "trackingActivites", //pid060
+				C006: "networkMaster", //pid052
+				C007: "wbeMasterData", //pid051
+				C008: "costCentersTs", 
+				C009: "businessPartners", //pid007
+				C010: "dms", //pid031
+				C011: "expenseIn", //pid034
+				C012: "primaveraEppm", //pid035
+				C013: "bpcInterface", //pid040
+				C014: "contractData", //pid041
+				C015: "vaultBoms", //pid046
+				C016: "vaultMaterials", //pid047
+				C017: "costCenterMaster", //pid050
+				C018: "productionOrders", //pid053
+				C019: "salaryAccounting", //pid059
+				C020: "massUpdateOfNetwork", //pid076
+				C021: "massUpdateOfProductionOrder" //pid077
 			};
 
 			return typeByCode[sCode] || null;
