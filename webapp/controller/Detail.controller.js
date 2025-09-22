@@ -117,15 +117,15 @@ sap.ui.define(
 				oSimpleForm.destroyContent();
 
 				const oBundle = this.getResourceBundle();
-				const nFieldsPerRow = 2; 
-
-				for (let i = 0; i < aKeyFields.length; i += nFieldsPerRow) {
+				const nCols = 3; 
+				for (let i = 0; i < aKeyFields.length; i += nCols) {
 					const oHBox = new sap.m.HBox({
-						justifyContent: "SpaceAround",
+						justifyContent: "Start",
 						width: "100%",
+						 wrap: sap.m.FlexWrap.Wrap
 					});
 
-					aKeyFields.slice(i, i + nFieldsPerRow).forEach((sKey) => {
+					aKeyFields.slice(i, i + nCols).forEach((sKey) => {
 						let v =
 							oIntegration[sKey] ||
 							oDetailModel.getProperty(`/rawJsonContent/${sKey}`) ||
@@ -142,6 +142,8 @@ sap.ui.define(
 								}),
 								new sap.m.Text({ text: v }),
 							],
+							width: "33%", 
+							renderType: "Bare",
 						});
 
 						oHBox.addItem(oVBox);
