@@ -9,7 +9,7 @@
 >
     <f:DynamicPage
         fitContent="true"
-        showFooter="true"
+        showFooter="false"
         preserveHeaderStateOnScroll="true"
     >
         <f:title>

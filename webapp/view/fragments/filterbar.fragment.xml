@@ -58,17 +58,42 @@
                     />
                 </fb:control>
             </fb:FilterGroupItem>
-
-            <!-- Created By -->
             <fb:FilterGroupItem
-                name="CreatedBy"
-                label="{i18n>createdBy}"
+                name="Description"
+                label="{i18n>Description}"
                 groupName="Group1"
                 visibleInFilterBar="true"
             >
                 <fb:control>
                     <Input
-                        value="{path: 'createdBy'}"
+                        value="{path: 'description'}"
+                        
+                    />
+                </fb:control>
+            </fb:FilterGroupItem>
+            <!-- System -->
+            <fb:FilterGroupItem
+                name="System"
+                label="{i18n>system}"
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                    <Input
+                        value="{path: 'system'}"
+                        
+                    />
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem
+                name="Status"
+                label="{i18n>status}"
+                groupName="Group1"
+                visibleInFilterBar="true"
+            >
+                <fb:control>
+                    <Input
+                        value="{path: 'status'}"
                         
                     />
                 </fb:control>

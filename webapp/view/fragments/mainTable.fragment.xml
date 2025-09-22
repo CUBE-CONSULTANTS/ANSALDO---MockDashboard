@@ -25,73 +25,66 @@
                 text="{i18n>all}"
                 key="All"
             />
-            <IconTabFilter
-                icon="sap-icon://message-success"
-                iconColor="Positive"
-                count="{mockIntegration>/integrationsColl/Counts/Success}"
-                text="{i18n>success}"
-                key="Ok"
-            />
-            <IconTabFilter
-                icon="sap-icon://message-error"
-                iconColor="Negative"
-                count="{mockIntegration>/integrationsColl/Counts/Failed}"
-                text="{i18n>failed}"
-                key="Ko"
-            />
+            
         </items>
         <content>
-            <table:Table
+            <Table
                 id="integrationTable"
-                rows="{mockIntegration>/integrationsColl/results}"            
-                selectionBehavior="RowOnly"
-                rowSelectionChange="onTableRowSelectionChange"
-                enableCellFilter="true"
-                showNoData="true"
-                width="100%"
+               items="{mockIntegration>/integrationsColl/results}"
+                
+                backgroundDesign="Translucent"
+                mode="SingleSelectMaster"              
+                selectionChange="onTableRowSelectionChange"
+                popinLayout="Block"
+                growing="true"
+                    growingScrollToLoad="true"
             >
-                <table:columns>
-                    <table:Column width="10rem">
-                        <Label text="{i18n>integrationId}" />
-                        <table:template>
-                            <Text text="{mockIntegration>IntegrationId}" />
-                        </table:template>
-                    </table:Column>
-                    <table:Column width="20rem">
-                        <Label text="{i18n>description}" />
-                        <table:template>
-                            <Text text="{= ${mockIntegration>Code} + ' - ' + ${mockIntegration>Description} }" />
-                        </table:template>
-                    </table:Column>
-                    <table:Column width="15rem">
-                        <Label text="{i18n>creationDateTime}" />
-                        <table:template>
-                            <DateTimePicker editable="false" value="{path: 'mockIntegration>CreationDateTime', formatter: '.formatter.formatDateTime'}" />
-                        </table:template>
-                    </table:Column>
-                    <table:Column width="15rem">
-                        <Label text="{i18n>integrationDateTime}" />
-                        <table:template>
-                            <DateTimePicker editable="false" value="{path: 'mockIntegration>IntegrationDateTime', formatter: '.formatter.formatDateTime'}" />
-                        </table:template>
-                    </table:Column>
-                    <table:Column width="10rem">
-                        <Label text="{i18n>status}" />
-                        <table:template>
-                            <ObjectStatus
-                                text="{mockIntegration>Status}"
-                                state="{= ${mockIntegration>Status} === 'Success' ? 'Success' : (${mockIntegration>Status} === 'Error' ? 'Error' : 'None') }"
-                            />
-                        </table:template>
-                    </table:Column>
-                    <table:Column width="25rem">
-                        <Label text="{i18n>message}" />
-                        <table:template>
-                            <Text text="{mockIntegration>Message}" />
-                        </table:template>
-                    </table:Column>
-                </table:columns>
-            </table:Table>
+                <columns>
+                        <Column minScreenWidth="Small"
+                            demandPopin="false"
+                            width="8rem">
+                            <Text text="{i18n>IntegrationId}" />
+                        </Column>
+                        <Column minScreenWidth="Tablet"
+                            demandPopin="false"
+                            width="15rem">
+                            <Text text="{i18n>Description}" />
+                        </Column>
+                        <Column minScreenWidth="Desktop"
+                            demandPopin="true"
+                            popinDisplay="Inline"
+                            width="12rem">
+                            <Text text="{i18n>IntegrationDateTime}" />
+                        </Column>
+                        <Column minScreenWidth="Tablet"
+                            demandPopin="true"
+                            popinDisplay="Inline"
+                            width="10rem">
+                            <Text text="{i18n>status}" />
+                        </Column>
+                        <Column minScreenWidth="Desktop"
+                            demandPopin="true"
+                            popinDisplay="Block"
+                            width="20rem">
+                            <Text text="{i18n>Message}" />
+                        </Column>
+                    </columns>
+
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{mockIntegration>IntegrationId}" />
+                                <Text text="{= ${mockIntegration>Description} + ' - ' + ${mockIntegration>Code} }" />
+                                <Text text="{path: 'mockIntegration>IntegrationDateTime', formatter: '.formatter.formatDateTime'}" />
+                                <ObjectStatus
+                                    text="{mockIntegration>Status}"
+                                    state="{= ${mockIntegration>Status} === 'Success' ? 'Success' : (${mockIntegration>Status} === 'Error' ? 'Error' : 'None') }"
+                                />
+                                <Text text="{mockIntegration>Message}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
         </content>
     </IconTabBar>
 </c:FragmentDefinition>

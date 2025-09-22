@@ -4,6 +4,7 @@
     xmlns="sap.uxap"
     xmlns:ui="sap.ui.table"
     xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
     controllerName="ansaldonuclear.dashboard.controller.Detail"
 >
     <ObjectPageLayout
@@ -11,7 +12,7 @@
         toggleHeaderOnTitleClick="true"
         backgroundDesignAnchorBar="Transparent"
         preserveHeaderStateOnScroll="true"
-        showFooter="true"
+        showFooter="false"
         showTitleInHeaderContent="true"
     >
         <headerTitle>
@@ -59,6 +60,26 @@
         </headerContent>
 
         <sections>
+            <ObjectPageSection title="{i18n>overview}">
+                <subSections>
+                    <ObjectPageSubSection>
+                    <form:SimpleForm
+                    id="overviewForm"
+                    editable="false"
+                    layout="ResponsiveGridLayout"
+                    columnsXL="2"
+                    columnsL="2"
+                    columnsM="2"
+                    singleContainerFullSize="true"
+                >
+                </form:SimpleForm>
+              
+                    
+                    </ObjectPageSubSection>
+                </subSections>
+            </ObjectPageSection>
+
+
                        <ObjectPageSection title="{i18n>detail}">
                 <subSections>
                     <ObjectPageSubSection>

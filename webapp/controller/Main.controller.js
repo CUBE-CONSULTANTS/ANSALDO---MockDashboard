@@ -46,8 +46,7 @@ sap.ui.define(
 				this.getModel("main").setProperty("/visibility", true);
 			},
 			onTableRowSelectionChange: function (oEvent) {
-				const oSelectedItem = oEvent.getParameter("rowContext");
-				const sIntegrationId = oSelectedItem.getProperty("IntegrationId");
+				const sIntegrationId = oEvent.getParameters().listItem.getBindingContext('mockIntegration').getObject().IntegrationId
 				this.getRouter().navTo("Detail", {
 					integrationId: sIntegrationId,
 				});

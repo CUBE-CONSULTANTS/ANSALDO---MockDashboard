@@ -24,23 +24,28 @@ sap.ui.define(
 				const sIntegrationId = oEvent.getParameter("arguments").integrationId;
 				const oModel = this.getModel("mockIntegration");
 				const aResults = oModel?.getProperty("/integrationsColl/results") || [];
-
 				const oIntegration = aResults.find(
 					(item) => item.IntegrationId === sIntegrationId
 				);
 
-				const oJsonContent =oIntegration.jsonContent || oIntegration.json_content || {};
-				const sRootKey = mapper.getRootKeyByCode(oIntegration.Code);
-				//prova con mappatura dinamica senza chiavi di riconoscimento
-				const sRootKey1 = mapper.identifyIntegration(oJsonContent)
-				console.log(sRootKey1, sRootKey)
-				let oHeaderObj = {};
-
-				if (Array.isArray(oJsonContent)) {
-					oHeaderObj = oJsonContent[0] || {};
-				} else {
-					oHeaderObj = oJsonContent;
+				if (!oIntegration) {
+					return;
 				}
+
+				const oJsonContent =
+					oIntegration.jsonContent || oIntegration.json_content || {};
+				const sRootKey = mapper.getRootKeyByCode(oIntegration.Code);
+				const sRootKey1 = mapper.identifyIntegration(oJsonContent);
+				console.log(sRootKey1, sRootKey);
+
+				const oHeaderObj = {
+					IntegrationId: oIntegration.IntegrationId,
+					Code: oIntegration.Code,
+					Description: oIntegration.Description,
+					Status: oIntegration.Status,
+					Message: oIntegration.Message,
+					IntegrationDateTime: oIntegration.IntegrationDateTime,
+				};
 				const sTitle = sRootKey
 					? this.getResourceBundle().getText(sRootKey) +
 					  "  " +
@@ -50,20 +55,13 @@ sap.ui.define(
 				const oDetailModel = new JSONModel({
 					title: sTitle,
 					header: oHeaderObj,
-					integration: {
-						IntegrationId: oIntegration.IntegrationId,
-						Code: oIntegration.Code,
-						Description: oIntegration.Description,
-						Status: oIntegration.Status,
-						Message: oIntegration.Message,
-						CreationDateTime: oIntegration.CreationDateTime,
-						IntegrationDateTime: oIntegration.IntegrationDateTime,
-					},
+					integration: { ...oHeaderObj },
 					rawJsonContent: oJsonContent,
 				});
 
 				this.setModel(oDetailModel, "detailModel");
 				this._renderHeaderContent();
+				this._renderSimpleForm();
 				this._prepareDynamicTableData();
 			},
 
@@ -81,10 +79,7 @@ sap.ui.define(
 				oHBox.destroyItems();
 
 				const oBundle = this.getResourceBundle();
-				const aKeys = Object.keys(oHeader).filter(
-					(k) => k !== "operations" && k !== "positions"
-				);
-
+				const aKeys = Object.keys(oHeader);
 				const nGroupSize = 3;
 				for (let i = 0; i < aKeys.length; i += nGroupSize) {
 					const oVBox = new sap.m.VBox({ items: [] });
@@ -93,6 +88,7 @@ sap.ui.define(
 						let v = oHeader[sKey];
 						v = formatter.formatJsonDate(formatter.formatJsonValue(v));
 						const sTitle = oBundle.hasText(sKey) ? oBundle.getText(sKey) : sKey;
+
 						oVBox.addItem(
 							new sap.m.ObjectAttribute({
 								title: sTitle,
@@ -104,44 +100,88 @@ sap.ui.define(
 					oHBox.addItem(oVBox);
 				}
 			},
-			_prepareDynamicTableData: function () {
-				const oBundle = this.getView().getModel("i18n").getResourceBundle()
+			_renderSimpleForm: function () {
+				debugger;
 				const oDetailModel = this.getModel("detailModel");
 				if (!oDetailModel) return;
-				const oHeader = oDetailModel.getProperty("/header") || {};
+
+				const oIntegration = oDetailModel.getProperty("/integration");
+				if (!oIntegration) return;
+
+				const sIntegrationId = oIntegration.IntegrationId;
+				const aKeyFields = mapper.getKeyFieldsByIntegrationId(sIntegrationId);
+
+				const oSimpleForm = this.byId("overviewForm");
+				if (!oSimpleForm) return;
+
+				oSimpleForm.destroyContent();
+
+				const oBundle = this.getResourceBundle();
+				const nFieldsPerRow = 2; 
+
+				for (let i = 0; i < aKeyFields.length; i += nFieldsPerRow) {
+					const oHBox = new sap.m.HBox({
+						justifyContent: "SpaceAround",
+						width: "100%",
+					});
+
+					aKeyFields.slice(i, i + nFieldsPerRow).forEach((sKey) => {
+						let v =
+							oIntegration[sKey] ||
+							oDetailModel.getProperty(`/rawJsonContent/${sKey}`) ||
+							"-";
+						v =
+							typeof v === "string" && /^\d{8}$/.test(v)
+								? formatter.formatJsonDate(v)
+								: v;
+
+						const oVBox = new sap.m.VBox({
+							items: [
+								new sap.m.Label({
+									text: oBundle.hasText(sKey) ? oBundle.getText(sKey) : sKey,
+								}),
+								new sap.m.Text({ text: v }),
+							],
+						});
+
+						oHBox.addItem(oVBox);
+					});
+
+					oSimpleForm.addContent(oHBox);
+				}
+			},
+			_prepareDynamicTableData: function () {
+				const oBundle = this.getView().getModel("i18n").getResourceBundle();
+				const oDetailModel = this.getModel("detailModel");
+				if (!oDetailModel) return;
+
+				const oContent = oDetailModel.getProperty("/rawJsonContent") || {};
 				const oTable = this.byId("dynamicTable");
 				if (!oTable) return;
-				const aPositions = Array.isArray(oHeader.positions)
-					? oHeader.positions
+				const aPositions = Array.isArray(oContent.positions)
+					? oContent.positions
 					: [];
-				let aRows = [];
 
+				let aRows = [];
 				if (aPositions.length) {
-					aRows = aPositions.map((pos) => {
-						const row = { ...oHeader };
-						delete row.positions;
-						return { ...row, ...pos };
-					});
-				} else {
-					const row = { ...oHeader };
-					delete row.positions;
-					aRows = [row];
+					aRows = aPositions.map((pos) => ({ ...pos }));
+				} else if (Object.keys(oContent).length) {
+					aRows = [{ ...oContent }];
 				}
 				aRows = aRows.map((row) => {
 					const newRow = {};
 					Object.keys(row).forEach((k) => {
 						newRow[k] =
-							formatter.formatJsonDate(formatter.formatJsonValue(row[k])) || "-";
+							formatter.formatJsonDate(formatter.formatJsonValue(row[k])) ||
+							"-";
 					});
 					return newRow;
 				});
-				const aColumns = mapper.getColumnConfig(
-					aRows[0] || {},
-					oBundle
-				);
+				const aColumns = mapper.getColumnConfig(aRows[0] || {}, oBundle);
 
 				oTable.destroyColumns();
 				aColumns.forEach((col) => oTable.addColumn(col));
+
 				oDetailModel.setProperty("/dynamicOperationsRows", aRows);
 				oTable.setModel(oDetailModel);
 				oTable.bindRows({
@@ -149,6 +189,7 @@ sap.ui.define(
 					templateShareable: true,
 				});
 			},
+
 			onViewSettOpen: function () {
 				const oVSD = this.onOpenDialog(
 					"settDialog",
