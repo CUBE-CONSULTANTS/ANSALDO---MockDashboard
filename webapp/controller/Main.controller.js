@@ -65,23 +65,25 @@ sap.ui.define(
 
 				const fromDate = oFilterModel.getProperty("/fromDate");
 				const toDate = oFilterModel.getProperty("/toDate");
-				const integrationIds = oFilterModel.getProperty("/integrationId");
-				const description = oFilterModel.getProperty("/description");
-				const system = oFilterModel.getProperty("/system");
+				const integrationIds = oFilterModel.getProperty("/integrationId") || [];
+				const description = oFilterModel.getProperty("/description") || [];
+				const system = oFilterModel.getProperty("/system") || [];
 				const status = oFilterModel.getProperty("/status");
 				if (fromDate) {
+					const dFrom = new Date(fromDate);
 					aFilters.push(
 						new sap.ui.model.Filter({
 							path: "IntegrationDateTime",
-							test: (sDateTime) => new Date(sDateTime) >= fromDate,
+							test: (sDateTime) => new Date(sDateTime) >= dFrom,
 						})
 					);
 				}
 				if (toDate) {
+					const dTo = new Date(toDate);
 					aFilters.push(
 						new sap.ui.model.Filter({
 							path: "IntegrationDateTime",
-							test: (sDateTime) => new Date(sDateTime) <= toDate,
+							test: (sDateTime) => new Date(sDateTime) <= dTo,
 						})
 					);
 				}
@@ -96,24 +98,39 @@ sap.ui.define(
 					);
 					aFilters.push(new sap.ui.model.Filter(idFilters, false));
 				}
-				if (description) {
-					aFilters.push(
-						new sap.ui.model.Filter(
-							"Description",
-							sap.ui.model.FilterOperator.Contains,
-							description
-						)
+				if (description.length > 0) {
+					const descFilters = description.map(
+						(desc) =>
+							new sap.ui.model.Filter(
+								"Code",
+								sap.ui.model.FilterOperator.EQ,
+								desc.split(" - ")[0].trim()
+							)
 					);
+					aFilters.push(new sap.ui.model.Filter(descFilters, false));
 				}
-				if (system) {
-					aFilters.push(
-						new sap.ui.model.Filter(
-							"System",
-							sap.ui.model.FilterOperator.Contains,
-							system
-						)
+				if (system.length > 0) {
+					const systemFilters = system.map(
+						(s) =>
+							new sap.ui.model.Filter({
+								filters: [
+									new sap.ui.model.Filter(
+										"SysA",
+										sap.ui.model.FilterOperator.EQ,
+										s
+									),
+									new sap.ui.model.Filter(
+										"SysB",
+										sap.ui.model.FilterOperator.EQ,
+										s
+									),
+								],
+								and: false,
+							})
 					);
+					aFilters.push(new sap.ui.model.Filter(systemFilters, false));
 				}
+
 				if (status) {
 					aFilters.push(
 						new sap.ui.model.Filter(

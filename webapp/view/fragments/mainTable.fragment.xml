@@ -73,6 +73,22 @@
             popinDisplay="Inline"
             width="10rem"
           >
+            <Text text="{i18n>SysA}" />
+          </Column>
+          <Column
+            minScreenWidth="Tablet"
+            demandPopin="true"
+            popinDisplay="Inline"
+            width="10rem"
+          >
+            <Text text="{i18n>SysB}" />
+          </Column>
+          <Column
+            minScreenWidth="Tablet"
+            demandPopin="true"
+            popinDisplay="Inline"
+            width="10rem"
+          >
             <Text text="{i18n>status}" />
           </Column>
           <Column
@@ -93,6 +109,8 @@
                 path: 'mockIntegration>IntegrationDateTime',
                 formatter: '.formatter.formatDateTime'
               }" />
+              <Text text="{mockIntegration>SysA}" />
+              <Text text="{mockIntegration>SysB}" />
               <ObjectStatus
                 text="{mockIntegration>Status}"
                 state="{= ${mockIntegration>Status} === 'Success' ? 'Success' : (${mockIntegration>Status} === 'Error' ? 'Error' : 'None') }"

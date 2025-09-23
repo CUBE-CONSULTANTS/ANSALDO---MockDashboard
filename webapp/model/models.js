@@ -326,6 +326,15 @@ sap.ui.define(
 					},
 				};
 
+				const systems = [
+					"ADP",
+					"Autodesk Vault",
+					"Expense In",
+					"Oracle Primavera",
+					"SAP S/4 Hana",
+					"SAP SuccessFactor",
+					"Timesheet / Kiosk",
+				];
 				const results = [
 					{
 						IntegrationId: "INT-001",
@@ -459,9 +468,13 @@ sap.ui.define(
 						Description: "Vault Material",
 						IntegrationDateTime: "2025-09-16T12:30:00",
 						Status: "Success",
-						Message: 	"Vault material created.",
+						Message: "Vault material created.",
 					},
-				];
+				].map((item) => ({
+					...item,
+					SysA: systems[Math.floor(Math.random() * systems.length)],
+					SysB: systems[Math.floor(Math.random() * systems.length)],
+				}));
 
 				const resultsWithJson = results.map((r) => {
 					let sKeysText = "";
@@ -531,7 +544,7 @@ sap.ui.define(
 									type: "INFO",
 									message: "Tracking activities synced successfully.",
 								},
-								];
+							];
 							break;
 						default:
 							logs = [

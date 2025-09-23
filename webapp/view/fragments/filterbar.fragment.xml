@@ -71,12 +71,24 @@
             </fb:FilterGroupItem>
             <fb:FilterGroupItem
                 name="Description"
-                label="{i18n>Description}"
+                label="{i18n>intFlow}"
                 groupName="Group1"
                 visibleInFilterBar="true"
             >
                 <fb:control>
-                    <Input value="{filterModel>/description}" />
+                    <!-- <Input value="{filterModel>/description}" /> -->
+                        <MultiComboBox
+                        selectedKeys="{filterModel>/description}"
+                        items="{
+                            path: 'mockIntegration>/integrationsColl/results',
+                            templateShareable: true
+                        }"
+                    >
+                        <c:Item
+                            key="{mockIntegration>Code}"
+                            text="{mockIntegration>Code} - {mockIntegration>Description}"
+                        />
+                    </MultiComboBox>
                 </fb:control>
             </fb:FilterGroupItem>
             <!-- System -->
@@ -87,7 +99,17 @@
                 visibleInFilterBar="true"
             >
                 <fb:control>
-                    <Input value="{filterModel>/system}" />
+                    <!-- <Input value="{filterModel>/system}" /> -->
+                     <MultiComboBox
+                    selectedKeys="{filterModel>/system}">
+                    <c:Item key="ADP" text="ADP" />
+                    <c:Item key="Autodesk Vault" text="Autodesk Vault" />
+                    <c:Item key="Expense In" text="Expense In" />
+                    <c:Item key="Oracle Primavera" text="Oracle Primavera" />
+                    <c:Item key="SAP S/4 Hana" text="SAP S/4 Hana" />
+                    <c:Item key="SAP SuccessFactor" text="SAP SuccessFactor" />
+                    <c:Item key="Timesheet / Kiosk" text="Timesheet / Kiosk" />
+                </MultiComboBox>
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem
