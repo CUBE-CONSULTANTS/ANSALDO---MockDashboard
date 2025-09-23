@@ -6,9 +6,9 @@ sap.ui.define(
 		"sap/ui/model/json/JSONModel",
 		"../model/models",
 		"../model/formatter",
-			"../model/mapper",
+		"../model/mapper",
 	],
-	function (BaseController, JSONModel, models, formatter,mapper) {
+	function (BaseController, JSONModel, models, formatter, mapper) {
 		"use strict";
 
 		return BaseController.extend("ansaldonuclear.dashboard.controller.Main", {
@@ -22,14 +22,16 @@ sap.ui.define(
 			},
 			createGroupHeader: function (oGroup) {
 				const sCode = oGroup.key;
-				const sTitle = mapper.getRootKeyByCode(sCode); 
+				const sKey = mapper.getRootKeyByCode(sCode);
+				const oBundle = this.getResourceBundle();
+				const sTitle = oBundle.getText(sKey);
 
 				return new sap.m.GroupHeaderListItem({
-					title: sTitle  ,
+					title: sTitle,
 					upperCase: false,
 				}).addStyleClass("group-code-" + sCode);
 			},
-			
+
 			onTabSelect: function (oEvent) {
 				const oTable = oEvent.getSource().getAggregation("content")[0];
 				const oBinding = oTable.getBinding("rows");

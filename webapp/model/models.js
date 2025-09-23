@@ -459,7 +459,7 @@ sap.ui.define(
 						Description: "Vault Material",
 						IntegrationDateTime: "2025-09-16T12:30:00",
 						Status: "Success",
-						Message: "Vault material created.",
+						Message: 	"Vault material created.",
 					},
 				];
 
