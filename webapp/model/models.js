@@ -1,5 +1,10 @@
 sap.ui.define(
-	["../model/formatter","sap/ui/model/json/JSONModel", "sap/ui/model/BindingMode", "sap/ui/Device"],
+	[
+		"../model/formatter",
+		"sap/ui/model/json/JSONModel",
+		"sap/ui/model/BindingMode",
+		"sap/ui/Device",
+	],
 	function (formatter, JSONModel, BindingMode, Device) {
 		"use strict";
 
@@ -48,12 +53,29 @@ sap.ui.define(
 						DATAB: "20240101",
 						OPERA: "INS",
 					},
+					"INT-001A": {
+						KOSTL: "CC1002",
+						KTEXT: "Cost Center TS Extra",
+						BUKRS: "C001",
+						DATBI: "20251231",
+						DATAB: "20240101",
+						OPERA: "INS",
+					},
 					"INT-002": {
 						// WBE
 						PSPNR: "00000001",
 						POSID: "WBS-WBE-001",
 						POST1: "WBE Element 1",
 						PSTRT: "20230101",
+						PENDE: "20231231",
+						STTXT_EXT: "REL",
+						OPERA: "INS",
+					},
+					"INT-002A": {
+						PSPNR: "00000002",
+						POSID: "WBS-WBE-002",
+						POST1: "WBE Extra Element",
+						PSTRT: "20230401",
 						PENDE: "20231231",
 						STTXT_EXT: "REL",
 						OPERA: "INS",
@@ -84,6 +106,32 @@ sap.ui.define(
 								VSTTXT: "CLSD",
 								OPERA: "MOD",
 								STATUS: "MOD",
+							},
+						],
+					},
+					"INT-003A": {
+						AUFNR: "100000000002",
+						KTEXT: "Network Extra",
+						GSTRP: "20230201",
+						GLTRP: "20231231",
+						OPERA: "INS",
+						STATUS: "ERROR",
+						positions: [
+							{
+								VORNR: "0001",
+								LTXA1: "Operation A",
+								NTANF: "20230210",
+								NTEND: "20230220",
+								VSTTXT: "REL",
+								OPERA: "INS",
+							},
+							{
+								VORNR: "0002",
+								LTXA1: "Operation B",
+								NTANF: "20230215",
+								NTEND: "20230225",
+								VSTTXT: "CLSD",
+								OPERA: "MOD",
 							},
 						],
 					},
@@ -483,7 +531,7 @@ sap.ui.define(
 									type: "INFO",
 									message: "Tracking activities synced successfully.",
 								},
-							];
+								];
 							break;
 						default:
 							logs = [
@@ -501,7 +549,6 @@ sap.ui.define(
 							? `${r.Description} - ${sKeysText}`
 							: r.Description,
 						logs: logs,
-						
 					};
 				});
 

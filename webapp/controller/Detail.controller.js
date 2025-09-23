@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no- */
 /* eslint-disable no- */
@@ -107,9 +108,9 @@ sap.ui.define(
 
 				const oIntegration = oDetailModel.getProperty("/integration");
 				if (!oIntegration) return;
+				debugger
 
-				const sIntegrationId = oIntegration.IntegrationId;
-				const aKeyFields = mapper.getKeyFieldsByIntegrationId(sIntegrationId);
+				const aKeyFields = mapper.getKeyFieldsByCode(oIntegration.Code);
 
 				const oSimpleForm = this.byId("overviewForm");
 				if (!oSimpleForm) return;
