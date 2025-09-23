@@ -18,7 +18,21 @@ sap.ui.define(
 				const oBundle = this.getResourceBundle();
 				const oModel = models.createIntegrationMock(oBundle);
 				this.setModel(oModel, "mockIntegration");
-				this.setModel(models.createFilterModel(), "filterModel");
+				const aResults = oModel.getProperty("/integrationsColl/results") || [];
+				const mCodes = {};
+				const aUniqueDescriptions = [];
+				const oFilterModel = models.createFilterModel();
+				aResults.forEach((item) => {
+					if (!mCodes[item.Code]) {
+						mCodes[item.Code] = true;
+						aUniqueDescriptions.push({
+							Code: item.Code,
+							displayText: item.Code + " - " + item.Description,
+						});
+					}
+				});
+				oFilterModel.setProperty("/descriptionOptions", aUniqueDescriptions);
+				this.setModel(oFilterModel, "filterModel");
 			},
 			createGroupHeader: function (oGroup) {
 				const sCode = oGroup.key;
