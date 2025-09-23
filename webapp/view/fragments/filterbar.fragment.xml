@@ -10,20 +10,22 @@
         search=".onSearch"
         showClearOnFB="true"
         showFilterConfiguration="false"
+        clear="onFilterBarClear"
     >
         <fb:filterGroupItems>
             <!-- DateTime From -->
             <fb:FilterGroupItem
                 name="DateTimeFrom"
-                label="{i18n>filterDate1}" 
+                label="{i18n>filterDate1}"
                 groupName="Group1"
                 visibleInFilterBar="true"
             >
                 <fb:control>
                     <DateTimePicker
-                        value="{path: 'fromDate', type: 'sap.ui.model.type.DateTime', formatter: '.formatter.formatDate'}"
-                        displayFormat="dd/MM/yyyy hh:mm"
-                        
+                        value="{filterModel>/fromDate}"
+                        displayFormat="dd/MM/yyyy HH:mm"
+                        valueFormat="yyyy-MM-ddTHH:mm:ss"
+                        placeholder="dd/MM/yyyy HH:mm"
                     />
                 </fb:control>
             </fb:FilterGroupItem>
@@ -37,9 +39,10 @@
             >
                 <fb:control>
                     <DateTimePicker
-                        value="{path: 'toDate', type: 'sap.ui.model.type.DateTime', formatter: '.formatter.formatDate'}"
-                        displayFormat="dd/MM/yyyy hh:mm"
-                       
+                        value="{filterModel>/toDate}"
+                        displayFormat="dd/MM/yyyy HH:mm"
+                        valueFormat="yyyy-MM-ddTHH:mm:ss"
+                        placeholder="dd/MM/yyyy HH:mm"
                     />
                 </fb:control>
             </fb:FilterGroupItem>
@@ -52,10 +55,18 @@
                 visibleInFilterBar="true"
             >
                 <fb:control>
-                    <Input
-                        value="{path: 'integrationId'}"
-                        
-                    />
+                    <MultiComboBox
+                        selectedKeys="{filterModel>/integrationId}"
+                        items="{
+                            path: 'mockIntegration>/integrationsColl/results',
+                            templateShareable: true
+                        }"
+                    >
+                        <c:Item
+                            key="{mockIntegration>IntegrationId}"
+                            text="{mockIntegration>IntegrationId}"
+                        />
+                    </MultiComboBox>
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem
@@ -65,10 +76,7 @@
                 visibleInFilterBar="true"
             >
                 <fb:control>
-                    <Input
-                        value="{path: 'description'}"
-                        
-                    />
+                    <Input value="{filterModel>/description}" />
                 </fb:control>
             </fb:FilterGroupItem>
             <!-- System -->
@@ -79,10 +87,7 @@
                 visibleInFilterBar="true"
             >
                 <fb:control>
-                    <Input
-                        value="{path: 'system'}"
-                        
-                    />
+                    <Input value="{filterModel>/system}" />
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem
@@ -92,10 +97,20 @@
                 visibleInFilterBar="true"
             >
                 <fb:control>
-                    <Input
-                        value="{path: 'status'}"
-                        
-                    />
+                    <Select selectedKey="{filterModel>/status}">
+                        <c:Item
+                            key=""
+                            text="All"
+                        />
+                        <c:Item
+                            key="Success"
+                            text="Success"
+                        />
+                        <c:Item
+                            key="Error"
+                            text="Error"
+                        />
+                    </Select>
                 </fb:control>
             </fb:FilterGroupItem>
         </fb:filterGroupItems>

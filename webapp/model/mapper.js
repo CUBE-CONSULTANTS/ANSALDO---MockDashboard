@@ -1,30 +1,51 @@
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 sap.ui.define(["../model/formatter"], function (formatter) {
 	"use strict";
 	return {
 		getRootKeyByCode: function (sCode) {
 			const typeByCode = {
-				C001: "activityTypes", //pid054 ok
-				C002: "employeesS4", //pid056 ok
-				C003: "employeesTS", //pid055 ok
-				C004: "costCentersADP", //pid058 ok
-				C005: "trackingActivites", //pid060 ok
-				C006: "networkMaster", //pid052 ok
-				C007: "wbeMasterData", //pid051 ok
-				C008: "costCentersTs",
-				C009: "businessPartners", //pid007
-				C010: "dms", //pid031
-				C011: "expenseIn", //pid034
-				C012: "primaveraEppm", //pid035
-				C013: "bpcInterface", //pid040
-				C014: "contractData", //pid041
-				C015: "vaultBoms", //pid046
-				C016: "vaultMaterials", //pid047
-				C017: "costCenterMaster", //pid050
-				C018: "productionOrders", //pid053
-				C019: "salaryAccounting", //pid059 ok
-				C020: "massUpdateOfNetwork", //pid076
-				C021: "massUpdateOfProductionOrder", //pid077
+				C001: "Cost Center TS", 
+				C002: "WBE", 
+				C003: "Network",
+				C004: "Production Order", 
+				C005: "Activity Types", 
+				C006: "Employee TS", 
+				C007: "Employee S/4", 
+				C008: "Employee ADP", 
+				C009: "Cost Center ADP", 
+				C010: "Salary Accounting", 
+				C011: "Tracking Activities", 
+				C012: "primaveraEppm", 
+				C013: "bpcInterface",
+				C014: "contractData",
+				C015: "vaultBoms",
+				C016: "vaultMaterials",
+				C017: "costCenterMaster",
+				C018: "productionOrders",
+				C019: "salaryAccounting",
+				C020: "massUpdateOfNetwork",
+				C021: "massUpdateOfProductionOrder",
+				// C001: "activityTypes", //pid054 ok
+				// C002: "employeesS4", //pid056 ok
+				// C003: "employeesTS", //pid055 ok
+				// C004: "costCentersADP", //pid058 ok
+				// C005: "trackingActivites", //pid060 ok
+				// C006: "networkMaster", //pid052 ok
+				// C007: "wbeMasterData", //pid051 ok
+				// C008: "costCentersTs",
+				// C009: "businessPartners", //pid007
+				// C010: "dms", //pid031
+				// C011: "expenseIn", //pid034
+				// C012: "primaveraEppm", //pid035
+				// C013: "bpcInterface", //pid040
+				// C014: "contractData", //pid041
+				// C015: "vaultBoms", //pid046
+				// C016: "vaultMaterials", //pid047
+				// C017: "costCenterMaster", //pid050
+				// C018: "productionOrders", //pid053
+				// C019: "salaryAccounting", //pid059 ok
+				// C020: "massUpdateOfNetwork", //pid076
+				// C021: "massUpdateOfProductionOrder", //pid077
 			};
 
 			return typeByCode[sCode] || null;
@@ -256,37 +277,18 @@ sap.ui.define(["../model/formatter"], function (formatter) {
 			return mapping[sIntegrationId] || [];
 		},
 		getColumnConfig: function (oHeader, oBundle) {
-    if (!oHeader) return [];
-
-    // Prendo le chiavi normali della testata
-    let aKeys = Object.keys(oHeader).filter(
-        (k) => !Array.isArray(oHeader[k]) // esclude gli array
-    );
-
-    // 🔹 Se ci sono array (positions, operations, ecc.), prendiamo le chiavi del primo figlio
-    Object.keys(oHeader).forEach((k) => {
-        if (Array.isArray(oHeader[k]) && oHeader[k].length > 0) {
-            const childKeys = Object.keys(oHeader[k][0]);
-            aKeys = aKeys.concat(childKeys.filter((ck) => !aKeys.includes(ck)));
-        }
-    });
-
-    return aKeys.map(function (sKey) {
-        const sTitle = oBundle.hasText(sKey) ? oBundle.getText(sKey) : sKey;
-
-        return new sap.ui.table.Column({
-            label: new sap.m.Label({ text: sTitle }),
-            template: new sap.m.Text({ text: `{detailModel>${sKey}}` }),
-            sortProperty: sKey,
-            filterProperty: sKey,
-            width: "12rem"
-        });
-    });
-},
-		getColumnConfig2: function (oHeader, oBundle) {
 			if (!oHeader) return [];
+			let aKeys = Object.keys(oHeader).filter(
+				(k) => !Array.isArray(oHeader[k])
+			);
 
-			const aKeys = Object.keys(oHeader).filter((k) => k !== "positions");
+			Object.keys(oHeader).forEach((k) => {
+				if (Array.isArray(oHeader[k]) && oHeader[k].length > 0) {
+					const childKeys = Object.keys(oHeader[k][0]);
+					aKeys = aKeys.concat(childKeys.filter((ck) => !aKeys.includes(ck)));
+				}
+			});
+
 			return aKeys.map(function (sKey) {
 				const sTitle = oBundle.hasText(sKey) ? oBundle.getText(sKey) : sKey;
 
@@ -299,5 +301,21 @@ sap.ui.define(["../model/formatter"], function (formatter) {
 				});
 			});
 		},
+		// getColumnConfig: function (oHeader, oBundle) {
+		// 	if (!oHeader) return [];
+
+		// 	const aKeys = Object.keys(oHeader).filter((k) => k !== "positions");
+		// 	return aKeys.map(function (sKey) {
+		// 		const sTitle = oBundle.hasText(sKey) ? oBundle.getText(sKey) : sKey;
+
+		// 		return new sap.ui.table.Column({
+		// 			label: new sap.m.Label({ text: sTitle }),
+		// 			template: new sap.m.Text({ text: `{detailModel>${sKey}}` }),
+		// 			sortProperty: sKey,
+		// 			filterProperty: sKey,
+		// 			width: "12rem",
+		// 		});
+		// 	});
+		// },
 	};
 });

@@ -1,90 +1,107 @@
 <c:FragmentDefinition
-    xmlns="sap.m"
-    xmlns:c="sap.ui.core"
-    xmlns:table="sap.ui.table"
+  xmlns="sap.m"
+  xmlns:c="sap.ui.core"
+  xmlns:table="sap.ui.table"
 >
-    <IconTabBar
-        id="idIconTabBar"
-        select=".onTabSelect"
-        applyContentPadding="false"
-        stretchContentHeight="true"
-        headerBackgroundDesign="Transparent"
-        visible="{main>/visibility}"
-    >
+  <IconTabBar
+    id="idIconTabBar"
+    select=".onTabSelect"
+    applyContentPadding="false"
+    stretchContentHeight="true"
+    headerBackgroundDesign="Transparent"
+    visible="{main>/visibility}"
+  >
+    <items>
+      <IconTabFilter
+        showAll="true"
+        count="{mockIntegration>/integrationsColl/Counts/Total}"
+        text="{i18n>integ}"
+        key="All"
+      />
+      <IconTabSeparator />
+      <IconTabFilter
+        icon="sap-icon://documents"
+        count="{mockIntegration>/integrationsColl/Counts/Total}"
+        text="{i18n>all}"
+        key="All"
+      />
+    </items>
+    <content>
+      <Table
+        id="integrationTable"
+        items="{
+          path: 'mockIntegration>/integrationsColl/results',
+          sorter: {
+            path: 'Code',
+            group: true
+          },
+          groupHeaderFactory: '.createGroupHeader'
+        }"
+        backgroundDesign="Translucent"
+        mode="SingleSelectMaster"
+        selectionChange="onTableRowSelectionChange"
+        popinLayout="Block"
+        growing="true"
+        growingScrollToLoad="true"
+      >
+        <columns>
+          <Column
+            minScreenWidth="Small"
+            demandPopin="false"
+            width="8rem"
+          >
+            <Text text="{i18n>IntegrationId}" />
+          </Column>
+          <Column
+            minScreenWidth="Tablet"
+            demandPopin="false"
+            width="15rem"
+          >
+            <Text text="{i18n>Description}" />
+          </Column>
+          <Column
+            minScreenWidth="Desktop"
+            demandPopin="true"
+            popinDisplay="Inline"
+            width="12rem"
+          >
+            <Text text="{i18n>IntegrationDateTime}" />
+          </Column>
+          <Column
+            minScreenWidth="Tablet"
+            demandPopin="true"
+            popinDisplay="Inline"
+            width="10rem"
+          >
+            <Text text="{i18n>status}" />
+          </Column>
+          <Column
+            minScreenWidth="Desktop"
+            demandPopin="true"
+            popinDisplay="Block"
+            width="20rem"
+          >
+            <Text text="{i18n>Message}" />
+          </Column>
+        </columns>
         <items>
-            <IconTabFilter
-                showAll="true"
-                count="{mockIntegration>/integrationsColl/Counts/Total}"
-                text="{i18n>integ}"
-                key="All"
-            />
-            <IconTabSeparator />
-            <IconTabFilter
-                icon="sap-icon://documents"
-                count="{mockIntegration>/integrationsColl/Counts/Total}"
-                text="{i18n>all}"
-                key="All"
-            />
-            
+          <ColumnListItem >
+            <cells>
+              <Text text="{mockIntegration>IntegrationId}" />
+              <Text text="{mockIntegration>displayDescription}" />
+              <Text text="{
+                path: 'mockIntegration>IntegrationDateTime',
+                formatter: '.formatter.formatDateTime'
+              }" />
+              <ObjectStatus
+                text="{mockIntegration>Status}"
+                state="{= ${mockIntegration>Status} === 'Success' ? 'Success' : (${mockIntegration>Status} === 'Error' ? 'Error' : 'None') }"
+              />
+              <Text text="{mockIntegration>Message}" />
+            </cells>
+          </ColumnListItem>
         </items>
-        <content>
-            <Table
-                id="integrationTable"
-               items="{mockIntegration>/integrationsColl/results}"           
-                backgroundDesign="Translucent"
-                mode="SingleSelectMaster"              
-                selectionChange="onTableRowSelectionChange"
-                popinLayout="Block"
-                growing="true"
-                    growingScrollToLoad="true"
-            >
-                <columns>
-                        <Column minScreenWidth="Small"
-                            demandPopin="false"
-                            width="8rem">
-                            <Text text="{i18n>IntegrationId}" />
-                        </Column>
-                        <Column minScreenWidth="Tablet"
-                            demandPopin="false"
-                            width="15rem">
-                            <Text text="{i18n>Description}" />
-                        </Column>
-                        <Column minScreenWidth="Desktop"
-                            demandPopin="true"
-                            popinDisplay="Inline"
-                            width="12rem">
-                            <Text text="{i18n>IntegrationDateTime}" />
-                        </Column>
-                        <Column minScreenWidth="Tablet"
-                            demandPopin="true"
-                            popinDisplay="Inline"
-                            width="10rem">
-                            <Text text="{i18n>status}" />
-                        </Column>
-                        <Column minScreenWidth="Desktop"
-                            demandPopin="true"
-                            popinDisplay="Block"
-                            width="20rem">
-                            <Text text="{i18n>Message}" />
-                        </Column>
-                    </columns>
-
-                    <items>
-                        <ColumnListItem>
-                            <cells>
-                                <Text text="{mockIntegration>IntegrationId}" />
-                                <Text text="{mockIntegration>displayDescription}" />
-                                  
-                                <Text text="{path: 'mockIntegration>IntegrationDateTime', formatter: '.formatter.formatDateTime'}" />
-                                <ObjectStatus
-                                    text="{mockIntegration>Status}"
-                                    state="{= ${mockIntegration>Status} === 'Success' ? 'Success' : (${mockIntegration>Status} === 'Error' ? 'Error' : 'None') }"
-                                />
-                                <Text text="{mockIntegration>Message}" />
-                            </cells>
-                        </ColumnListItem>
-                    </items>
-                </Table>
-        </content>
-    </IconTabBar>
+      </Table>
+    </content>
+  </IconTabBar>
 </c:FragmentDefinition>

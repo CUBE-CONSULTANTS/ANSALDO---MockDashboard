@@ -1,6 +1,6 @@
 sap.ui.define(
-	["sap/ui/model/json/JSONModel", "sap/ui/model/BindingMode", "sap/ui/Device"],
-	function (JSONModel, BindingMode, Device) {
+	["../model/formatter","sap/ui/model/json/JSONModel", "sap/ui/model/BindingMode", "sap/ui/Device"],
+	function (formatter, JSONModel, BindingMode, Device) {
 		"use strict";
 
 		return {
@@ -24,6 +24,16 @@ sap.ui.define(
 					masterPaneSize: "320px",
 					detailPaneSize: "auto",
 					menuExpanded: true,
+				});
+			},
+			createFilterModel: function () {
+				return new JSONModel({
+					fromDate: null,
+					toDate: null,
+					integrationId: [],
+					description: "",
+					system: "",
+					status: "",
 				});
 			},
 			createIntegrationMock: function (oBundle) {
@@ -279,6 +289,15 @@ sap.ui.define(
 						Message: "Cost center data sent successfully.",
 					},
 					{
+						IntegrationId: "INT-001A",
+						Code: "C001",
+						KeyFields: [{ name: "KOSTL", value: "CC1002", type: "string" }],
+						Description: "Cost Center TS Extra",
+						IntegrationDateTime: "2025-09-14T09:00:00",
+						Status: "Success",
+						Message: "Additional cost center data sent.",
+					},
+					{
 						IntegrationId: "INT-002",
 						Code: "C002",
 						KeyFields: [{ name: "PSPNR", value: "00000001", type: "string" }],
@@ -286,6 +305,15 @@ sap.ui.define(
 						IntegrationDateTime: "2025-09-14T09:00:00",
 						Status: "Success",
 						Message: "WBE elements synced successfully.",
+					},
+					{
+						IntegrationId: "INT-002A",
+						Code: "C002",
+						KeyFields: [{ name: "PSPNR", value: "00000002", type: "string" }],
+						Description: "WBE Extra",
+						IntegrationDateTime: "2025-09-14T09:15:00",
+						Status: "Success",
+						Message: "Extra WBE element synced.",
 					},
 					{
 						IntegrationId: "INT-003",
@@ -297,6 +325,17 @@ sap.ui.define(
 						IntegrationDateTime: "2025-09-14T10:00:00",
 						Status: "Success",
 						Message: "Network data sent successfully.",
+					},
+					{
+						IntegrationId: "INT-003A",
+						Code: "C003",
+						KeyFields: [
+							{ name: "AUFNR", value: "100000000002", type: "number" },
+						],
+						Description: "Network Extra",
+						IntegrationDateTime: "2025-09-14T10:30:00",
+						Status: "Error",
+						Message: "Network extra data failed.",
 					},
 					{
 						IntegrationId: "INT-004",
@@ -461,7 +500,8 @@ sap.ui.define(
 						displayDescription: sKeysText
 							? `${r.Description} - ${sKeysText}`
 							: r.Description,
-						logs: logs
+						logs: logs,
+						
 					};
 				});
 

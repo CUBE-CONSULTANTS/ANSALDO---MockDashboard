@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable no- */
 sap.ui.define(
 	[
@@ -153,7 +153,7 @@ sap.ui.define(
 				}
 			},
 			_prepareDynamicTableData2: function () {
-				debugger
+				
 				const oBundle = this.getView().getModel("i18n").getResourceBundle();
 				const oDetailModel = this.getModel("detailModel");
 				if (!oDetailModel) return;

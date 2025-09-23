@@ -1,4 +1,4 @@
-/* eslint-disable no-debugger */
+/* eslint-disable no- */
 /* eslint-disable no- */
 sap.ui.define(
 	[
