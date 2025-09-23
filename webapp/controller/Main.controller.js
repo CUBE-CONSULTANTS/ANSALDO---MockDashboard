@@ -14,7 +14,9 @@ sap.ui.define(
 			formatter: formatter,
 			onInit: async function () {
 				this.setModel(models.createMainModel(), "main");
-				this.setModel(models.createIntegrationMock(), "mockIntegration");
+				const oBundle = this.getResourceBundle()
+				const	oModel = models.createIntegrationMock(oBundle);
+				this.setModel(oModel, "mockIntegration")
 			},
 			onTabSelect: function (oEvent) {
 				const oTable = oEvent.getSource().getAggregation("content")[0];
@@ -50,6 +52,7 @@ sap.ui.define(
 				this.getRouter().navTo("Detail", {
 					integrationId: sIntegrationId,
 				});
+        oEvent.getSource().removeSelections(true); 
 			},
 
 		});

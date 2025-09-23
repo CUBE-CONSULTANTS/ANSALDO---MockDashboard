@@ -32,8 +32,8 @@ sap.ui.define(
 					return;
 				}
 
-				const oJsonContent =
-					oIntegration.jsonContent || oIntegration.json_content || {};
+				const oJsonContent = oIntegration.jsonContent || oIntegration.json_content || {};
+				const aLogs = oIntegration.logs || []
 				const sRootKey = mapper.getRootKeyByCode(oIntegration.Code);
 				const sRootKey1 = mapper.identifyIntegration(oJsonContent);
 				console.log(sRootKey1, sRootKey);
@@ -57,12 +57,13 @@ sap.ui.define(
 					header: oHeaderObj,
 					integration: { ...oHeaderObj },
 					rawJsonContent: oJsonContent,
+					log: aLogs
 				});
 
 				this.setModel(oDetailModel, "detailModel");
 				this._renderHeaderContent();
 				this._renderSimpleForm();
-				this._prepareDynamicTableData();
+				this._prepareDynamicTableData2();
 			},
 
 			_renderHeaderContent: function () {
@@ -101,7 +102,6 @@ sap.ui.define(
 				}
 			},
 			_renderSimpleForm: function () {
-				debugger;
 				const oDetailModel = this.getModel("detailModel");
 				if (!oDetailModel) return;
 
@@ -117,12 +117,12 @@ sap.ui.define(
 				oSimpleForm.destroyContent();
 
 				const oBundle = this.getResourceBundle();
-				const nCols = 3; 
+				const nCols = 3;
 				for (let i = 0; i < aKeyFields.length; i += nCols) {
 					const oHBox = new sap.m.HBox({
 						justifyContent: "Start",
 						width: "100%",
-						 wrap: sap.m.FlexWrap.Wrap
+						wrap: sap.m.FlexWrap.Wrap,
 					});
 
 					aKeyFields.slice(i, i + nCols).forEach((sKey) => {
@@ -142,7 +142,7 @@ sap.ui.define(
 								}),
 								new sap.m.Text({ text: v }),
 							],
-							width: "33%", 
+							width: "33%",
 							renderType: "Bare",
 						});
 
@@ -152,7 +152,8 @@ sap.ui.define(
 					oSimpleForm.addContent(oHBox);
 				}
 			},
-			_prepareDynamicTableData: function () {
+			_prepareDynamicTableData2: function () {
+				debugger
 				const oBundle = this.getView().getModel("i18n").getResourceBundle();
 				const oDetailModel = this.getModel("detailModel");
 				if (!oDetailModel) return;
@@ -160,38 +161,34 @@ sap.ui.define(
 				const oContent = oDetailModel.getProperty("/rawJsonContent") || {};
 				const oTable = this.byId("dynamicTable");
 				if (!oTable) return;
-				const aPositions = Array.isArray(oContent.positions)
-					? oContent.positions
-					: [];
-
-				let aRows = [];
-				if (aPositions.length) {
-					aRows = aPositions.map((pos) => ({ ...pos }));
-				} else if (Object.keys(oContent).length) {
-					aRows = [{ ...oContent }];
-				}
-				aRows = aRows.map((row) => {
-					const newRow = {};
-					Object.keys(row).forEach((k) => {
-						newRow[k] =
-							formatter.formatJsonDate(formatter.formatJsonValue(row[k])) ||
-							"-";
+				const formatNode = (node) => {
+					const newNode = {};
+					Object.keys(node).forEach((k) => {
+						if (Array.isArray(node[k])) {
+							newNode[k] = node[k].map((child) => formatNode(child));
+						} else {
+							newNode[k] =
+								formatter.formatJsonDate(formatter.formatJsonValue(node[k])) ||
+								"-";
+						}
 					});
-					return newRow;
-				});
-				const aColumns = mapper.getColumnConfig(aRows[0] || {}, oBundle);
+					return newNode;
+				};
+				const aTreeData = [formatNode(oContent)];
+				const aColumns = mapper.getColumnConfig(oContent, oBundle);
 
 				oTable.destroyColumns();
 				aColumns.forEach((col) => oTable.addColumn(col));
-
-				oDetailModel.setProperty("/dynamicOperationsRows", aRows);
+				oDetailModel.setProperty("/dynamicTree", aTreeData);
 				oTable.setModel(oDetailModel);
 				oTable.bindRows({
-					path: "detailModel>/dynamicOperationsRows",
+					path: "detailModel>/dynamicTree",
+					parameters: {
+						arrayNames: ["positions", "operations"],
+					},
 					templateShareable: true,
 				});
 			},
-
 			onViewSettOpen: function () {
 				const oVSD = this.onOpenDialog(
 					"settDialog",

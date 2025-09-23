@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 sap.ui.define(["../model/formatter"], function (formatter) {
 	"use strict";
 	return {
@@ -255,6 +256,34 @@ sap.ui.define(["../model/formatter"], function (formatter) {
 			return mapping[sIntegrationId] || [];
 		},
 		getColumnConfig: function (oHeader, oBundle) {
+    if (!oHeader) return [];
+
+    // Prendo le chiavi normali della testata
+    let aKeys = Object.keys(oHeader).filter(
+        (k) => !Array.isArray(oHeader[k]) // esclude gli array
+    );
+
+    // 🔹 Se ci sono array (positions, operations, ecc.), prendiamo le chiavi del primo figlio
+    Object.keys(oHeader).forEach((k) => {
+        if (Array.isArray(oHeader[k]) && oHeader[k].length > 0) {
+            const childKeys = Object.keys(oHeader[k][0]);
+            aKeys = aKeys.concat(childKeys.filter((ck) => !aKeys.includes(ck)));
+        }
+    });
+
+    return aKeys.map(function (sKey) {
+        const sTitle = oBundle.hasText(sKey) ? oBundle.getText(sKey) : sKey;
+
+        return new sap.ui.table.Column({
+            label: new sap.m.Label({ text: sTitle }),
+            template: new sap.m.Text({ text: `{detailModel>${sKey}}` }),
+            sortProperty: sKey,
+            filterProperty: sKey,
+            width: "12rem"
+        });
+    });
+},
+		getColumnConfig2: function (oHeader, oBundle) {
 			if (!oHeader) return [];
 
 			const aKeys = Object.keys(oHeader).filter((k) => k !== "positions");

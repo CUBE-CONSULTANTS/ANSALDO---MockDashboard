@@ -26,7 +26,7 @@ sap.ui.define(
 					menuExpanded: true,
 				});
 			},
-			createIntegrationMock: function () {
+			createIntegrationMock: function (oBundle) {
 				// mapping IntegrationId -> dati mock
 				const mapping = {
 					"INT-001": {
@@ -80,7 +80,7 @@ sap.ui.define(
 					"INT-004": {
 						// Production Order
 						AUFNR: "100001",
-						KTEXT: "Produzione A",
+						KTEXT: "Production A",
 						AUART: "ZP01",
 						STTXT: "REL",
 						WERKS: "1000",
@@ -269,23 +269,201 @@ sap.ui.define(
 				};
 
 				const results = [
-        { IntegrationId: "INT-001", Code: "C001", Description: "Cost Center TS", IntegrationDateTime: "2025-09-14T08:45:00", Status: "Success", Message: "Cost center data sent successfully." },
-        { IntegrationId: "INT-002", Code: "C007", Description: "WBE", IntegrationDateTime: "2025-09-14T09:00:00", Status: "Success", Message: "WBE elements synced successfully." },
-        { IntegrationId: "INT-003", Code: "C006", Description: "Network", IntegrationDateTime: "2025-09-14T10:00:00", Status: "Success", Message: "Network data sent successfully." },
-        { IntegrationId: "INT-004", Code: "C004", Description: "Production Order", IntegrationDateTime: "2025-09-14T11:00:00", Status: "Error", Message: "Failed to send production order." },
-        { IntegrationId: "INT-005", Code: "C001", Description: "Activity Types", IntegrationDateTime: "2025-09-15T08:00:00", Status: "Success", Message: "Activity types sent successfully." },
-        { IntegrationId: "INT-006", Code: "C018", Description: "Employee TS", IntegrationDateTime: "2025-09-15T09:30:00", Status: "Success", Message: "Employee TS data synced." },
-        { IntegrationId: "INT-007", Code: "C017", Description: "Employee S/4", IntegrationDateTime: "2025-09-15T10:00:00", Status: "Error", Message: "Failed to update Employee S/4." },
-        { IntegrationId: "INT-008", Code: "C007", Description: "Employee ADP", IntegrationDateTime: "2025-09-15T11:00:00", Status: "Success", Message: "Employee ADP data synced." },
-        { IntegrationId: "INT-009", Code: "C008", Description: "Cost Center ADP", IntegrationDateTime: "2025-09-15T12:00:00", Status: "Error", Message: "Failed to send Cost Center ADP data." },
-        { IntegrationId: "INT-010", Code: "C006", Description: "Salary Accounting", IntegrationDateTime: "2025-09-16T08:00:00", Status: "Success", Message: "Salary Accounting data sent." },
-        { IntegrationId: "INT-011", Code: "C002", Description: "Tracking Activities", IntegrationDateTime: "2025-09-16T09:00:00", Status: "Success", Message: "Tracking activities synced." },
-        { IntegrationId: "INT-015", Code: "C016", Description: "Vault Material", IntegrationDateTime: "2025-09-16T12:30:00", Status: "Success", Message: "Vault material created." }		
-				]
-				const resultsWithJson = results.map((r) => ({
-					...r,
-					jsonContent: mapping[r.IntegrationId] || {},
-				}));
+					{
+						IntegrationId: "INT-001",
+						Code: "C001",
+						KeyFields: [{ name: "KOSTL", value: "CC1001", type: "string" }],
+						Description: "Cost Center TS",
+						IntegrationDateTime: "2025-09-14T08:45:00",
+						Status: "Success",
+						Message: "Cost center data sent successfully.",
+					},
+					{
+						IntegrationId: "INT-002",
+						Code: "C002",
+						KeyFields: [{ name: "PSPNR", value: "00000001", type: "string" }],
+						Description: "WBE",
+						IntegrationDateTime: "2025-09-14T09:00:00",
+						Status: "Success",
+						Message: "WBE elements synced successfully.",
+					},
+					{
+						IntegrationId: "INT-003",
+						Code: "C003",
+						KeyFields: [
+							{ name: "AUFNR", value: "100000000001", type: "number" },
+						],
+						Description: "Network",
+						IntegrationDateTime: "2025-09-14T10:00:00",
+						Status: "Success",
+						Message: "Network data sent successfully.",
+					},
+					{
+						IntegrationId: "INT-004",
+						Code: "C004",
+						KeyFields: [{ name: "AUFNR", value: "100001", type: "number" }],
+						Description: "Production Order",
+						IntegrationDateTime: "2025-09-14T11:00:00",
+						Status: "Error",
+						Message: "Failed to send production order.",
+					},
+					{
+						IntegrationId: "INT-005",
+						Code: "C005",
+						KeyFields: [{ name: "LSTAR", value: "ACT001", type: "string" }],
+						Description: "Activity Types",
+						IntegrationDateTime: "2025-09-15T08:00:00",
+						Status: "Success",
+						Message: "Activity types sent successfully.",
+					},
+					{
+						IntegrationId: "INT-006",
+						Code: "C006",
+						KeyFields: [{ name: "USRID", value: "jsmith", type: "string" }],
+						Description: "Employee TS",
+						IntegrationDateTime: "2025-09-15T09:30:00",
+						Status: "Success",
+						Message: "Employee TS data synced.",
+					},
+					{
+						IntegrationId: "INT-007",
+						Code: "C007",
+						KeyFields: [{ name: "USRID", value: "amiller", type: "string" }],
+						Description: "Employee S/4",
+						IntegrationDateTime: "2025-09-15T10:00:00",
+						Status: "Error",
+						Message: "Failed to update Employee S/4.",
+					},
+					{
+						IntegrationId: "INT-009",
+						Code: "C009",
+						KeyFields: [{ name: "KOSTL", value: "CC1001", type: "string" }],
+						Description: "Cost Center ADP",
+						IntegrationDateTime: "2025-09-15T12:00:00",
+						Status: "Error",
+						Message: "Failed to send Cost Center ADP data.",
+					},
+					{
+						IntegrationId: "INT-010",
+						Code: "C010",
+						KeyFields: [
+							{ name: "AUFNR", value: "100000000001", type: "string" },
+						],
+						Description: "Salary Accounting",
+						IntegrationDateTime: "2025-09-16T09:00:00",
+						Status: "Success",
+						Message: "Salary accounting data sent successfully.",
+					},
+					{
+						IntegrationId: "INT-011",
+						Code: "C011",
+						KeyFields: [{ name: "USRID", value: "amiller", type: "string" }],
+						Description: "Tracking Activities",
+						IntegrationDateTime: "2025-09-16T10:30:00",
+						Status: "Success",
+						Message: "Employee tracking activities synced successfully.",
+					},
+					{
+						IntegrationId: "INT-015",
+						Code: "C015",
+						KeyFields: [
+							{ name: "Product", value: "MAT-000123", type: "string" },
+						],
+						Description: "Vault Material",
+						IntegrationDateTime: "2025-09-16T12:30:00",
+						Status: "Success",
+						Message: "Vault material created.",
+					},
+				];
+
+				const resultsWithJson = results.map((r) => {
+					let sKeysText = "";
+
+					if (Array.isArray(r.KeyFields) && r.KeyFields.length) {
+						sKeysText = r.KeyFields.map((oField) => {
+							const sLabel =
+								oBundle && oBundle.hasText(oField.name)
+									? oBundle.getText(oField.name)
+									: oField.name;
+							return `${sLabel}: ${oField.value}`;
+						}).join(", ");
+					}
+					let logs = [];
+					switch (r.IntegrationId) {
+						case "INT-001":
+							logs = [
+								{
+									timestamp: "2025-09-14T08:45:00",
+									type: "INFO",
+									message: "Started Cost Center TS integration.",
+								},
+								{
+									timestamp: "2025-09-14T08:46:00",
+									type: "INFO",
+									message: "Finished successfully.",
+								},
+							];
+							break;
+						case "INT-004":
+							logs = [
+								{
+									timestamp: "2025-09-14T11:00:00",
+									type: "ERROR",
+									message: "Failed to send production order.",
+								},
+								{
+									timestamp: "2025-09-14T11:01:00",
+									type: "INFO",
+									message: "Retry scheduled.",
+								},
+							];
+							break;
+						case "INT-010": // Salary Accounting
+							logs = [
+								{
+									timestamp: "2025-09-16T09:00:00",
+									type: "INFO",
+									message: "Salary accounting started.",
+								},
+								{
+									timestamp: "2025-09-16T09:05:00",
+									type: "INFO",
+									message: "Salary accounting completed successfully.",
+								},
+							];
+							break;
+						case "INT-011": // Tracking Activities
+							logs = [
+								{
+									timestamp: "2025-09-16T10:30:00",
+									type: "INFO",
+									message: "Tracking activities sync started.",
+								},
+								{
+									timestamp: "2025-09-16T10:35:00",
+									type: "INFO",
+									message: "Tracking activities synced successfully.",
+								},
+							];
+							break;
+						default:
+							logs = [
+								{
+									timestamp: r.IntegrationDateTime,
+									type: r.Status === "Success" ? "INFO" : "ERROR",
+									message: r.Message,
+								},
+							];
+					}
+					return {
+						...r,
+						jsonContent: mapping[r.IntegrationId] || {},
+						displayDescription: sKeysText
+							? `${r.Description} - ${sKeysText}`
+							: r.Description,
+						logs: logs
+					};
+				});
 
 				const total = resultsWithJson.length;
 				const success = resultsWithJson.filter(
@@ -295,7 +473,7 @@ sap.ui.define(
 					(r) => r.Status === "Error"
 				).length;
 
-				return new JSONModel({
+				return new sap.ui.model.json.JSONModel({
 					integrationsColl: {
 						Counts: { Total: total, Success: success, Failed: failed },
 						results: resultsWithJson,
@@ -558,7 +736,7 @@ sap.ui.define(
 					orderHeaders: [
 						{
 							AUFNR: "100001",
-							KTEXT: "Produzione A",
+							KTEXT: "Production A",
 							AUART: "ZP01",
 							STTXT: "REL",
 							WERKS: "1000",

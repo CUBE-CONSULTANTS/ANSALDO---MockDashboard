@@ -18,10 +18,7 @@
         <headerTitle>
             <ObjectPageDynamicHeaderTitle backgroundDesign="Translucent">
                 <heading>
-                    <l:HorizontalLayout
-                        allowWrapping="true"
-                        
-                    >
+                    <l:HorizontalLayout allowWrapping="true">
                         <m:Button
                             icon="sap-icon://nav-back"
                             press=".onNavBack"
@@ -34,18 +31,17 @@
                             wrapping="true"
                             class="sapUiSmallMarginBegin"
                         />
-                   </l:HorizontalLayout>
-                   </heading>
-                   <actions>
+                    </l:HorizontalLayout>
+                </heading>
+                <actions>
                     <l:VerticalLayout>
-                            <m:Image
-                                src="public/images/ansaldo_nucleare_logo.jpg"
-                                height="40px"
-                                width="auto"
-                            />
-                        </l:VerticalLayout>
-                   </actions>
-
+                        <m:Image
+                            src="public/images/ansaldo_nucleare_logo.jpg"
+                            height="40px"
+                            width="auto"
+                        />
+                    </l:VerticalLayout>
+                </actions>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>
 
@@ -63,35 +59,28 @@
             <ObjectPageSection title="{i18n>overview}">
                 <subSections>
                     <ObjectPageSubSection>
-                    <form:SimpleForm
-                    id="overviewForm"
-                    editable="false"
-                    layout="ResponsiveGridLayout"
-                    columnsXL="2"
-                    columnsL="2"
-                    columnsM="2"
-                    singleContainerFullSize="true"
-                >
-                </form:SimpleForm>
-              
-                    
+                        <form:SimpleForm
+                            id="overviewForm"
+                            editable="false"
+                            layout="ResponsiveGridLayout"
+                            columnsXL="2"
+                            columnsL="2"
+                            columnsM="2"
+                            singleContainerFullSize="true"
+                        />
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
 
-
-                       <ObjectPageSection title="{i18n>detail}">
+            <ObjectPageSection title="{i18n>detail}">
                 <subSections>
                     <ObjectPageSubSection>
-                        <ui:Table
-                          id="dynamicTable"
-                          
-                          width="100%"
-                          selectionMode="None"
-                          rows="{detailModel>/dynamicOperationsRows}"
-                      >
-                
-                    </ui:Table>
+                        <ui:TreeTable
+                            id="dynamicTable"
+                            width="100%"
+                            selectionMode="None"
+                            rows="{detailModel>/dynamicTree}"
+                        />
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>
@@ -100,103 +89,31 @@
             <ObjectPageSection title="{i18n>log}">
                 <subSections>
                     <ObjectPageSubSection>
-                        <ui:Table
+                        <m:Table
                             id="logTable"
-                            selectionMode="None"
-                            rows="{path: 'detailModel>/log'}"
+                            items="{detailModel>/log}"
                         >
-                            <ui:extension>
-                                <m:OverflowToolbar style="Clear">
-                                    <m:ToolbarSpacer />
-                                    <m:Button
-                                        type="Emphasized"
-                                        icon="sap-icon://action-settings"
-                                        tooltip="{i18n>personalization}"
-                                        press=".onViewSettOpen"
-                                    />
-                                </m:OverflowToolbar>
-                            </ui:extension>
-
-                            <ui:Column
-                                label="{i18n>network}"
-                                width="10rem"
-                            >
-                                <ui:template>
-                                    <m:Text text="{detailModel>/AUFNR}" />
-                                </ui:template>
-                            </ui:Column>
-
-                            <ui:Column
-                                label="{i18n>opNumb}"
-                                width="10rem"
-                            >
-                                <ui:template>
-                                    <m:Text text="{detailModel>VORNR}" />
-                                </ui:template>
-                            </ui:Column>
-
-                            <ui:Column width="10rem">
-                                <m:Label text="{i18n>autoreMod}" />
-                                <ui:template>
-                                    <m:Text text="{detailModel>AUTHMOD}" />
-                                </ui:template>
-                            </ui:Column>
-
-                            <ui:Column width="10rem">
-                                <m:Label text="{i18n>dataMod}" />
-                                <ui:template>
-                                    <m:DatePicker
-                                        value="{path: 'detailModel>MODDATE', formatter: '.formatter.formatDate'}"
-                                        editable="false"
-                                        displayFormat="dd/MM/yyyy"
-                                    />
-                                </ui:template>
-                            </ui:Column>
-
-                            <ui:Column width="10rem">
-                                <m:Label text="{i18n>oraMod}" />
-                                <ui:template>
-                                    <m:TimePicker
-                                        value="{detailModel>MODTIME}"
-                                        editable="false"
-                                    />
-                                </ui:template>
-                            </ui:Column>
-
-                            <ui:Column width="10rem">
-                                <m:Label text="{i18n>oggMod}" />
-                                <ui:template>
-                                    <m:Text text="{detailModel>MODOBJ}" />
-                                </ui:template>
-                            </ui:Column>
-
-                            <ui:Column width="10rem">
-                                <m:Label text="{i18n>oldV}" />
-                                <ui:template>
-                                    <m:Text text="{detailModel>OLDVAL}" />
-                                </ui:template>
-                            </ui:Column>
-
-                            <ui:Column width="10rem">
-                                <m:Label text="{i18n>newV}" />
-                                <ui:template>
-                                    <m:Text text="{detailModel>NEWVAL}" />
-                                </ui:template>
-                            </ui:Column>
-
-                            <ui:Column
-                                hAlign="Center"
-                                label="{i18n>status}"
-                                width="9rem"
-                            >
-                                <ui:template>
-                                    <m:Button
-                                        type="{= ${detailModel>STATUS} === 'INS' ? 'Neutral': 'Attention'}"
-                                        icon="{= ${detailModel>STATUS} === 'INS' ? 'sap-icon://create': 'sap-icon://edit'}"
-                                    />
-                                </ui:template>
-                            </ui:Column>
-                        </ui:Table>
+                            <m:columns>
+                                <m:Column>
+                                    <m:Text text="{i18n>Timestamp}" />
+                                </m:Column>
+                                <m:Column>
+                                    <m:Text text="{i18n>Type}" />
+                                </m:Column>
+                                <m:Column>
+                                    <m:Text text="{i18n>Message}" />
+                                </m:Column>
+                            </m:columns>
+                            <m:items>
+                                <m:ColumnListItem>
+                                    <m:cells>
+                                        <m:Text text="{path: 'detailModel>timestamp', formatter: '.formatter.formatDateTime'}" />
+                                        <m:Text text="{detailModel>type}" />
+                                        <m:Text text="{detailModel>message}" />
+                                    </m:cells>
+                                </m:ColumnListItem>
+                            </m:items>
+                          </m:Table>
                     </ObjectPageSubSection>
                 </subSections>
             </ObjectPageSection>

@@ -30,8 +30,7 @@
         <content>
             <Table
                 id="integrationTable"
-               items="{mockIntegration>/integrationsColl/results}"
-                
+               items="{mockIntegration>/integrationsColl/results}"           
                 backgroundDesign="Translucent"
                 mode="SingleSelectMaster"              
                 selectionChange="onTableRowSelectionChange"
@@ -74,7 +73,8 @@
                         <ColumnListItem>
                             <cells>
                                 <Text text="{mockIntegration>IntegrationId}" />
-                                <Text text="{= ${mockIntegration>Description} + ' - ' + ${mockIntegration>Code} }" />
+                                <Text text="{mockIntegration>displayDescription}" />
+                                  
                                 <Text text="{path: 'mockIntegration>IntegrationDateTime', formatter: '.formatter.formatDateTime'}" />
                                 <ObjectStatus
                                     text="{mockIntegration>Status}"

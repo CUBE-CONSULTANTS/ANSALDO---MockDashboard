@@ -7,7 +7,6 @@ sap.ui.define(["sap/ui/core/format/DateFormat"], function (DateFormat) {
 		formatValue: function (value) {
 			return value && value.toUpperCase();
 		},
-
 		formatDate: function (sDate) {
 			if (!sDate) return null;
 			const oDateFormat = DateFormat.getInstance({ pattern: "dd/MM/yyyy" });
@@ -59,5 +58,6 @@ sap.ui.define(["sap/ui/core/format/DateFormat"], function (DateFormat) {
 			}
 			return v;
 		},
+		
 	};
 });
