@@ -33,11 +33,11 @@ sap.ui.define(
 					return;
 				}
 
-				const oJsonContent = oIntegration.jsonContent || oIntegration.json_content || {};
-				const aLogs = oIntegration.logs || []
+				const oJsonContent =
+					oIntegration.jsonContent || oIntegration.json_content || {};
+				const aLogs = oIntegration.logs || [];
 				const sRootKey = mapper.getRootKeyByCode(oIntegration.Code);
-				const sRootKey1 = mapper.identifyIntegration(oJsonContent);
-				console.log(sRootKey1, sRootKey);
+				// const sRootKey1 = mapper.identifyIntegration(oJsonContent);
 
 				const oHeaderObj = {
 					IntegrationId: oIntegration.IntegrationId,
@@ -58,13 +58,13 @@ sap.ui.define(
 					header: oHeaderObj,
 					integration: { ...oHeaderObj },
 					rawJsonContent: oJsonContent,
-					log: aLogs
+					log: aLogs,
 				});
 
 				this.setModel(oDetailModel, "detailModel");
 				this._renderHeaderContent();
 				this._renderSimpleForm();
-				this._prepareDynamicTableData2();
+				this._prepareDynamicTableData();
 			},
 
 			_renderHeaderContent: function () {
@@ -108,7 +108,7 @@ sap.ui.define(
 
 				const oIntegration = oDetailModel.getProperty("/integration");
 				if (!oIntegration) return;
-				debugger
+				debugger;
 
 				const aKeyFields = mapper.getKeyFieldsByCode(oIntegration.Code);
 
@@ -153,8 +153,7 @@ sap.ui.define(
 					oSimpleForm.addContent(oHBox);
 				}
 			},
-			_prepareDynamicTableData2: function () {
-				
+			_prepareDynamicTableData: function () {
 				const oBundle = this.getView().getModel("i18n").getResourceBundle();
 				const oDetailModel = this.getModel("detailModel");
 				if (!oDetailModel) return;
@@ -162,6 +161,7 @@ sap.ui.define(
 				const oContent = oDetailModel.getProperty("/rawJsonContent") || {};
 				const oTable = this.byId("dynamicTable");
 				if (!oTable) return;
+
 				const formatNode = (node) => {
 					const newNode = {};
 					Object.keys(node).forEach((k) => {
@@ -175,17 +175,23 @@ sap.ui.define(
 					});
 					return newNode;
 				};
+
 				const aTreeData = [formatNode(oContent)];
 				const aColumns = mapper.getColumnConfig(oContent, oBundle);
 
 				oTable.destroyColumns();
 				aColumns.forEach((col) => oTable.addColumn(col));
+
 				oDetailModel.setProperty("/dynamicTree", aTreeData);
 				oTable.setModel(oDetailModel);
+				const arrayNames = Object.keys(oContent).filter((k) =>
+					Array.isArray(oContent[k])
+				);
+
 				oTable.bindRows({
 					path: "detailModel>/dynamicTree",
 					parameters: {
-						arrayNames: ["positions", "operations"],
+						arrayNames: arrayNames,
 					},
 					templateShareable: true,
 				});

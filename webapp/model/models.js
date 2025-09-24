@@ -310,19 +310,109 @@ sap.ui.define(
 						MaximumPackagingWidth: "80.0",
 						MaximumPackagingHeight: "60.0",
 						UnitForMaxPackagingDimensions: "CM",
-						toDescription: [],
-						toPlant: [],
-						toProductBasicText: [],
-						toProductInspectionText: [],
-						toProductProcurement: [],
-						toProductPurchaseText: [],
-						toProductQualityMgmt: [],
-						toProductSales: [],
-						toProductSalesTax: [],
-						toProductStorage: [],
-						toProductUnitsOfMeasure: [],
-						toSalesDelivery: [],
-						toValuation: [],
+						toDescription: [
+							{
+								Language: "EN",
+								ProductDescription: "High-Performance Industrial Pump",
+							},
+							{
+								Language: "DE",
+								ProductDescription: "Hochleistungspumpe für Industrie",
+							},
+							{
+								Language: "IT",
+								ProductDescription: "Pompa industriale ad alte prestazioni",
+							},
+						],
+						toPlant: [
+							{
+								Plant: "3000",
+								ProfitCenter: "PC1000",
+								StorageLocation: "SL01",
+							},
+							{
+								Plant: "4000",
+								ProfitCenter: "PC2000",
+								StorageLocation: "SL02",
+							},
+						],
+						toProductBasicText: [
+							{
+								Language: "EN",
+								LongText:
+									"This pump is designed for continuous operation under high pressure.",
+							},
+						],
+						toProductInspectionText: [
+							{
+								Language: "EN",
+								InspectionText: "Must be inspected before shipment.",
+							},
+						],
+						toProductProcurement: [
+							{
+								Plant: "3000",
+								ProcurementType: "E",
+								SpecialProcurement: "40",
+								SourceListRequired: true,
+							},
+						],
+						toProductPurchaseText: [
+							{
+								Language: "EN",
+								PurchaseText: "Supplier must ensure ISO certification.",
+							},
+						],
+						toProductQualityMgmt: [
+							{
+								Plant: "3000",
+								InspLotSizInd: "1",
+								InspType: "03",
+								InspInterval: "6M",
+							},
+						],
+						toProductSales: [
+							{ SalesOrg: "1000", DistChannel: "10", DeliveringPlant: "3000" },
+						],
+						toProductSalesTax: [
+							{ Country: "DE", TaxCategory: "MWST", TaxClassification: "1" },
+						],
+						toProductStorage: [
+							{
+								Plant: "3000",
+								StorageConditions: "DRY",
+								TempConditions: "15-25C",
+							},
+						],
+						toProductUnitsOfMeasure: [
+							{
+								AltUnit: "BOX",
+								Numerator: "10",
+								Denominator: "1",
+								UnitType: "Packaging",
+							},
+							{
+								AltUnit: "PAL",
+								Numerator: "50",
+								Denominator: "1",
+								UnitType: "Pallet",
+							},
+						],
+						toSalesDelivery: [
+							{
+								DeliveryPlant: "3000",
+								MinDeliveryQty: "5",
+								DeliveryUnit: "EA",
+							},
+						],
+						toValuation: [
+							{
+								ValuationArea: "3000",
+								ValuationClass: "3001",
+								PriceControl: "S",
+								StandardPrice: "125.00",
+							},
+						],
 					},
 				};
 

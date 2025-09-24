@@ -333,6 +333,7 @@ sap.ui.define(["../model/formatter"], function (formatter) {
 				});
 			});
 		},
+
 		// getColumnConfig: function (oHeader, oBundle) {
 		// 	if (!oHeader) return [];
 
