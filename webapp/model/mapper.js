@@ -308,7 +308,7 @@ sap.ui.define(["../model/formatter"], function (formatter) {
 
 			return mappingByCode[sCode] || [];
 		},
-		getColumnConfig: function (oHeader, oBundle) {
+		getColumnConfig: function (oHeader, oBundle, oTable) {
 			if (!oHeader) return [];
 			let aKeys = Object.keys(oHeader).filter(
 				(k) => !Array.isArray(oHeader[k])
@@ -321,16 +321,24 @@ sap.ui.define(["../model/formatter"], function (formatter) {
 				}
 			});
 
-			return aKeys.map(function (sKey) {
+			return aKeys.map(function (sKey, index) {
 				const sTitle = oBundle.hasText(sKey) ? oBundle.getText(sKey) : sKey;
+				const bIsLast = index === aKeys.length - 1;
 
-				return new sap.ui.table.Column({
+				const oColumn = new sap.ui.table.Column({
 					label: new sap.m.Label({ text: sTitle }),
 					template: new sap.m.Text({ text: `{detailModel>${sKey}}` }),
 					sortProperty: sKey,
 					filterProperty: sKey,
-					width: "12rem",
+					width: bIsLast ? undefined : "12rem",
+					autoResizable: bIsLast,
 				});
+
+				if (bIsLast) {
+					oColumn.setMinWidth(160);
+				}
+
+				return oColumn;
 			});
 		},
 
