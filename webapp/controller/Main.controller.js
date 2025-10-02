@@ -7,8 +7,9 @@ sap.ui.define(
 		"../model/models",
 		"../model/formatter",
 		"../model/mapper",
+		"sap/m/MessageBox",
 	],
-	function (BaseController, JSONModel, models, formatter, mapper) {
+	function (BaseController, JSONModel, models, formatter, mapper, MessageBox) {
 		"use strict";
 
 		return BaseController.extend("ansaldonuclear.dashboard.controller.Main", {
@@ -72,9 +73,8 @@ sap.ui.define(
 				}
 				oBinding.filter(aFilters);
 			},
-			onSearch: function () {
+			_buildFilters: function () {
 				const oFilterModel = this.getModel("filterModel");
-				const oTable = this.byId("integrationTable");
 				const aFilters = [];
 
 				const fromDate = oFilterModel.getProperty("/fromDate");
@@ -83,21 +83,35 @@ sap.ui.define(
 				const description = oFilterModel.getProperty("/description") || [];
 				const system = oFilterModel.getProperty("/system") || [];
 				const status = oFilterModel.getProperty("/status");
+
+				if (!this._checkDateRange(fromDate, toDate)) {
+					oFilterModel.setProperty("/fromDate", null);
+					oFilterModel.setProperty("/toDate", null);
+					return;
+				}
+
 				if (fromDate) {
 					const dFrom = new Date(fromDate);
 					aFilters.push(
 						new sap.ui.model.Filter({
 							path: "IntegrationDateTime",
-							test: (sDateTime) => new Date(sDateTime) >= dFrom,
+							test: function (sValue) {
+								const dValue = new Date(sValue);
+								return dValue >= dFrom;
+							},
 						})
 					);
 				}
+
 				if (toDate) {
 					const dTo = new Date(toDate);
 					aFilters.push(
 						new sap.ui.model.Filter({
 							path: "IntegrationDateTime",
-							test: (sDateTime) => new Date(sDateTime) <= dTo,
+							test: function (sValue) {
+								const dValue = new Date(sValue);
+								return dValue <= dTo;
+							},
 						})
 					);
 				}
@@ -154,13 +168,42 @@ sap.ui.define(
 						)
 					);
 				}
+				return aFilters;
+			},
+			onSearch: function () {
+				const oTable = this.byId("integrationTable");
+				const aFilters = this._buildFilters();
+				this.showBusy(0);
 				const oBinding = oTable.getBinding("items");
 				if (oBinding) {
-					oBinding.filter(
-						aFilters.length ? new sap.ui.model.Filter(aFilters, true) : []
-					);
+					const oCombinedFilter = aFilters.length
+						? new sap.ui.model.Filter(aFilters, true)
+						: [];
+
+					oBinding.filter(oCombinedFilter);
 				}
 				this.getModel("main").setProperty("/visibility", true);
+				this.hideBusy(0);
+			},
+			_checkDateRange: function (fromDate, toDate) {
+				if (!fromDate && !toDate) {
+					MessageBox.error(this.getResourceBundle().getText("selectDateRange"));
+					return false;
+				}
+				if (
+					isNaN(new Date(fromDate).getTime()) ||
+					isNaN(new Date(toDate).getTime())
+				) {
+					MessageBox.error(this.getResourceBundle().getText("invalidDate"));
+					return false;
+				}
+				if (new Date(fromDate) > new Date(toDate)) {
+					MessageBox.error(
+						this.getResourceBundle().getText("fromDateAfterToDate")
+					);
+					return false;
+				}
+				return true;
 			},
 			onFilterBarClear: function () {
 				const oFilterModel = this.getModel("filterModel");

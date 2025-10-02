@@ -22,6 +22,7 @@
             >
                 <fb:control>
                     <DateTimePicker
+                        required="true"
                         value="{filterModel>/fromDate}"
                         displayFormat="dd/MM/yyyy HH:mm"
                         valueFormat="yyyy-MM-ddTHH:mm:ss"
@@ -43,6 +44,7 @@
                         displayFormat="dd/MM/yyyy HH:mm"
                         valueFormat="yyyy-MM-ddTHH:mm:ss"
                         placeholder="dd/MM/yyyy HH:mm"
+                        required="true"
                     />
                 </fb:control>
             </fb:FilterGroupItem>

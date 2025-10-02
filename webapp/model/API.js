@@ -7,8 +7,7 @@ sap.ui.define(
 			_normalizeResult(odata) {
 				return Array.isArray(odata?.results) ? odata.results : [odata];
 			},
-
-			getEntity: function (
+			getEntitySet: function (
 				oModel,
 				Entity,
 				{
@@ -20,7 +19,7 @@ sap.ui.define(
 					params = {},
 				} = {}
 			) {
-				let urlParameters = { ...params };
+				const urlParameters = { ...params };
 				if (expands.length) urlParameters.$expand = expands.join(",");
 				if (selects.length) urlParameters.$select = selects.join(",");
 				if (orderby) urlParameters.$orderby = orderby;
@@ -71,7 +70,7 @@ sap.ui.define(
 				Entity,
 				{ top = 100, skip = 0, ...rest } = {}
 			) {
-				return this.getEntity(oModel, Entity, {
+				return this.getEntitySet(oModel, Entity, {
 					...rest,
 					params: { $top: top, $skip: skip, ...(rest.params || {}) },
 				});
