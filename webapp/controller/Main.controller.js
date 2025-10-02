@@ -87,9 +87,8 @@ sap.ui.define(
 				if (!this._checkDateRange(fromDate, toDate)) {
 					oFilterModel.setProperty("/fromDate", null);
 					oFilterModel.setProperty("/toDate", null);
-					return;
+					return null;
 				}
-
 				if (fromDate) {
 					const dFrom = new Date(fromDate);
 					aFilters.push(
@@ -173,6 +172,9 @@ sap.ui.define(
 			onSearch: function () {
 				const oTable = this.byId("integrationTable");
 				const aFilters = this._buildFilters();
+				if (!aFilters) {
+					return;
+				}
 				this.showBusy(0);
 				const oBinding = oTable.getBinding("items");
 				if (oBinding) {
