@@ -1,10 +1,10 @@
 {
   "generator-ui5-app": {
-    "namespace": "ansaldonuclear.dashboard",
+    "namespace": "ansaldonucleardashboard",
     "framework": "SAPUI5",
     "frameworkVersion": "1.140.0",
     "initrepo": false,
-    "appId": "ansaldonuclear.dashboard",
+    "appId": "ansaldonucleardashboard",
     "appURI": "ansaldonuclear/dashboard",
     "cdnDomain": "ui5.sap.com",
     "defaultTheme": "sap_horizon",

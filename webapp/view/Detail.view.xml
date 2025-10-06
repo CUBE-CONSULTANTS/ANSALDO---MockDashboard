@@ -5,7 +5,7 @@
     xmlns:ui="sap.ui.table"
     xmlns:l="sap.ui.layout"
     xmlns:form="sap.ui.layout.form"
-    controllerName="ansaldonuclear.dashboard.controller.Detail"
+    controllerName="ansaldonucleardashboard.controller.Detail"
 >
     <ObjectPageLayout
         alwaysShowContentHeader="true"
@@ -34,13 +34,13 @@
                     </l:HorizontalLayout>
                 </heading>
                 <actions>
-                    <l:VerticalLayout>
+                    <!-- <l:VerticalLayout>
                         <m:Image
                             src="public/images/ansaldo_nucleare_logo.jpg"
                             height="40px"
                             width="auto"
                         />
-                    </l:VerticalLayout>
+                    </l:VerticalLayout> -->
                 </actions>
             </ObjectPageDynamicHeaderTitle>
         </headerTitle>

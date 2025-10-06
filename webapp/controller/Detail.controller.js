@@ -13,7 +13,7 @@ sap.ui.define(
 	function (BaseController, models, formatter, mapper, JSONModel) {
 		"use strict";
 
-		return BaseController.extend("ansaldonuclear.dashboard.controller.Detail", {
+		return BaseController.extend("ansaldonucleardashboard.controller.Detail", {
 			formatter: formatter,
 			onInit: function () {
 				this.getRouter()
@@ -199,7 +199,7 @@ sap.ui.define(
 			onViewSettOpen: function () {
 				const oVSD = this.onOpenDialog(
 					"settDialog",
-					"ansaldonuclear.dashboard.view.fragments.viewSettingDialogLog",
+					"ansaldonucleardashboard.view.fragments.viewSettingDialogLog",
 					this
 				);
 

@@ -2,7 +2,7 @@ sap.ui.define(function () {
 	"use strict";
 
 	return {
-		name: "QUnit test suite for the UI5 Application: ansaldonuclear.dashboard",
+		name: "QUnit test suite for the UI5 Application: ansaldonucleardashboard",
 		defaults: {
 			page: "ui5://test-resources/ansaldonuclear/dashboardTest.qunit.html?testsuite={suite}&test={name}",
 			qunit: {
@@ -27,10 +27,10 @@ sap.ui.define(function () {
 		},
 		tests: {
 			"unit/unitTests": {
-				title: "Unit tests for ansaldonuclear.dashboard"
+				title: "Unit tests for ansaldonucleardashboard"
 			},
 			"integration/opaTests": {
-				title: "Integration tests for ansaldonuclear.dashboard"
+				title: "Integration tests for ansaldonucleardashboard"
 			}
 		}
 	};

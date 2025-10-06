@@ -1,4 +1,4 @@
-# UI5 Application ansaldonuclear.dashboard
+# UI5 Application ansaldonucleardashboard
 
 Insert the purpose of this project and some interesting info here...
 

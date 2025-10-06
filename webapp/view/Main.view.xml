@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="ansaldonuclear.dashboard.controller.Main"
+    controllerName="ansaldonucleardashboard.controller.Main"
     displayBlock="true"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
@@ -18,7 +18,7 @@
                     <Title text="{i18n>appTitle}" />
                 </f:heading>
                 <f:actions>
-                    <layout:HorizontalLayout allowWrapping="true">
+                    <!-- <layout:HorizontalLayout allowWrapping="true">
                         <layout:VerticalLayout>
                             <Image
                                 src="public/images/ansaldo_nucleare_logo.jpg"
@@ -26,7 +26,7 @@
                                 width="auto"
                             />
                         </layout:VerticalLayout>
-                    </layout:HorizontalLayout>
+                    </layout:HorizontalLayout> -->
                 </f:actions>
             </f:DynamicPageTitle>
         </f:title>
@@ -34,7 +34,7 @@
         <f:header>
             <f:DynamicPageHeader backgroundDesign="Transparent" >
                 <core:Fragment
-                fragmentName="ansaldonuclear.dashboard.view.fragments.filterbar"
+                fragmentName="ansaldonucleardashboard.view.fragments.filterbar"
                 type="XML"
             />
             </f:DynamicPageHeader>    
@@ -42,7 +42,7 @@
 
         <f:content>
             <core:Fragment
-                fragmentName="ansaldonuclear.dashboard.view.fragments.mainTable"
+                fragmentName="ansaldonucleardashboard.view.fragments.mainTable"
                 type="XML"
             />
             <!-- <FlexBox
@@ -97,7 +97,7 @@
         <!-- Footer -->
         <f:footer>
             <core:Fragment
-                fragmentName="ansaldonuclear.dashboard.view.fragments.footer"
+                fragmentName="ansaldonucleardashboard.view.fragments.footer"
                 type="XML"
             />
         </f:footer>

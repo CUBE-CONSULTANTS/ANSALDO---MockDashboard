@@ -12,7 +12,7 @@ sap.ui.define(
 	function (BaseController, JSONModel, models, formatter, mapper, MessageBox) {
 		"use strict";
 
-		return BaseController.extend("ansaldonuclear.dashboard.controller.Main", {
+		return BaseController.extend("ansaldonucleardashboard.controller.Main", {
 			formatter: formatter,
 			onInit: async function () {
 				this.setModel(models.createMainModel(), "main");

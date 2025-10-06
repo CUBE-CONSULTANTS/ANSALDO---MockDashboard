@@ -1,5 +1,5 @@
 <mvc:View
-	controllerName="ansaldonuclear.dashboard.controller.App"
+	controllerName="ansaldonucleardashboard.controller.App"
 	displayBlock="true"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc">
