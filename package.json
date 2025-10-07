@@ -8,6 +8,7 @@
     "build": "ui5 build --clean-dest",
     "build:opt": "ui5 build self-contained --clean-dest --all",
     "build:cf": "ui5 build preload --clean-dest --config ui5-deploy.yaml --include-task=generateCachebusterInfo",
+    "deploy": "npm run build && fiori deploy --config ui5-deploy.yaml && rimraf archive.zip",
     "start": "ui5 serve --port 8000 -o index.html",
     "start-cdn": "ui5 serve --port 8000 -o index-cdn.html",
     "start:dist": "npm start -- --config ui5-dist.yaml",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@sap/cds-dk": "^9",
+    "@sap/ui5-builder-webide-extension": "^1.1.8",
     "@ui5/cli": "^4.0.6",
     "@ui5/middleware-code-coverage": "^2.0.0",
     "@wdio/cli": "^8.46.0",
@@ -34,14 +36,14 @@
     "karma-chrome-launcher": "^3.2.0",
     "karma-coverage": "^2.2.1",
     "karma-ui5": "^4.0.1",
+    "mbt": "^1.2.18",
     "rimraf": "^6.0.1",
     "ui5-middleware-livereload": "^3.0.3",
-    "wdio-ui5-service": "^2.2.1",
-    "mbt": "^1.2.18",
     "ui5-task-zipper": "^0.5.0",
-    "@sap/ui5-builder-webide-extension": "^1.1.8"
+    "wdio-ui5-service": "^2.2.1"
   },
   "dependencies": {
+    "@sap/ux-ui5-tooling": "^1.19.0",
     "@sap/xssec": "^4"
   },
   "cds": {

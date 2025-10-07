@@ -19,3 +19,11 @@ server:
       afterMiddleware: compression
     - name: ui5-middleware-livereload
       afterMiddleware: compression
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration: 
+        ignoreCertError: true
+        backend:
+          - path: /sap
+            url: https://vhaiqds4ci.sap.ansaldonuclear.com:44300
+            client: "110"
