@@ -32,7 +32,7 @@
         items="{
           path: 'integrationsModel>/',
           sorter: {
-            path: 'Code',
+            path: 'ID_FLOW',
             group: true
           },
           groupHeaderFactory: '.createGroupHeader'
@@ -88,6 +88,7 @@
             demandPopin="true"
             popinDisplay="Inline"
             width="10rem"
+            hAlign="Center"
           >
             <Text text="{i18n>status}" />
           </Column>
@@ -104,7 +105,7 @@
           <ColumnListItem >
             <cells>
               <Text text="{integrationsModel>ID_INT}" />
-              <Text text="{integrationsModel>displayDescription}" />
+              <Text text="{integrationsModel>description}" />
               <Text text="{
                 path: 'integrationsModel>IntegrationDateTime',
                 formatter: '.formatter.formatDateTime'
@@ -112,7 +113,7 @@
               <Text text="{integrationsModel>SysA}" />
               <Text text="{integrationsModel>SysB}" />
               <ObjectStatus
-                text="{integrationsModel>STATUS}"
+                text="{= ${integrationsModel>STATUS} === 'S' ? 'Success' : 'Error' }"
                 state="{= ${integrationsModel>STATUS} === 'S' ? 'Success' : (${integrationsModel>STATUS} === 'E' ? 'Error' : 'None') }"
               />
               <Text text="{integrationsModel>JSONRESPONSE}" />

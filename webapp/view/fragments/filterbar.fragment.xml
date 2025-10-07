@@ -57,25 +57,7 @@
                 visibleInFilterBar="true"
             >
                 <fb:control>
-                    <!-- <MultiComboBox
-                        selectedKeys="{filterModel>/integrationId}"
-                        items="{
-                            path: 'mockIntegration>/integrationsColl/results',
-                            templateShareable: true
-                        }"
-                    >
-                        <c:Item
-                            key="{mockIntegration>IntegrationId}"
-                            text="{mockIntegration>IntegrationId}"
-                        />
-                    </MultiComboBox> -->
-                    
-                    <Input
-                     
-                        value="{filterModel>/integrationId}"
-                        >
-                            
-                    </Input>
+                    <Input value="{filterModel>/integrationId}" />
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem
@@ -87,15 +69,15 @@
                 <fb:control>
                     <!-- <Input value="{filterModel>/description}" /> -->
                     <MultiComboBox
-                        selectedKeys="{filterModel>/description}"
+                        selectedKeys="{filterModel>/selectedDescriptions}"
                         items="{
-            path: 'filterModel>/descriptionOptions',
+            path: 'filterModel>/description',
             templateShareable: true
         }"
                     >
                         <c:Item
-                            key="{filterModel>Code}"
-                            text="{filterModel>displayText}"
+                            key="{filterModel>key}"
+                            text="{filterModel>text}"
                         />
                     </MultiComboBox>
                 </fb:control>

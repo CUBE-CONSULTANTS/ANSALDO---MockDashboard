@@ -17,6 +17,7 @@ builder:
       configuration:
         verbose: true
         ignoreCertErrors: true
+        strictSsl: false
         target:
           url: http://172.27.200.184:8000
           client: "110"
