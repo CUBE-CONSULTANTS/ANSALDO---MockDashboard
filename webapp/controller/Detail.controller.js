@@ -8,9 +8,10 @@ sap.ui.define(
 		"../model/models",
 		"../model/formatter",
 		"../model/mapper",
+		"../model/API",
 		"sap/ui/model/json/JSONModel",
 	],
-	function (BaseController, models, formatter, mapper, JSONModel) {
+	function (BaseController, models, formatter, mapper,API, JSONModel) {
 		"use strict";
 
 		return BaseController.extend("ansaldonucleardashboard.controller.Detail", {
@@ -20,9 +21,12 @@ sap.ui.define(
 					.getRoute("Detail")
 					.attachPatternMatched(this._onObjectMatched, this);
 				this.setModel(models.createIntegrationMock(), "mockIntegration");
+				this.setModel(new JSONModel(),"detailModel")
 			},
-			_onObjectMatched: function (oEvent) {
+			_onObjectMatched: async function (oEvent) {
+				debugger;
 				const sIntegrationId = oEvent.getParameter("arguments").integrationId;
+				await this.setLogsTable(sIntegrationId);
 				const oModel = this.getModel("mockIntegration");
 				const aResults = oModel?.getProperty("/integrationsColl/results") || [];
 				const oIntegration = aResults.find(
@@ -66,7 +70,23 @@ sap.ui.define(
 				this._renderSimpleForm();
 				this._prepareDynamicTableData();
 			},
-
+			setLogsTable: async function (sIntegrationId) {
+				debugger
+				try {
+					let logs = await API.getEntitySet(this.getOwnerComponent().getModel("ZLOG_PID999_INTEGRATION_SRV"), "/GetLogsSet", {
+						filters: [new sap.ui.model.Filter("ID_INT", sap.ui.model.FilterOperator.EQ, sIntegrationId),
+						new sap.ui.model.Filter("DATA", sap.ui.model.FilterOperator.EQ, '20251002'),
+						new sap.ui.model.Filter("TIME", sap.ui.model.FilterOperator.EQ, '094502')
+						],
+						expands: ['Results']
+					});
+					console.log(logs.results)
+					this.getModel("detailModel").setProperty("/logs", logs.results)
+					this.setModel()
+				} catch (error) {
+					console.log(error)
+				}
+			},
 			_renderHeaderContent: function () {
 				const oDetailModel = this.getModel("detailModel");
 				if (!oDetailModel) return;

@@ -7,35 +7,26 @@ sap.ui.define(
 		"../model/models",
 		"../model/formatter",
 		"../model/mapper",
+		"../model/API",
 		"sap/m/MessageBox",
 	],
-	function (BaseController, JSONModel, models, formatter, mapper, MessageBox) {
+	function (BaseController, JSONModel, models, formatter, mapper,API, MessageBox) {
 		"use strict";
 
 		return BaseController.extend("ansaldonucleardashboard.controller.Main", {
 			formatter: formatter,
 			onInit: async function () {
 				this.setModel(models.createMainModel(), "main");
-				const oBundle = this.getResourceBundle();
-				const oModel = models.createIntegrationMock(oBundle);
-				this.setModel(oModel, "mockIntegration");
-				const aResults = oModel.getProperty("/integrationsColl/results") || [];
-				const mCodes = {};
-				const aUniqueDescriptions = [];
+				// const oBundle = this.getResourceBundle();
+				// const oModel = models.createIntegrationMock(oBundle);
+				// this.setModel(oModel, "mockIntegration");
+				this.setModel(new JSONModel(),"integrationsModel")
+				// const aResults = oModel.getProperty("/integrationsColl/results") || [];			
 				const oFilterModel = models.createFilterModel();
-				aResults.forEach((item) => {
-					if (!mCodes[item.Code]) {
-						mCodes[item.Code] = true;
-						aUniqueDescriptions.push({
-							Code: item.Code,
-							displayText: item.Code + " - " + item.Description,
-						});
-					}
-				});
-				oFilterModel.setProperty("/descriptionOptions", aUniqueDescriptions);
 				this.setModel(oFilterModel, "filterModel");
 			},
 			createGroupHeader: function (oGroup) {
+				debugger
 				const sCode = oGroup.key;
 				const sKey = mapper.getRootKeyByCode(sCode);
 				const oBundle = this.getResourceBundle();
@@ -169,20 +160,26 @@ sap.ui.define(
 				}
 				return aFilters;
 			},
-			onSearch: function () {
-				const oTable = this.byId("integrationTable");
+			onSearch: async function () {
+				// const oTable = this.byId("integrationTable");
 				const aFilters = this._buildFilters();
-				if (!aFilters) {
-					return;
-				}
-				this.showBusy(0);
-				const oBinding = oTable.getBinding("items");
-				if (oBinding) {
-					const oCombinedFilter = aFilters.length
-						? new sap.ui.model.Filter(aFilters, true)
-						: [];
+				// if (!aFilters) {
+				// 	return;
+				// }
+				// this.showBusy(0);
+				// const oBinding = oTable.getBinding("items");
+				// if (oBinding) {
+				// 	const oCombinedFilter = aFilters.length
+				// 		? new sap.ui.model.Filter(aFilters, true)
+				// 		: [];
 
-					oBinding.filter(oCombinedFilter);
+				// 	oBinding.filter(oCombinedFilter);
+				// }
+				try {
+					let data = await API.getEntitySet(this.getOwnerComponent().getModel("ZLOG_PID999_INTEGRATION_SRV"), "/GetLogsSet", {expands: ['Results']})
+					this.getModel("integrationsModel").setProperty("/",data.results[0].Results.results)
+				} catch (error) {
+					MessageBox.error(this.getResourceBundle().getBundleText())
 				}
 				this.getModel("main").setProperty("/visibility", true);
 				this.hideBusy(0);
@@ -201,7 +198,7 @@ sap.ui.define(
 				}
 				if (new Date(fromDate) > new Date(toDate)) {
 					MessageBox.error(
-						this.getResourceBundle().getText("fromDateAfterToDate")
+						this.getResourceBundle().getText("dataError")
 					);
 					return false;
 				}

@@ -57,7 +57,7 @@
                 visibleInFilterBar="true"
             >
                 <fb:control>
-                    <MultiComboBox
+                    <!-- <MultiComboBox
                         selectedKeys="{filterModel>/integrationId}"
                         items="{
                             path: 'mockIntegration>/integrationsColl/results',
@@ -68,7 +68,14 @@
                             key="{mockIntegration>IntegrationId}"
                             text="{mockIntegration>IntegrationId}"
                         />
-                    </MultiComboBox>
+                    </MultiComboBox> -->
+                    
+                    <Input
+                     
+                        value="{filterModel>/integrationId}"
+                        >
+                            
+                    </Input>
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem

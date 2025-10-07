@@ -91,7 +91,7 @@
                     <ObjectPageSubSection>
                         <m:Table
                             id="logTable"
-                            items="{detailModel>/log}"
+                            items="{detailModel>/logs}"
                         >
                             <m:columns>
                                 <m:Column>

@@ -27,8 +27,16 @@
           }
     },
 		"dataSources": {
-      "mainService": {
+      "ZMAN_PID046_EBOM_SRV": {
         "uri": "/sap/opu/odata/sap/zman_pid046_ebom_srv",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
+        }
+      },
+			"ZLOG_PID999_INTEGRATION_SRV": {
+        "uri": "/sap/opu/odata/sap/ZLOG_PID999_INTEGRATION_SRV",
         "type": "OData",
         "settings": {
           "odataVersion": "2.0",
@@ -75,8 +83,17 @@
 					"fallbackLocale": "en"
 				}
 			},
-			"": {
-        "dataSource": "mainService",
+			"ZMAN_PID046_EBOM_SRV": {
+        "dataSource": "ZMAN_PID046_EBOM_SRV",
+        "preload": true,
+        "settings": {
+          "defaultOperationMode": "Server",
+          "useBatch": true,
+          "refreshAfterChange": true
+        }
+      },
+				"ZLOG_PID999_INTEGRATION_SRV": {
+        "dataSource": "ZLOG_PID999_INTEGRATION_SRV",
         "preload": true,
         "settings": {
           "defaultOperationMode": "Server",

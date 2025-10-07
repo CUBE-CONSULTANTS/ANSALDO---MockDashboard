@@ -14,14 +14,14 @@
     <items>
       <IconTabFilter
         showAll="true"
-        count="{mockIntegration>/integrationsColl/Counts/Total}"
+        
         text="{i18n>integ}"
         key="All"
       />
       <IconTabSeparator />
       <IconTabFilter
         icon="sap-icon://documents"
-        count="{mockIntegration>/integrationsColl/Counts/Total}"
+        
         text="{i18n>all}"
         key="All"
       />
@@ -30,7 +30,7 @@
       <Table
         id="integrationTable"
         items="{
-          path: 'mockIntegration>/integrationsColl/results',
+          path: 'integrationsModel>/',
           sorter: {
             path: 'Code',
             group: true
@@ -103,19 +103,19 @@
         <items>
           <ColumnListItem >
             <cells>
-              <Text text="{mockIntegration>IntegrationId}" />
-              <Text text="{mockIntegration>displayDescription}" />
+              <Text text="{integrationsModel>ID_INT}" />
+              <Text text="{integrationsModel>displayDescription}" />
               <Text text="{
-                path: 'mockIntegration>IntegrationDateTime',
+                path: 'integrationsModel>IntegrationDateTime',
                 formatter: '.formatter.formatDateTime'
               }" />
-              <Text text="{mockIntegration>SysA}" />
-              <Text text="{mockIntegration>SysB}" />
+              <Text text="{integrationsModel>SysA}" />
+              <Text text="{integrationsModel>SysB}" />
               <ObjectStatus
-                text="{mockIntegration>Status}"
-                state="{= ${mockIntegration>Status} === 'Success' ? 'Success' : (${mockIntegration>Status} === 'Error' ? 'Error' : 'None') }"
+                text="{integrationsModel>STATUS}"
+                state="{= ${integrationsModel>STATUS} === 'S' ? 'Success' : (${integrationsModel>STATUS} === 'E' ? 'Error' : 'None') }"
               />
-              <Text text="{mockIntegration>Message}" />
+              <Text text="{integrationsModel>JSONRESPONSE}" />
             </cells>
           </ColumnListItem>
         </items>
