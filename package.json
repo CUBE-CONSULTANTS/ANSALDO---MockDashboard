@@ -9,7 +9,7 @@
     "build:opt": "ui5 build self-contained --clean-dest --all",
     "build:cf": "ui5 build preload --clean-dest --config ui5-deploy.yaml --include-task=generateCachebusterInfo",
     "deploy": "npm run build && fiori deploy --config ui5-deploy.yaml --verbose && rimraf archive.zip",
-    "deploy:nwabap": "npm run build && nwabap upload --conn_server http://172.27.200.184:8000 --conn_client 110 --conn_user 80007039 --conn_password gOTONEXT2025!!! --conn_usestrictssl false --base ./dist --files **/* --abap_transport DS4K900856 --abap_package Z001 --abap_bsp Z_INT_DASH --abap_bsp_text 'Integration Dashboard' --abap_language EN",
+    "deploy:nwabap": "npm run build && nwabap upload --nwabaprc .nwabaprc",
     "start": "ui5 serve --port 8000 -o index.html",
     "start-cdn": "ui5 serve --port 8000 -o index-cdn.html",
     "start:dist": "npm start -- --config ui5-dist.yaml",
