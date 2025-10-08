@@ -1,4 +1,4 @@
-specVersion: "4.0"
+specVersion: "3.0"
 metadata:
   name: ansaldonucleardashboard
 type: application
@@ -22,8 +22,9 @@ server:
     - name: fiori-tools-proxy
       afterMiddleware: compression
       configuration: 
-        ignoreCertError: true
+        ignoreCertErrors: true
         backend:
           - path: /sap
             url: https://vhaiqds4ci.sap.ansaldonuclear.com:44300
             client: "110"
+        
