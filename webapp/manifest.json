@@ -14,18 +14,6 @@
 			"id": "generator-ui5-app",
 			"version": "1.1.0"
 		},
-		 "crossNavigation": {
-      "inbounds": {
-          "ansaldonucleardashboard": {
-              "signature": {
-                  "parameters": {},
-                  "additionalParameters": "allowed"
-              },
-              "semanticObject": "ansaldonucleardashboard",
-              "action": "display"
-              }
-          }
-    },
 		"dataSources": {
       "ZMAN_PID046_EBOM_SRV": {
         "uri": "/sap/opu/odata/sap/zman_pid046_ebom_srv",

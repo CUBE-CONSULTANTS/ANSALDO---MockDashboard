@@ -5,7 +5,6 @@
   "conn_password": "gOTONEXT2025!!!",
   "conn_usestrictssl": false,
   "base": "./dist",
-  "files": ["**/*"],
   "abap_transport": "DS4K900868",
   "abap_package": "Z001",
   "abap_bsp": "Z_INT_DASH",
