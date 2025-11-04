@@ -9,7 +9,7 @@ sap.ui.define(
 		"use strict";
 
 		return Controller.extend(
-			"ansaldonucleardashboard.controller.BaseController",
+			"intdashboard.controller.BaseController",
 			{
 				/**
 				 * Convenience method for accessing the component of the controller's view.
@@ -89,7 +89,7 @@ sap.ui.define(
 				// ) {
 				// 	const oView = oController.getView();
 				// 	const sFullFragmentName =
-				// 		"ansaldonucleardashboard.view.fragments." + sFragmentName;
+				// 		"intdashboard.view.fragments." + sFragmentName;
 				// 	oController._fragmentsCache = oController._fragmentsCache || {};
 				// 	oController._fragmentStack = oController._fragmentStack || [];
 				// 	if (oController._currentFragment) {

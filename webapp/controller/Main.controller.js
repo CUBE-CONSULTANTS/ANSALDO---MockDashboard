@@ -7,39 +7,46 @@ sap.ui.define(
 		"../model/models",
 		"../model/formatter",
 		"../model/mapper",
+		"../model/API",
 		"sap/m/MessageBox",
 	],
-	function (BaseController, JSONModel, models, formatter, mapper, MessageBox) {
+	function (
+		BaseController,
+		JSONModel,
+		models,
+		formatter,
+		mapper,
+		API,
+		MessageBox
+	) {
 		"use strict";
 
-		return BaseController.extend("ansaldonucleardashboard.controller.Main", {
+		return BaseController.extend("intdashboard.controller.Main", {
 			formatter: formatter,
 			onInit: async function () {
 				this.setModel(models.createMainModel(), "main");
-				const oBundle = this.getResourceBundle();
-				const oModel = models.createIntegrationMock(oBundle);
-				this.setModel(oModel, "mockIntegration");
-				const aResults = oModel.getProperty("/integrationsColl/results") || [];
-				const mCodes = {};
-				const aUniqueDescriptions = [];
+				// const oBundle = this.getResourceBundle();
+				// const oModel = models.createIntegrationMock(oBundle);
+				// this.setModel(oModel, "mockIntegration");
+				// const aResults = oModel.getProperty("/integrationsColl/results") || [];
+				this.setModel(new JSONModel(), "integrationsModel");
 				const oFilterModel = models.createFilterModel();
-				aResults.forEach((item) => {
-					if (!mCodes[item.Code]) {
-						mCodes[item.Code] = true;
-						aUniqueDescriptions.push({
-							Code: item.Code,
-							displayText: item.Code + " - " + item.Description,
-						});
-					}
-				});
-				oFilterModel.setProperty("/descriptionOptions", aUniqueDescriptions);
+				this.oBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
+				const translatedDescriptions = oFilterModel
+					.getProperty("/description")
+					.map((item) => {
+						return {
+							key: item.key,
+							text: `${item.key} - ${this.oBundle.getText(item.i18nKey)}`,
+						};
+					});
+				oFilterModel.setProperty("/description", translatedDescriptions);
 				this.setModel(oFilterModel, "filterModel");
 			},
 			createGroupHeader: function (oGroup) {
 				const sCode = oGroup.key;
 				const sKey = mapper.getRootKeyByCode(sCode);
-				const oBundle = this.getResourceBundle();
-				const sTitle = oBundle.getText(sKey);
+				const sTitle = this.oBundle.getText(sKey);
 
 				return new sap.m.GroupHeaderListItem({
 					title: sTitle,
@@ -80,17 +87,18 @@ sap.ui.define(
 				const fromDate = oFilterModel.getProperty("/fromDate");
 				const toDate = oFilterModel.getProperty("/toDate");
 				const integrationIds = oFilterModel.getProperty("/integrationId") || [];
-				const description = oFilterModel.getProperty("/description") || [];
+				const description =
+					oFilterModel.getProperty("/selectedDescriptions") || [];
 				const system = oFilterModel.getProperty("/system") || [];
 				const status = oFilterModel.getProperty("/status");
 
-				if (!this._checkDateRange(fromDate, toDate)) {
-					oFilterModel.setProperty("/fromDate", null);
-					oFilterModel.setProperty("/toDate", null);
-					return null;
-				}
+				// if (!this._checkDateRange(fromDate, toDate)) {
+				// 	oFilterModel.setProperty("/fromDate", null);
+				// 	oFilterModel.setProperty("/toDate", null);
+				// 	return null;
+				// }
 				if (fromDate) {
-					const dFrom = new Date(fromDate);
+					const dFrom = new Date(fromDate); 
 					aFilters.push(
 						new sap.ui.model.Filter({
 							path: "IntegrationDateTime",
@@ -104,6 +112,8 @@ sap.ui.define(
 
 				if (toDate) {
 					const dTo = new Date(toDate);
+					dTo.setHours(23, 59, 59, 999);
+
 					aFilters.push(
 						new sap.ui.model.Filter({
 							path: "IntegrationDateTime",
@@ -118,7 +128,7 @@ sap.ui.define(
 					const idFilters = integrationIds.map(
 						(id) =>
 							new sap.ui.model.Filter(
-								"IntegrationId",
+								"ID_INT",
 								sap.ui.model.FilterOperator.EQ,
 								id
 							)
@@ -129,7 +139,7 @@ sap.ui.define(
 					const descFilters = description.map(
 						(desc) =>
 							new sap.ui.model.Filter(
-								"Code",
+								"ID_FLOW",
 								sap.ui.model.FilterOperator.EQ,
 								desc.split(" - ")[0].trim()
 							)
@@ -159,33 +169,58 @@ sap.ui.define(
 				}
 
 				if (status) {
+					let formattedStatus = status;
+					if (status === "Success") {
+						formattedStatus = "S";
+					} else if (status === "Error") {
+						formattedStatus = "E";
+					} else { 
+						formattedStatus = "";
+					 }
 					aFilters.push(
 						new sap.ui.model.Filter(
-							"Status",
+							"STATUS",
 							sap.ui.model.FilterOperator.EQ,
-							status
+							formattedStatus
 						)
 					);
 				}
 				return aFilters;
 			},
-			onSearch: function () {
-				const oTable = this.byId("integrationTable");
+			onSearch: async function () {
 				const aFilters = this._buildFilters();
-				if (!aFilters) {
-					return;
+				
+				try {
+					this.showBusy(0);
+					let data = await API.getEntitySet(
+						this.getOwnerComponent().getModel("ZLOG_PID999_INTEGRATION_SRV"),
+						"/GetLogsSet",
+						{
+							filters: aFilters,
+							expands: ["Results"],
+						}
+					);
+					data.results[0].Results.results.forEach((element) => {
+						const i18nKey = mapper.getRootKeyByCode(element.ID_FLOW);
+						element.description = this.oBundle.getText(i18nKey);
+						const systems = mapper.getIntegrationSystems(element.ID_FLOW);
+						element.SysA = systems.SysA;
+						element.SysB = systems.SysB;
+						element.IntegrationDateTime = formatter.mergeDateAndTime(
+							element.DATA,
+							element.TIME
+						);
+					});
+					this.getModel("integrationsModel").setProperty(
+						"/",
+						data.results[0].Results.results
+					);
+				} catch (error) {
+					MessageBox.error(this.oBundle.getText("dataError"));
+				} finally {
+					this.getModel("main").setProperty("/visibility", true);
+					this.hideBusy(0);
 				}
-				this.showBusy(0);
-				const oBinding = oTable.getBinding("items");
-				if (oBinding) {
-					const oCombinedFilter = aFilters.length
-						? new sap.ui.model.Filter(aFilters, true)
-						: [];
-
-					oBinding.filter(oCombinedFilter);
-				}
-				this.getModel("main").setProperty("/visibility", true);
-				this.hideBusy(0);
 			},
 			_checkDateRange: function (fromDate, toDate) {
 				if (!fromDate && !toDate) {
@@ -200,9 +235,7 @@ sap.ui.define(
 					return false;
 				}
 				if (new Date(fromDate) > new Date(toDate)) {
-					MessageBox.error(
-						this.getResourceBundle().getText("fromDateAfterToDate")
-					);
+					MessageBox.error(this.getResourceBundle().getText("dataError"));
 					return false;
 				}
 				return true;

@@ -5,7 +5,7 @@
     xmlns:ui="sap.ui.table"
     xmlns:l="sap.ui.layout"
     xmlns:form="sap.ui.layout.form"
-    controllerName="ansaldonucleardashboard.controller.Detail"
+    controllerName="intdashboard.controller.Detail"
 >
     <ObjectPageLayout
         alwaysShowContentHeader="true"
@@ -91,7 +91,7 @@
                     <ObjectPageSubSection>
                         <m:Table
                             id="logTable"
-                            items="{detailModel>/log}"
+                            items="{detailModel>/logs}"
                         >
                             <m:columns>
                                 <m:Column>

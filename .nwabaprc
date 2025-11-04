@@ -1,0 +1,13 @@
+{
+  "conn_server": "http://172.27.200.184:8000",
+  "conn_client": "110",
+  "conn_user": "80007039",
+  "conn_password": "gOTONEXT2025!!?",
+  "conn_usestrictssl": false,
+  "base": "./dist",
+  "abap_transport": "DS4K900868",
+  "abap_package": "Z001",
+  "abap_bsp": "Z_INTDASHBOARD",
+  "abap_bsp_text": "Integration Dashboard",
+  "abap_language": "EN"
+}

@@ -1,6 +1,6 @@
 specVersion: "4.0"
 metadata:
-  name: ansaldonucleardashboard
+  name: intdashboard
 type: application
 resources:
   configuration:
@@ -8,7 +8,7 @@ resources:
       webapp: dist
 framework:
   name: SAPUI5
-  version: "1.140.0"
+  version: "1.120.0"
   libraries:
     - name: sap.m
     - name: sap.ui.core

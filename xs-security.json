@@ -1,7 +1,7 @@
 {
   "attributes": [],
   "authorities-inheritance": false,
-  "xsappname": "ansaldonucleardashboard",
+  "xsappname": "intdashboard",
   "tenant-mode": "dedicated",
   "scopes": [
     {

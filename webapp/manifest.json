@@ -2,7 +2,7 @@
 	"_version": "1.12.0",
 
 	"sap.app": {
-		"id": "ansaldonucleardashboard",
+		"id": "intdashboard",
 		"type": "application",
 		"i18n": "i18n/i18n.properties",
 		"title": "{{appTitle}}",
@@ -14,21 +14,17 @@
 			"id": "generator-ui5-app",
 			"version": "1.1.0"
 		},
-		 "crossNavigation": {
-      "inbounds": {
-          "ansaldonucleardashboard": {
-              "signature": {
-                  "parameters": {},
-                  "additionalParameters": "allowed"
-              },
-              "semanticObject": "ansaldonucleardashboard",
-              "action": "display"
-              }
-          }
-    },
 		"dataSources": {
-      "mainService": {
-        "uri": "/odata/v2/",
+      "ZMAN_PID046_EBOM_SRV": {
+        "uri": "/sap/opu/odata/sap/zman_pid046_ebom_srv",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
+        }
+      },
+			"ZLOG_PID999_INTEGRATION_SRV": {
+        "uri": "/sap/opu/odata/sap/ZLOG_PID999_INTEGRATION_SRV",
         "type": "OData",
         "settings": {
           "odataVersion": "2.0",
@@ -51,13 +47,13 @@
 		"flexEnabled": false,
     "contentDensities": {"compact": true, "cozy": true},
 		"rootView": {
-			"viewName": "ansaldonucleardashboard.view.App",
+			"viewName": "intdashboard.view.App",
 			"type": "XML",
 			"id": "app"
 		},
 
 		"dependencies": {
-			"minUI5Version": "1.140.0",
+			"minUI5Version": "1.120.0",
 			"libs": {
 				"sap.ui.core": {},
 				"sap.m": {}
@@ -70,13 +66,22 @@
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
-					"bundleName": "ansaldonucleardashboard.i18n.i18n",
+					"bundleName": "intdashboard.i18n.i18n",
 					"supportedLocales": ["en", "de"],
 					"fallbackLocale": "en"
 				}
 			},
-			"": {
-        "dataSource": "mainService",
+			"ZMAN_PID046_EBOM_SRV": {
+        "dataSource": "ZMAN_PID046_EBOM_SRV",
+        "preload": true,
+        "settings": {
+          "defaultOperationMode": "Server",
+          "useBatch": true,
+          "refreshAfterChange": true
+        }
+      },
+				"ZLOG_PID999_INTEGRATION_SRV": {
+        "dataSource": "ZLOG_PID999_INTEGRATION_SRV",
         "preload": true,
         "settings": {
           "defaultOperationMode": "Server",
@@ -96,7 +101,7 @@
 			"config": {
 				"routerClass": "sap.m.routing.Router",
 				"viewType": "XML",
-				"viewPath": "ansaldonucleardashboard.view",
+				"viewPath": "intdashboard.view",
 				"controlId": "app",
 				"controlAggregation": "pages"
 			},
@@ -127,6 +132,6 @@
 	},	
 		"sap.cloud": {
     "public": true,
-    "service": "ansaldonucleardashboard"
+    "service": "intdashboard"
   }
 }

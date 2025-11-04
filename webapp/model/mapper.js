@@ -4,51 +4,120 @@ sap.ui.define(["../model/formatter"], function (formatter) {
 	return {
 		getRootKeyByCode: function (sCode) {
 			const typeByCode = {
-				C001: "Cost Center TS",
-				C002: "WBE",
-				C003: "Network",
-				C004: "Production Order",
-				C005: "Activity Types",
-				C006: "Employee TS",
-				C007: "Employee S/4",
-				C008: "Employee ADP",
-				C009: "Cost Center ADP",
-				C010: "Salary Accounting",
-				C011: "Tracking Activities",
+				C001: "CostCenterTS",
+				C002: "wbeMd",
+				C003: "netMd",
+				C004: "prdoOMD",
+				C005: "atmd",
+				C006: "ets",
+				C007: "es4",
+				C008: "eadp",
+				C009: "CostCenterADP",
+				C010: "salAcc",
+				C011: "trackAct",
 				C012: "primaveraEppm",
 				C013: "bpcInterface",
 				C014: "contractData",
 				C015: "vaultMaterials",
 				C016: "vaultBoms",
-				C017: "costCenterMaster",
+				C017: "expenseIn",
 				C018: "productionOrders",
-				C019: "salaryAccounting",
-				C020: "massUpdateOfNetwork",
-				C021: "massUpdateOfProductionOrder",
-				// C001: "activityTypes", //pid054 ok
-				// C002: "employeesS4", //pid056 ok
-				// C003: "employeesTS", //pid055 ok
-				// C004: "costCentersADP", //pid058 ok
-				// C005: "trackingActivites", //pid060 ok
-				// C006: "networkMaster", //pid052 ok
-				// C007: "wbeMasterData", //pid051 ok
-				// C008: "costCentersTs",
-				// C009: "businessPartners", //pid007
-				// C010: "dms", //pid031
-				// C011: "expenseIn", //pid034
-				// C012: "primaveraEppm", //pid035
-				// C013: "bpcInterface", //pid040
-				// C014: "contractData", //pid041
-				// C015: "vaultBoms", //pid046
-				// C016: "vaultMaterials", //pid047
-				// C017: "costCenterMaster", //pid050
-				// C018: "productionOrders", //pid053
-				// C019: "salaryAccounting", //pid059 ok
-				// C020: "massUpdateOfNetwork", //pid076
-				// C021: "massUpdateOfProductionOrder", //pid077
+				C019: "massUpdateOfNetwork",
+				C020: "massUpdateOfProductionOrder",
+				C021: "dms",
 			};
 
 			return typeByCode[sCode] || null;
+		},
+		getIntegrationSystems: function (code) {
+			const integrationMap = {
+				C001: {
+					source: "SAP S/4 Hana",
+					target: "Timesheet / Kiosk",
+				},
+				C002: {
+					source: "SAP S/4 Hana",
+					target: "Timesheet / Kiosk",
+				},
+				C003: {
+					source: "SAP S/4 Hana",
+					target: "Timesheet / Kiosk",
+				},
+				C004: {
+					source: "SAP S/4 Hana",
+					target: "Timesheet / Kiosk",
+				},
+				C005: {
+					source: "SAP S/4 Hana",
+					target: "Timesheet / Kiosk",
+				},
+				C006: {
+					source: "SAP SuccessFactor",
+					target: "Timesheet / Kiosk",
+				},
+				C007: {
+					source: "SAP SuccessFactor",
+					target: "SAP S/4 Hana",
+				},
+				C008: {
+					source: "SAP SuccessFactor",
+					target: "ADP",
+				},
+				C009: {
+					source: "SAP S/4 Hana",
+					target: "ADP",
+				},
+				C010: {
+					source: "ADP",
+					target: "SAP S/4 Hana",
+				},
+				C011: {
+					source: "Timesheet / Kiosk",
+					target: "SAP S/4 Hana",
+				},
+				C012: {
+					source: "SAP S/4 Hana",
+					target: "Oracle Primavera",
+				},
+				C013: { source: "", target: ""}, 	//   "BPC Interface"
+				C014: {
+					source: "SAP S/4 Hana",
+					target: "Autodesk Vault",
+				},
+				C015: {
+					source: "Autodesk Vault",
+					target: "SAP S/4 Hana",
+				},
+				C016: {
+					source: "Autodesk Vault",
+					target: "SAP S/4 Hana",
+				},
+				C017: {
+					source: "Expense In",
+					target: "SAP S/4 Hana",
+				},
+				C018: {
+					source: "SAP S/4 Hana",
+					target: "Timesheet / Kiosk",
+				},
+				C019: {
+					source: "Timesheet / Kiosk",
+					target: "SAP S/4 Hana",
+				},
+				C020: {
+					source: "Timesheet / Kiosk",
+					target: "SAP S/4 Hana",
+				},
+				C021: {
+					source: "Autodesk Vault",
+					target: "SAP S/4 Hana",
+				},
+
+			};
+			const entry = integrationMap[code];
+			return entry
+				? { SysA: entry.source, SysB: entry.target }
+				: { SysA: "", SysB: ""};
 		},
 		//se senza chiavi di riconoscimento integration:
 		identifyIntegration: function (jsonContent) {

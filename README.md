@@ -1,4 +1,4 @@
-# UI5 Application ansaldonucleardashboard
+# UI5 Application intdashboard
 
 Insert the purpose of this project and some interesting info here...
 

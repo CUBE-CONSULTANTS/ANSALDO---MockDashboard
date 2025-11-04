@@ -1,7 +1,7 @@
 sap.ui.define(["sap/ui/core/UIComponent", "sap/ui/Device", "./model/models"], function (UIComponent, Device, models) {
 	"use strict";
 
-	return UIComponent.extend("ansaldonucleardashboard.Component", {
+	return UIComponent.extend("intdashboard.Component", {
 		metadata: {
 			manifest: "json",
 			interfaces: ["sap.ui.core.IAsyncContentCreation"]

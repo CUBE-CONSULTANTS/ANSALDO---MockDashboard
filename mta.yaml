@@ -1,7 +1,7 @@
 _schema-version: 3.3.0
 ID: ansaldonuclear_dashboard
 version: 1.0.0
-description: "UI5 Application: ansaldonucleardashboard"
+description: "UI5 Application: intdashboard"
 parameters:
   enable-parallel-deployments: true
   deploy_mode: html5-repo
@@ -11,51 +11,51 @@ build-parameters:
       commands:
         - npx cds build --production
 modules:
-  - name: ansaldonucleardashboard-destination-content
+  - name: intdashboard-destination-content
     type: com.sap.application.content
     requires:
-    - name: ansaldonucleardashboard-destination-service
+    - name: intdashboard-destination-service
       parameters:
         content-target: true
-    - name: ansaldonucleardashboard-repo-host
+    - name: intdashboard-repo-host
       parameters:
         service-key:
-          name: ansaldonucleardashboard-repo-host-key
-    - name: ansaldonucleardashboard-auth
+          name: intdashboard-repo-host-key
+    - name: intdashboard-auth
       parameters:
         service-key:
-          name: ansaldonucleardashboard-auth-key
+          name: intdashboard-auth-key
     parameters:
       content:
         instance:
           destinations:
-          - Name: ansaldonucleardashboard_html_repo_host
-            ServiceInstanceName: ansaldonucleardashboard-html5-srv
-            ServiceKeyName: ansaldonucleardashboard-repo-host-key
-            sap.cloud.service: ansaldonucleardashboard
+          - Name: intdashboard_html_repo_host
+            ServiceInstanceName: intdashboard-html5-srv
+            ServiceKeyName: intdashboard-repo-host-key
+            sap.cloud.service: intdashboard
           - Authentication: OAuth2UserTokenExchange
-            Name: ansaldonucleardashboard_uaa
-            ServiceInstanceName: ansaldonucleardashboard-xsuaa-srv
-            ServiceKeyName: ansaldonucleardashboard-auth-key
-            sap.cloud.service: ansaldonucleardashboard
+            Name: intdashboard_uaa
+            ServiceInstanceName: intdashboard-xsuaa-srv
+            ServiceKeyName: intdashboard-auth-key
+            sap.cloud.service: intdashboard
           existing_destinations_policy: ignore
     build-parameters:
       no-source: true
-  - name: ansaldonucleardashboard-app-content
+  - name: intdashboard-app-content
     type: com.sap.application.content
     path: .
     requires:
-    - name: ansaldonucleardashboard-repo-host
+    - name: intdashboard-repo-host
       parameters:
         content-target: true
     build-parameters:
       build-result: resources
       requires:
       - artifacts:
-        - ansaldonucleardashboard.zip
-        name: ansaldonucleardashboard
+        - intdashboard.zip
+        name: intdashboard
         target-path: resources/
-  - name:  ansaldonucleardashboard
+  - name:  intdashboard
     type: html5
     path: .
     build-parameters:
@@ -67,7 +67,7 @@ modules:
      supported-platforms: []
 
 resources:
-  - name: ansaldonucleardashboard-destination-service
+  - name: intdashboard-destination-service
     type: org.cloudfoundry.managed-service
     parameters:
       config:
@@ -83,33 +83,33 @@ resources:
             existing_destinations_policy: update
         version: 1.0.0
       service: destination
-      service-name: ansaldonucleardashboard-destination-service
+      service-name: intdashboard-destination-service
       service-plan: lite
-  - name: ansaldonucleardashboard-auth
+  - name: intdashboard-auth
     type: org.cloudfoundry.managed-service
     parameters:
       service: xsuaa
-      service-name: ansaldonucleardashboard-xsuaa-srv
+      service-name: intdashboard-xsuaa-srv
       service-plan: application
       path: ./xs-security.json
-  - name: ansaldonucleardashboard-connectivity
+  - name: intdashboard-connectivity
     type: org.cloudfoundry.managed-service
     parameters:
       service: connectivity
       service-plan: lite
-  - name: ansaldonucleardashboard-destination
+  - name: intdashboard-destination
     type: org.cloudfoundry.managed-service
     parameters:
       service: destination
       service-plan: lite
 
-  - name: ansaldonucleardashboard-repo-host
+  - name: intdashboard-repo-host
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo
-      service-name: ansaldonucleardashboard-html5-srv
+      service-name: intdashboard-html5-srv
       service-plan: app-host
-  - name: ansaldonucleardashboard-html5-runtime
+  - name: intdashboard-html5-runtime
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo

@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
 specVersion: '2.4'
 metadata:
-  name: ansaldonucleardashboard
+  name: intdashboard
 type: application
 resources:
   configuration:
@@ -9,17 +9,23 @@ resources:
 builder:
   resources:
     excludes:
-      - "/test/**"
-      - "/localService/**"
+      - /test/**
+      - /localService/**
   customTasks:
-  - name: webide-extension-task-updateManifestJson
-    afterTask: replaceVersion
-    configuration:
-      appFolder: webapp
-      destDir: dist
-  - name: ui5-task-zipper
-    afterTask: generateCachebusterInfo
-    configuration:
-      archiveName: ansaldonucleardashboard
-      additionalFiles:
-      - xs-app.json
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        verbose: true
+        ignoreCertErrors: true
+        strictSsl: false
+        target:
+          url: http://172.27.200.184:8000
+          client: "110"
+        credentials: 
+          username: env:UI5_USERNAME
+          password: env:UI5_PASSWORD
+        app:
+          name: Z_INTDASHBOARD
+          description: Integration Dashboard
+          package: 'Z001'
+          transport: DS4K900856
