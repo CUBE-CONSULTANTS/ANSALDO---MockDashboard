@@ -2,7 +2,7 @@
   "conn_server": "http://172.27.200.184:8000",
   "conn_client": "110",
   "conn_user": "80007039",
-  "conn_password": "gOTONEXT2025!!!",
+  "conn_password": "gOTONEXT2025!!?",
   "conn_usestrictssl": false,
   "base": "./dist",
   "abap_transport": "DS4K900868",
