@@ -21,7 +21,7 @@ sap.ui.define(
 	) {
 		"use strict";
 
-		return BaseController.extend("ansaldonucleardashboard.controller.Main", {
+		return BaseController.extend("intdashboard.controller.Main", {
 			formatter: formatter,
 			onInit: async function () {
 				this.setModel(models.createMainModel(), "main");

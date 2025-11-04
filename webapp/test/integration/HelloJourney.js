@@ -8,7 +8,7 @@ sap.ui.define(["sap/ui/test/opaQunit", "./pages/Main"], function (opaTest) {
 		// Arrangements
 		Given.iStartMyUIComponent({
 			componentConfig: {
-				name: "ansaldonucleardashboard"
+				name: "intdashboard"
 			}
 		});
 
@@ -32,7 +32,7 @@ sap.ui.define(["sap/ui/test/opaQunit", "./pages/Main"], function (opaTest) {
 		// Arrangements
 		Given.iStartMyUIComponent({
 			componentConfig: {
-				name: "ansaldonucleardashboard"
+				name: "intdashboard"
 			}
 		});
 

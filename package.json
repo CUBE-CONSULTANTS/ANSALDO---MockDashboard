@@ -1,7 +1,7 @@
 {
-  "name": "ansaldonucleardashboard",
+  "name": "intdashboard",
   "version": "1.0.0",
-  "description": "UI5 Application: ansaldonucleardashboard",
+  "description": "UI5 Application: intdashboard",
   "license": "Apache-2.0",
   "scripts": {
     "clean": "rimraf dist coverage",

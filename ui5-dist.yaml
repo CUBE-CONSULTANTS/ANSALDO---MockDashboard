@@ -1,6 +1,6 @@
 specVersion: "4.0"
 metadata:
-  name: ansaldonucleardashboard
+  name: intdashboard
 type: application
 resources:
   configuration:

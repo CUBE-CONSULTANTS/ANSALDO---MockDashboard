@@ -1,5 +1,5 @@
 <mvc:View
-    controllerName="ansaldonucleardashboard.controller.Main"
+    controllerName="intdashboard.controller.Main"
     displayBlock="true"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
@@ -34,7 +34,7 @@
         <f:header>
             <f:DynamicPageHeader backgroundDesign="Transparent" >
                 <core:Fragment
-                fragmentName="ansaldonucleardashboard.view.fragments.filterbar"
+                fragmentName="intdashboard.view.fragments.filterbar"
                 type="XML"
             />
             </f:DynamicPageHeader>    
@@ -42,7 +42,7 @@
 
         <f:content>
             <core:Fragment
-                fragmentName="ansaldonucleardashboard.view.fragments.mainTable"
+                fragmentName="intdashboard.view.fragments.mainTable"
                 type="XML"
             />
             <!-- <FlexBox
@@ -97,7 +97,7 @@
         <!-- Footer -->
         <f:footer>
             <core:Fragment
-                fragmentName="ansaldonucleardashboard.view.fragments.footer"
+                fragmentName="intdashboard.view.fragments.footer"
                 type="XML"
             />
         </f:footer>
