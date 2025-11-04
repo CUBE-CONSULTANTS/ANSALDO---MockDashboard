@@ -1,7 +1,7 @@
 _schema-version: 3.3.0
 ID: ansaldonuclear_dashboard
 version: 1.0.0
-description: "UI5 Application: intdashboard"
+description: "UI5 Application: integdashboard"
 parameters:
   enable-parallel-deployments: true
   deploy_mode: html5-repo
@@ -11,51 +11,51 @@ build-parameters:
       commands:
         - npx cds build --production
 modules:
-  - name: intdashboard-destination-content
+  - name: integdashboard-destination-content
     type: com.sap.application.content
     requires:
-    - name: intdashboard-destination-service
+    - name: integdashboard-destination-service
       parameters:
         content-target: true
-    - name: intdashboard-repo-host
+    - name: integdashboard-repo-host
       parameters:
         service-key:
-          name: intdashboard-repo-host-key
-    - name: intdashboard-auth
+          name: integdashboard-repo-host-key
+    - name: integdashboard-auth
       parameters:
         service-key:
-          name: intdashboard-auth-key
+          name: integdashboard-auth-key
     parameters:
       content:
         instance:
           destinations:
-          - Name: intdashboard_html_repo_host
-            ServiceInstanceName: intdashboard-html5-srv
-            ServiceKeyName: intdashboard-repo-host-key
-            sap.cloud.service: intdashboard
+          - Name: integdashboard_html_repo_host
+            ServiceInstanceName: integdashboard-html5-srv
+            ServiceKeyName: integdashboard-repo-host-key
+            sap.cloud.service: integdashboard
           - Authentication: OAuth2UserTokenExchange
-            Name: intdashboard_uaa
-            ServiceInstanceName: intdashboard-xsuaa-srv
-            ServiceKeyName: intdashboard-auth-key
-            sap.cloud.service: intdashboard
+            Name: integdashboard_uaa
+            ServiceInstanceName: integdashboard-xsuaa-srv
+            ServiceKeyName: integdashboard-auth-key
+            sap.cloud.service: integdashboard
           existing_destinations_policy: ignore
     build-parameters:
       no-source: true
-  - name: intdashboard-app-content
+  - name: integdashboard-app-content
     type: com.sap.application.content
     path: .
     requires:
-    - name: intdashboard-repo-host
+    - name: integdashboard-repo-host
       parameters:
         content-target: true
     build-parameters:
       build-result: resources
       requires:
       - artifacts:
-        - intdashboard.zip
-        name: intdashboard
+        - integdashboard.zip
+        name: integdashboard
         target-path: resources/
-  - name:  intdashboard
+  - name:  integdashboard
     type: html5
     path: .
     build-parameters:
@@ -67,7 +67,7 @@ modules:
      supported-platforms: []
 
 resources:
-  - name: intdashboard-destination-service
+  - name: integdashboard-destination-service
     type: org.cloudfoundry.managed-service
     parameters:
       config:
@@ -83,33 +83,33 @@ resources:
             existing_destinations_policy: update
         version: 1.0.0
       service: destination
-      service-name: intdashboard-destination-service
+      service-name: integdashboard-destination-service
       service-plan: lite
-  - name: intdashboard-auth
+  - name: integdashboard-auth
     type: org.cloudfoundry.managed-service
     parameters:
       service: xsuaa
-      service-name: intdashboard-xsuaa-srv
+      service-name: integdashboard-xsuaa-srv
       service-plan: application
       path: ./xs-security.json
-  - name: intdashboard-connectivity
+  - name: integdashboard-connectivity
     type: org.cloudfoundry.managed-service
     parameters:
       service: connectivity
       service-plan: lite
-  - name: intdashboard-destination
+  - name: integdashboard-destination
     type: org.cloudfoundry.managed-service
     parameters:
       service: destination
       service-plan: lite
 
-  - name: intdashboard-repo-host
+  - name: integdashboard-repo-host
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo
-      service-name: intdashboard-html5-srv
+      service-name: integdashboard-html5-srv
       service-plan: app-host
-  - name: intdashboard-html5-runtime
+  - name: integdashboard-html5-runtime
     type: org.cloudfoundry.managed-service
     parameters:
       service: html5-apps-repo
