@@ -1,7 +1,7 @@
 {
-  "name": "intdashboard",
+  "name": "integdashboard",
   "version": "1.0.0",
-  "description": "UI5 Application: intdashboard",
+  "description": "UI5 Application: integdashboard",
   "license": "Apache-2.0",
   "scripts": {
     "clean": "rimraf dist coverage",

@@ -1,10 +1,10 @@
 {
   "generator-ui5-app": {
-    "namespace": "intdashboard",
+    "namespace": "integdashboard",
     "framework": "SAPUI5",
     "frameworkVersion": "1.120.0",
     "initrepo": false,
-    "appId": "intdashboard",
+    "appId": "integdashboard",
     "appURI": "ansaldonuclear/dashboard",
     "cdnDomain": "ui5.sap.com",
     "defaultTheme": "sap_horizon",

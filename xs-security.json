@@ -1,7 +1,7 @@
 {
   "attributes": [],
   "authorities-inheritance": false,
-  "xsappname": "intdashboard",
+  "xsappname": "integdashboard",
   "tenant-mode": "dedicated",
   "scopes": [
     {

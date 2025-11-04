@@ -7,7 +7,7 @@
   "base": "./dist",
   "abap_transport": "DS4K900868",
   "abap_package": "Z001",
-  "abap_bsp": "Z_INTDASHBOARD",
+  "abap_bsp": "Z_integdashboard",
   "abap_bsp_text": "Integration Dashboard",
   "abap_language": "EN"
 }

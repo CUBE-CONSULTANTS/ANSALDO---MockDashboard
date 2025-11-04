@@ -14,7 +14,7 @@ sap.ui.define(
 	function (BaseController, models, formatter, mapper,API, JSONModel) {
 		"use strict";
 
-		return BaseController.extend("intdashboard.controller.Detail", {
+		return BaseController.extend("integdashboard.controller.Detail", {
 			formatter: formatter,
 			onInit: function () {
 				this.getRouter()
@@ -219,7 +219,7 @@ sap.ui.define(
 			onViewSettOpen: function () {
 				const oVSD = this.onOpenDialog(
 					"settDialog",
-					"intdashboard.view.fragments.viewSettingDialogLog",
+					"integdashboard.view.fragments.viewSettingDialogLog",
 					this
 				);
 

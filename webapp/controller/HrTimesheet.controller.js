@@ -28,7 +28,7 @@ sap.ui.define(
 		"use strict";
 
 		return BaseController.extend(
-			"intdashboard.controller.HrTimesheet",
+			"integdashboard.controller.HrTimesheet",
 			{
 				formatter: formatter,
 				onInit: async function () {
@@ -130,7 +130,7 @@ sap.ui.define(
 					const oDialogModel = new JSONModel(oPlant);
 					const oDialog = this.onOpenDialog(
 						"plantDialog",
-						"intdashboard.view.fragments.PlantDialog",
+						"integdashboard.view.fragments.PlantDialog",
 						this
 					);
 					oDialog.setModel(oDialogModel, "plant");
